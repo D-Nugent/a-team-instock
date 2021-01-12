@@ -1,0 +1,40 @@
+@import '../../styles/global';
+
+.header {
+    background-color: #232940;
+    height: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+    padding: 24px 16px;
+
+    &__nav {
+        width: 100%;
+        display: flex;
+        justify-content: fle;
+        align-items: flex-start;
+        margin: 24px 0;
+
+        &-link {
+            color: #BDC5D5;
+            text-decoration: none;
+            font-size: 13px;
+            line-height: 20px;
+            width: 164px;
+            padding: 8px;
+            text-align: center;
+            border-radius: 20px;
+
+            &:hover{
+                cursor: pointer;
+            }
+
+            &.--active {
+                background-color: #13182C;
+                color: #FFF
+            }
+        }
+    }
+}
