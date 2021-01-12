@@ -1,7 +1,7 @@
 @import '../../styles/global';
 
 .header {
-    background-color: #232940;
+    background-color: $bgHeader;
     height: 200px;
     display: flex;
     flex-wrap: wrap;
@@ -13,12 +13,17 @@
     &__nav {
         width: 100%;
         display: flex;
-        justify-content: fle;
+        justify-content: center;
         align-items: flex-start;
         margin: 24px 0;
 
+        @include tablet {
+            width: fit-content;
+            margin: 0;
+        }
+
         &-link {
-            color: #BDC5D5;
+            color: $tableBorder;
             text-decoration: none;
             font-size: 13px;
             line-height: 20px;
@@ -32,9 +37,22 @@
             }
 
             &.--active {
-                background-color: #13182C;
-                color: #FFF
+                background-color: $globalText;
+                color: $globalWhite
+            }
+
+            @include tablet {
+                width: 107px;
             }
         }
+    }
+
+    @include tablet {
+        justify-content: space-between;
+        padding: 32px;
+    }
+
+    @include laptop {
+        padding: 32px 10.15vw;
     }
 }
