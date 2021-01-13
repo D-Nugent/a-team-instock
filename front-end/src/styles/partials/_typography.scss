@@ -1,14 +1,21 @@
-// Fonts
-@font-face {
-  font-family: "Titilluim";
-  font-style: normal;
-  font-weight: 400;
-  src: url("../../assets/typography/Titillium_Web/TitilliumWeb-Regular.ttf");
+// Typography Reset
+
+html, body, textarea {
+  color: $globalPrimary;
+  font-family: 'Titillium', 'Arial', sans-serif;
 }
 
+// Fonts
 @font-face {
-  font-family: "Titilluim";
-  font-style: normal;
-  font-weight: 600;
-  src: url("../../assets/typography/Titillium_Web/TitilliumWeb-Regular.ttf");
-}
+    font-family: "Titillium";
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../assets/typography/Titillium_Web/TitilliumWeb-Regular.ttf'); 
+  }
+
+  @font-face {
+    font-family: "Titillium";
+    font-style: normal;
+    font-weight: 600;
+    src: url('../../assets/typography/Titillium_Web/TitilliumWeb-SemiBold.ttf');
+  }

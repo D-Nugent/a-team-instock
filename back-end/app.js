@@ -1,8 +1,6 @@
 const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
-// const warehouses = require("./api/routes/warehouses.json");
-// const inventories = require("./api/routes/inventories.json");
 const warehouseRoute = require("./api/warehouseRoutes");
 const inventoryRoute = require("./api/inventoryRoutes");
 

@@ -12,48 +12,40 @@ class App extends React.Component {
   render(){
     return (
       <div className="app">
-        {/* Header Component Will Go Here */}
         <Header/>
         <div className="app__container">
         <Switch>
-          {/* The default path will load warehouse-main */}
-          <Redirect exact path="/" to="/warehouse-main"/>
+          <Route exact path="/">
+            <Redirect to="/warehouse-main"/>
+          </Route>
           {/* 1.1 */}
-          <Route path="/warehouse-main" render={(routeProps) =>
+          <Route exact path="/warehouse-main" render={(routeProps) =>
             <Home {...routeProps}/>}/>
-            {/* On warehouse main there will be links to take you to specific pages for warehouse details, i.e.
-             http://localhost:3000/warehouse-main/33sdfs8d7s9df, this will conditionally generate content based on props (think video reel) */}
           {/* 4.1 */}
-          <Route path="/inventory-main" render={(routeProps) =>
+          <Route exact path="/inventory-main" render={(routeProps) =>
             <Home {...routeProps}/>}/>
-            {/* On warehouse main there will be links to take you to specific pages for warehouse details, i.e.
-             http://localhost:3000/warehouse-main/33sdfs8d7s9df, this will conditionally generate content based on props (think video reel) */}
-            {/* ---------------------------------------------- */}
             {/* 2.0 */}
-            <Route path="/inventory-main/:id" render={(routeProps) =>
+            <Route exact path="/inventory-main/:id" render={(routeProps) =>
             <ContentDetails {...routeProps}/>}/>
             {/* 5.0 */}
-           <Route path="/warehouse-main/:id" render={(routeProps) =>
+           <Route exact path="/warehouse-main/:id" render={(routeProps) =>
             <ContentDetails {...routeProps}/>}/>
-            {/* ---------------------------------------------- */}
            {/* 3.1 */}
-           <Route path="/inventory-main/:id/edit" render={(routeProps) =>
+           <Route exact path="/inventory-main/:id/edit" render={(routeProps) =>
             <ContentEdit {...routeProps}/>}/>
             {/* 6.1 */}
-           <Route path="/warehouse-main/:id/edit" render={(routeProps) =>
+           <Route exact path="/warehouse-main/:id/edit" render={(routeProps) =>
             <ContentEdit {...routeProps}/>}/>
-            {/* ---------------------------------------------- */}
             {/* 3.2 */}
-           <Route path="/inventory-main/new-item" render={(routeProps) =>
+           <Route exact path="/inventory-main/new-item" render={(routeProps) =>
             <ContentNew {...routeProps}/>}/>
             {/* 6.2 */}
-           <Route path="/warehouse-main/new-item" render={(routeProps) =>
+           <Route exact path="/warehouse-main/new-item" render={(routeProps) =>
             <ContentNew {...routeProps}/>}/>
-            {/* ---------------------------------------------- */}
           <Route component={PageNotFound}/>
         </Switch>
         </div>
-        <p className="app__copyright"><sup>&copy;</sup> InStock Inc. All Rights Reserved.</p>
+        <p className="app__copyright">&copy; InStock Inc. All Rights Reserved.</p>
       </div>
     )
   }
