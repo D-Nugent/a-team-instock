@@ -15,37 +15,37 @@ export class ContentNew extends Component {
             <label className="add__form-warehouse-name-title" htmlFor="warehouse-name">
               Warehouse Name
             </label>
-            <textarea className="add__form-warehouse-name-input" type="text" id="warehouse-name" name="warehouse-name" placeholder="Warehouse Name" required />
-            <label className="add__form-warehouse-address-title" htmlFor="warehouse-address">
+            <textarea className="add__form-warehouse-input" type="text" id="warehouse" name="warehouse" placeholder="Warehouse Name" required />
+            <label className="add__form-warehouse-address-title" htmlFor="address">
               Street Address
             </label>
-            <textarea className="add__form-warehouse-address-input" type="text" id="warehouse-address" name="warehouse-address" placeholder="Street Address" required />
-            <label className="add__form-warehouse-city-title" htmlFor="warehouse-city">
+            <textarea className="add__form-warehouse-address-input" type="text" id="address" name="address" placeholder="Street Address" required />
+            <label className="add__form-warehouse-city-title" htmlFor="city">
               City
             </label>
-            <textarea className="add__form-warehouse-city-input" type="text" id="warehouse-city" name="warehouse-city" placeholder="City" required />
-            <label className="add__form-warehouse-country-title" htmlFor="warehouse-country">
+            <textarea className="add__form-warehouse-city-input" type="text" id="city" name="city" placeholder="City" required />
+            <label className="add__form-warehouse-country-title" htmlFor="country">
               Country
             </label>
-            <textarea className="add__form-warehouse-country-input" type="text" id="warehouse-country" name="warehouse-country" placeholder="Country" required />
+            <textarea className="add__form-warehouse-country-input" type="text" id="country" name="country" placeholder="Country" required />
           </div>
           <div className="add__form-contact">
-            <label className="add__form-contact-name-title" htmlFor="contact-name">
+            <label className="add__form-contact-title" htmlFor="contact">
               Contact Name
             </label>
-            <textarea className="add__form-contact-name-input" type="text" id="contact-name" name="contact-name" placeholder="Contact Name" required />
-            <label className="add__form-contact-position-title" htmlFor="contact-position">
+            <textarea className="add__form-contact-name-input" type="text" id="contact" name="contact" placeholder="Contact Name" required />
+            <label className="add__form-contact-position-title" htmlFor="position">
               Position
             </label>
-            <textarea className="add__form-contact-position-input" type="text" id="contact-position" name="contact-position" placeholder="Position" required />
-            <label className="add__form-contact-number-title" htmlFor="contact-number">
+            <textarea className="add__form-contact-position-input" type="text" id="position" name="position" placeholder="Position" required />
+            <label className="add__form-contact-number-title" htmlFor="number">
               Phone Number
             </label>
-            <textarea className="add__form-contact-number-input" type="text" id="contact-number" name="contact-number" placeholder="Phone Number" required />
-            <label className="add__form-contact-email-title" htmlFor="contact-email">
+            <textarea className="add__form-contact-number-input" type="text" id="number" name="number" placeholder="Phone Number" required />
+            <label className="add__form-contact-email-title" htmlFor="email">
               Email
             </label>
-            <textarea className="add__form-contact-email-input" type="text" id="contact-email" name="contact-email" placeholder="Email" required />
+            <textarea className="add__form-contact-email-input" type="text" id="email" name="email" placeholder="Email" required />
           </div>
           <div className="add__form-button-container">
             <button className="add__form-button-cancel">Cancel</button>
