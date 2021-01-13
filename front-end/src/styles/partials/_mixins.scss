@@ -29,6 +29,7 @@
     font-weight: 600;
     line-height: 16px;
     color: $globalSecondary;
+    margin-bottom: 2px;
 
     @include tablet {
       font-size: .75rem;
@@ -40,6 +41,7 @@
     font-size: .8125rem;
     font-weight: 400;
     line-height: 20px;
+    margin-top: 2px;
 
     @include tablet {
       font-size: .875rem;

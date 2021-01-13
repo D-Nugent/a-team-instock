@@ -14,6 +14,7 @@ export class ContentDetails extends Component {
           </div>
           <div className="content__heading-edit">
             <img src={editOffsetIcon} alt="edit icon" className="content__heading-edit-icon"/>
+            <p className="content__heading-edit-text">Edit</p>
           </div>
         </div>
         <div className="content__detail">
