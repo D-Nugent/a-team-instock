@@ -10,3 +10,39 @@
     }
   }
   
+  // Font Scale Sizing
+
+  // Mock-ups 2.0 & 5.0
+  @mixin item-details-header{
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 36px;
+
+    @include tablet {
+      font-size: 2rem;
+      line-height: 40px;
+    }
+  }
+
+  @mixin item-details-subheader{
+    font-size: .6875rem;
+    font-weight: 600;
+    line-height: 16px;
+    color: $globalSecondary;
+
+    @include tablet {
+      font-size: .75rem;
+      line-height: 18px;
+    }
+  }
+
+  @mixin item-details-para{
+    font-size: .8125rem;
+    font-weight: 400;
+    line-height: 20px;
+
+    @include tablet {
+      font-size: .875rem;
+      line-height: 22px;
+    }
+  }

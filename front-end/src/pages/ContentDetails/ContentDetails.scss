@@ -1,0 +1,130 @@
+@import '../../styles/global';
+
+.content{
+    &__heading{
+        border-bottom: 1px solid $globalBorder;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 24px 28px;
+
+        &-nav{
+            display: flex;
+
+            &-return{
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+            &-title{
+                @include item-details-header;
+                margin: 0 0 0 8px;
+            }
+        }
+        &-edit{
+            background-color: $globalHiglight;
+            height: 36px;
+            width: 36px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &-icon{
+                height: 20px;
+                width: 20px;
+            }
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+
+    &__detail{
+        margin: 0 24px 28px;
+        display: flex;
+        flex-wrap: wrap;
+
+        &-type{
+            &-descrheading{
+                @include item-details-subheader;
+                margin-bottom: 4px;
+            }
+            &-descrvalue{
+                @include item-details-para;
+
+                @include tablet{
+                    width: 295px;
+                }
+            }
+            &-catheading{
+                @include item-details-subheader
+            }
+            &-catvalue{
+                @include item-details-para
+            }
+            @include tablet {
+                border-right: 1px solid $globalBorder;
+                padding-right: 24px; 
+                width: 50vw;
+                max-width: 50%;  
+            }
+        }
+
+        &-specs{
+            &-stock{
+                display: flex;
+
+                &-status{
+                    &-heading{
+                        @include item-details-subheader
+                    }
+                    &-value{
+                        font-size: 11px;
+                        font-weight: 600;
+                        background-color: $stockIn;
+                        color: $stockInOpaque;
+                        border-radius: 20px;
+                        padding: 4px 8px;
+
+                        @include tablet {
+                            font-size: 12px;
+                        }
+                    }
+                }
+                &-quantity{
+                    margin-left: 31.20vw;
+                    
+                    &-heading{
+                        @include item-details-subheader
+                    }
+                    &-value{
+                        @include item-details-para
+                    }
+
+                    @include tablet{
+                        margin-left: 14.84vw;
+                    }
+                }
+            }
+            &-warehouse{
+                &-heading{
+                    @include item-details-subheader
+                }
+                &-value{
+                    @include item-details-para
+                }
+            }
+
+            @include tablet {
+                padding-left: 40px;
+                width: 50vw;
+                max-width: 50%;
+            }
+        }
+
+        @include tablet {
+            margin: 24px 24px 0;
+        }
+    }
+}

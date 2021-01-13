@@ -9,5 +9,7 @@ $globalBorder: #bdc5d5;
 $bgHeader: #232940;
 $bgPage: #f7f8f9;
 //Supporting Colors
-$stockOut: #c94515;
-$stockIn: #158463
+$stockOutOpaque: #c94515;
+$stockOut: rgba(201, 69, 21,0.07);
+$stockInOpaque: #158463;
+$stockIn: rgba(21, 132, 99,0.07)
