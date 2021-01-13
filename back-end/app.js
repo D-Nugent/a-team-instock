@@ -1,9 +1,10 @@
 const express = require("express");
 const app = express();
-const apiRoutes = require("./api/apiRoutes");
 const dotenv = require("dotenv");
-const warehouses = require("./api/routes/warehouses.json");
-const inventories = require("./api/routes/inventories.json");
+// const warehouses = require("./api/routes/warehouses.json");
+// const inventories = require("./api/routes/inventories.json");
+const warehouseRoute = require("./api/warehouseRoutes");
+const inventoryRoute = require("./api/inventoryRoutes");
 
 dotenv.config();
 
@@ -17,13 +18,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/warehouse-main", (req, res) => {
-  res.status(200).send(warehouses);
-});
-
-app.get("/inventory-main", (req, res) => {
-  res.status(200).send(inventories);
-});
-
-// app.use('/', apiRoutes)
+app.use("/warehouse", warehouseRoute);
+app.use("/inventory", inventoryRoute);
 app.listen(process.env.PORT, (error) => (error ? console.error(error) : console.info("Running like a champ")));
