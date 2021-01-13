@@ -1,13 +1,30 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import "./Home.scss";
 
 export class Home extends Component {
-    render() {
-        return (
-            <div>
-                <p>Home is used for Warehouses(1.1) and Inventory(4.1)</p>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className='warehouse'>
+        <div className='warehouse__div'>
+          <p className='warehouse__date'>warehouse</p>
+          <p className='warehouse__date-text'>manhattan </p>
+        </div>
+        <div className='warehouse__div'>
+          <p className='warehouse__venue'>contact name</p>
+          <p className='warehouse__venue-text'>Parmin Aujila</p>
+        </div>
+        <div className='warehouse__div'>
+          <p className='warehouse__location'>address</p>
+          <p className='warehouse__location-text'>503 brodway,new york,USA</p>
+        </div>
+        <div className='warehouse__div'>
+          <p className='warehouse__location'>contact information</p>
+          <p className='warehouse__location-text'>+1 (629) 555-0129
+          pauila@instock.com</p>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default Home
+export default Home;

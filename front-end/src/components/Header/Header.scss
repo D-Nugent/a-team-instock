@@ -23,7 +23,7 @@
         }
 
         &-link {
-            color: $tableBorder;
+            color: $globalBorder;
             text-decoration: none;
             font-size: 13px;
             line-height: 20px;
@@ -37,8 +37,8 @@
             }
 
             &.--active {
-                background-color: $globalText;
-                color: $globalWhite
+                background-color: $globalPrimary;
+                color: $globalOffset
             }
 
             @include tablet {
