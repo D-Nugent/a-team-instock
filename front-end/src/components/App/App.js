@@ -14,6 +14,7 @@ class App extends React.Component {
       <div className="app">
         {/* Header Component Will Go Here */}
         <Header/>
+        <div className="app__container">
         <Switch>
           {/* The default path will load warehouse-main */}
           <Redirect exact path="/" to="/warehouse-main"/>
@@ -51,6 +52,8 @@ class App extends React.Component {
             {/* ---------------------------------------------- */}
           <Route component={PageNotFound}/>
         </Switch>
+        </div>
+        <p className="app__copyright"><sup>&copy;</sup> InStock Inc. All Rights Reserved.</p>
       </div>
     )
   }
