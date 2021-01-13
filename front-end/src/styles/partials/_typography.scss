@@ -1,6 +1,7 @@
-// Typography Reset
+@import './variables';
 
-html, body, textarea {
+// Typography Reset
+html, body, textarea, p {
   color: $globalPrimary;
   font-family: 'Titillium', 'Arial', sans-serif;
 }
@@ -8,14 +9,14 @@ html, body, textarea {
 // Fonts
 @font-face {
     font-family: "Titillium";
+    src: url('../../assets/typography/Titillium_Web/TitilliumWeb-Regular.ttf') format("truetype"); 
     font-style: normal;
     font-weight: 400;
-    src: url('../../assets/typography/Titillium_Web/TitilliumWeb-Regular.ttf'); 
   }
 
   @font-face {
     font-family: "Titillium";
+    src: url('../../assets/typography/Titillium_Web/TitilliumWeb-SemiBold.ttf') format("truetype");
     font-style: normal;
     font-weight: 600;
-    src: url('../../assets/typography/Titillium_Web/TitilliumWeb-SemiBold.ttf');
   }
