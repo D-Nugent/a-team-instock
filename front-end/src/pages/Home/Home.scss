@@ -1,0 +1,15 @@
+@import "../../styles/partials/mixins";
+@import "../../styles/partials/typography";
+@import "../../styles/partials/variables";
+.warehouse {
+  display: flex;
+  border-bottom: 2px solid $globalBorder;
+  margin: 0px;
+  position: relative;
+  font-size: 13px;
+
+  &__div {
+    display: flex;
+    flex-direction: column;
+  }
+}
