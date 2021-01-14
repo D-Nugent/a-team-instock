@@ -1,12 +1,11 @@
 @import '../../styles/global';
 
-.content{
-    
+.content{   
     &__heading{
         border-bottom: 1px solid $globalBorder;
         display: flex;
         justify-content: space-between;
-        padding: 0 24px 24px;
+        padding: 0 6.4vw 24px;
 
         &-nav{
             display: flex;
@@ -18,7 +17,7 @@
             }
             &-title{
                 @include item-details-header;
-                margin: 0 0 0 8px;
+                margin: 0 0 0 12px;
                 font-family: 'Titillium', 'Arial', sans-serif;
             }
         }
@@ -30,6 +29,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            text-decoration: none;
 
             @include tablet {
                 width: 80px;
@@ -58,30 +58,33 @@
     }
 
     &__detail{
-        margin: 0 24px 28px;
+        margin: 16px 6.4vw 28px;
         padding-bottom: 24px;
         display: flex;
         flex-wrap: wrap;
 
         &-type{
-            &-descrheading{
+            &-heading{
                 @include item-details-subheader;
-                margin-bottom: 4px;
             }
-            &-descrvalue{
+            &-value{
                 @include item-details-para;
+                margin-bottom: 16px;
+                margin: 2px 24px 16px 0;
+                font-style: normal;
 
                 @include tablet{
                     width: 295px;
                 }
             }
-            &-catheading{
-                @include item-details-subheader
+
+            &.--warehouse {
+                @include tablet {
+                    width: 39.5vw;
+                    max-width: 39.5%;
+                }
             }
-            &-catvalue{
-                @include item-details-para;
-                margin-bottom: 0;
-            }
+
             @include tablet {
                 border-right: 1px solid $globalBorder;
                 padding-right: 24px; 
@@ -91,7 +94,7 @@
         }
 
         &-specs{
-            &-stock{
+            &-container{
                 display: flex;
 
                 &-status{
@@ -99,7 +102,7 @@
                         @include item-details-subheader
                     }
                     &-value{
-                        font-size: 11px;
+                        font-size: .6875rem;
                         font-weight: 600;
                         background-color: $stockIn;
                         color: $stockInOpaque;
@@ -112,7 +115,7 @@
                         }
 
                         @include tablet {
-                            font-size: 12px;
+                            font-size: .75rem;
                         }
                     }
                 }
@@ -131,14 +134,62 @@
                         margin-left: 14.84vw;
                     }
                 }
+                &-contact{
+                    &-heading{
+                        @include item-details-subheader;
+                    }
+
+                    &-name{
+                        @extend .content__detail-specs-container-quantity-value;
+                    }
+
+                    &-position{
+                        @extend .content__detail-specs-container-quantity-value;
+                    }
+                }
+                &-communication{
+                    margin-left: 4.26vw;
+
+                    &-heading{
+                        @include item-details-subheader;
+                    }
+
+                    &-phone{
+                        @extend .content__detail-specs-container-quantity-value;
+                    }
+
+                    &-email{
+                        @extend .content__detail-specs-container-quantity-value;
+                    }
+
+                    @include tablet{
+                        margin-left: 6.5vw;
+                    }
+
+                }
+
+                @include tablet {
+                    margin-top: 0;
+                }
             }
             &-warehouse{
+                margin-top: 16px;
+
                 &-heading{
                     @include item-details-subheader
                 }
                 &-value{
                     @include item-details-para;
-                    margin-bottom: 0;
+                }
+                @include tablet {
+                    margin-top: 32px;
+                }
+            }
+
+            &.--warehouse {
+                @include tablet {
+                    width: 60.5vw;
+                    max-width: 60.5%;
                 }
             }
 
@@ -150,7 +201,7 @@
         }
 
         @include tablet {
-            margin: 24px 24px 0;
+            margin: 24px 6.4vw 0;
         }
     }
 }
