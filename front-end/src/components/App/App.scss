@@ -4,6 +4,7 @@
   position: relative;
   background-color: $bgPage;
   min-height: 100vh;
+  height: fit-content;
 
   &__container{
     background-color: $globalOffset;
@@ -11,10 +12,11 @@
     border-radius: 3px;
     height: fit-content;
     width: 91.466%;
-    padding: 32px 0;
+    padding: 32px 0 0;
     position: relative;
     bottom: 64px;
     margin: 0 auto;
+    z-index: 1;
 
     @include tablet {
       width: 91.66%
@@ -31,7 +33,7 @@
     text-align: center;
     width: 100%;
     position: absolute;
-    bottom: 40px;
+    bottom: 20px;
     margin: 0;
 
     @include laptop {
