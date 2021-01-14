@@ -5,11 +5,13 @@
 .warehouse {
   display: flex;
   flex-wrap: wrap;
+  // align-items: space-between;
+  // justify-content: center;
   &__title {
-    margin: 0% 0% 5%;
-    padding: 0% 0% 0% 10%;
+    margin: 0% 0% 10%;
+    padding: 0% 0% 0% 15%;
     font-size: 28px;
-    font-size: 1.75em;
+    font-size: 1.55em;
 
     display: flex;
     align-items: center;
@@ -25,6 +27,10 @@
     order: 0;
     flex-grow: 0;
     margin-bottom: 10px;
+    font-family: "Titillium";
+    font-weight: 600;
+    font-size: .9em;
+    text-align: center;
   }
   &__input {
     width: 100%;
@@ -36,21 +42,71 @@
   }
   &__form {
     width: 100%;
-    padding: 0% 7.5%;
+    padding: 0% 5% 5% 5%;
     border-bottom: 1px solid $globalBorder;
   }
   &__card {
     display: flex;
-    flex-wrap: wrap;
+    // align-items: space-evenly;
     justify-content: space-evenly;
     padding: 5%;
     margin: 0%;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border-bottom: 1px solid $globalBorder;
+    width: 100%;
   }
   &__div {
-    width: 120px;
     display: flex;
-    flex-wrap: wrap;
+    width: 100%;
     justify-content: space-between;
+    // align-items: center;
+    margin: auto;
+  }
+  &__content {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    padding: auto;
+    &-title {
+      text-transform: uppercase;
+      color: $globalBorder;
+      font-size: 0.73em;
+      margin: 0px;
+      width: 100%;
+      font-weight: 600;
+    }
+    &-text {
+      margin: 0px;
+      font-size: 0.8em;
+      width: 95%;
+
+      display: flex;
+      align-items: space-between;
+      &--link {
+        font-size: 0.83em;
+        margin-top: 0%;
+        color: $globalHiglight;
+        margin-bottom: 0%;
+      }
+    }
+  }
+  &__select {
+    display: flex;
+    text-decoration: none;
+    font-weight: 600;
+
+    img {
+      position: relative;
+      left: 5%;
+    }
+  }
+  &__links {
+    text-decoration: none;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 5%;
   }
 }
 #searchIcon {
@@ -58,4 +114,8 @@
   margin: 0px;
   left: 87%;
   bottom: 30px;
+}
+#form{
+  font-family: "Titillium";
+  color: $globalBorder;
 }

@@ -5,6 +5,7 @@ import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
 import editIcon from "../../assets/icons/edit-24px.svg";
 import chevronIcon from "../../assets/icons/chevron_right-24px.svg";
 import axios from "axios";
+import { Link } from "react-router-dom";
 const API = "http://localhost:8080/";
 
 export class Home extends Component {
@@ -28,46 +29,63 @@ export class Home extends Component {
           <h1 className='warehouse__title'>Warehouses</h1>
         </div>
         <div className='warehouse__form'>
-          <form action='' id="form">
+          <form action='' id='form'>
             <input
               type='text'
               placeholder='Search...'
               className='warehouse__input'
-        
             />
             <img src={searchIcon} alt='search icon' id='searchIcon' />
-            <button className='warehouse__btn'>+ Add New Warehouses</button>
+            <button className='warehouse__btn'>+ Add New Warehouse</button>
           </form>
         </div>
-        {this.state.warehouses.map((content) => (
-          <div className='warehouse__card'>
+        {this.state.warehouses.map((content, id) => (
+          <div className='warehouse__card' key={id}>
             <div className='warehouse__div'>
-              <p className='warehouse__div-title'>warehouse</p>
-              <p className='warehouse__div-text'>{content.name}</p>
-              <img src={chevronIcon} alt='select icon' />
+              <div className='warehouse__content'>
+                <p className='warehouse__content-title'>warehouse</p>
+                <Link className='warehouse__select'>
+                  <p className='warehouse__content-text--link'>
+                    {content.name}
+                  </p>
+                  <img src={chevronIcon} alt='select icon' />
+                </Link>
+              </div>
+              <div className='warehouse__content'>
+                <p className='warehouse__content-title'>contact name</p>
+                <p className='warehouse__content-text'>
+                  {content.contact.name}
+                </p>
+              </div>
             </div>
             <div className='warehouse__div'>
-              <p className='warehouse__div-title'>contact name</p>
-              <p className='warehouse__div-text'>{content.contact.name}</p>
+              <div className='warehouse__content'>
+                <p className='warehouse__content-title'>address</p>
+                <p className='warehouse__content-text'>{content.address},</p>
+                <p className='warehouse__content-text'>
+                  {content.city},{content.country}
+                </p>
+              </div>
+              <div className='warehouse__content'>
+                <p className='warehouse__content-title'>contact information</p>
+                <p className='warehouse__content-text'>
+                  {" "}
+                  {content.contact.phone}
+                </p>
+                <p className='warehouse__content-text'>
+                  {" "}
+                  {content.contact.email}
+                </p>
+              </div>
             </div>
-            <div className='warehouse__div'>
-              <p className='warehouse__div-title'>address</p>
-              <p className='warehouse__div-text'>
-                {content.address}
-                {content.city},
-                {content.country}
-              </p>
-            </div>
-            <div className='warehouse__div'>
-              <p className='warehouse__div-title'>contact information</p>
-              <p className='warehouse__div-text'>
-                {content.contact.phone}
-                {content.contact.email}
-              </p>
-            </div>
-            <div>
-              <img src={deleteIcon} alt='delete icon' />
-              <img src={editIcon} alt='edit icon' />
+            <div className='warehouse__links'>
+              <Link>
+                <img src={deleteIcon} alt='delete icon' />
+              </Link>
+              <Link>
+                {" "}
+                <img src={editIcon} alt='edit icon' />
+              </Link>
             </div>
           </div>
         ))}
