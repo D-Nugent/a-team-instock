@@ -3,6 +3,22 @@ import './ContentEdit.scss';
 import BackArrow from '../../assets/icons/arrow_back-24px.svg';
 
 export class ContentEdit extends Component {
+    state = {
+        warehouseInfo: {},
+    }
+    
+    getWarehouseDetails() {
+        axios.get('http://localhost:8080/warehouses/:id')
+            .then((res) => {
+                this.setState({
+                warehouseInfor: res.data,
+            })
+            })
+            .catch((error) => {
+            console.log(error)
+        })
+    }
+
     render() {
         return (
             <div className="card">
