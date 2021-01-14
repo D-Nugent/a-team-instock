@@ -9,23 +9,18 @@ export class ContentDetails extends Component {
   state={
     currentItem: [],
     currentRoute: this.props.routeType,
+    contact: []
   }
 
   
   componentDidMount() {
-  let testInvID = '4b6a7565-077e-4595-a317-c53095fd5dad'
-  let testWarID = 'ade0a47b-cee6-4693-b4cd-a7e6cb25f4b7'
-
-  console.log(this.state);
-  console.log(this.props);
-  console.log(this.props.match.path);
-  let itemID = this.props.match.url
+    let itemID = this.props.match.url
     axios
     .get(`${process.env.REACT_APP_API_URL}${itemID}`)
     .then((response) => {
-      console.log(response.data);
       this.setState({
-        currentItem: response.data
+        currentItem: response.data,
+        contact: response.data.contact
       })
     })
 }
@@ -36,7 +31,7 @@ export class ContentDetails extends Component {
         <div className="content__heading">
           <div className="content__heading-nav">
             <img src={returnIcon} alt="back arrow" className="content__heading-nav-return" onClick={()=> {this.props.history.push(`${this.state.currentRoute === 'inventory'?"/inventory":"/warehouse"}`)}}/>
-            <h1 className="content__heading-nav-title">{this.state.currentItem.itemName}King West</h1>
+            <h1 className="content__heading-nav-title">{this.state.currentRoute === 'inventory'?this.state.currentItem.itemName:this.state.currentItem.name}</h1>
           </div>
           <Link to={`/${this.state.currentRoute}/${this.props.match.params.id}/edit`} className="content__heading-edit">
             <img src={editOffsetIcon} alt="edit icon" className="content__heading-edit-icon"/>
@@ -54,7 +49,7 @@ export class ContentDetails extends Component {
           :
          <div className="content__detail-type --warehouse">
             <h4 className="content__detail-type-heading">WAREHOUSE ADDRESS:</h4>
-            <address className="content__detail-type-value">{this.state.currentItem.address}469 King Street West,<br/>Toronto, CAN</address>
+            <address className="content__detail-type-value">{this.state.currentItem.address},<br/>{this.state.currentItem.city}, {this.state.currentItem.country}</address>
           </div>
           }
           {this.state.currentRoute === 'inventory' ?
@@ -79,13 +74,13 @@ export class ContentDetails extends Component {
             <div className="content__detail-specs-container">
               <div className="content__detail-specs-container-contact">
                 <h4 className="content__detail-specs-container-contact-heading">CONTACT NAME:</h4>
-                <div className="content__detail-specs-container-contact-name">{this.state.currentItem.name}Graeme Lyon</div>
-                <div className="content__detail-specs-container-contact-position">{this.state.currentItem.position}Warehouse Manager</div>
+                <div className="content__detail-specs-container-contact-name">{this.state.contact.name}</div>
+                <div className="content__detail-specs-container-contact-position">{this.state.contact.position}</div>
               </div>
               <div className="content__detail-specs-container-communication">
                 <h4 className="content__detail-specs-container-communication-heading">CONTACT INFORMATION:</h4>
-                <p className="content__detail-specs-container-communication-phone">{this.state.currentItem.phone}+1 (647)504-0911</p>
-                <p className="content__detail-specs-container-communication-email">{this.state.currentItem.email}glyon@instock.com</p>
+                <p className="content__detail-specs-container-communication-phone">{this.state.contact.phone}</p>
+                <p className="content__detail-specs-container-communication-email">{this.state.contact.email}</p>
               </div>
             </div>
           </div>
