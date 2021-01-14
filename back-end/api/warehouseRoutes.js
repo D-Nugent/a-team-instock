@@ -11,7 +11,7 @@ router.route("/").get((req, res) => {
 router.route("/new").post((req, res) => {
   const { warehouse, address, city, country, contact, position, number, email } = req.body;
 
-  let warehouse = {
+  let warehouseNew = {
     id: uuidv4(),
     warehouse,
     address,
@@ -23,9 +23,9 @@ router.route("/new").post((req, res) => {
     email,
   };
 
-  warehouses.push(warehouse);
+  warehouses.push(warehouseNew);
 
-  res.status(201).send(warehouse);
+  res.status(201).send(warehouseNew);
 });
 
 module.exports = router;
