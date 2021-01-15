@@ -3,13 +3,17 @@ import axios from 'axios';
 import {Link} from 'react-router-dom';
 import returnIcon from '../../assets/icons/arrow_back-24px.svg';
 import editOffsetIcon from '../../assets/icons/edit-offset-24px.svg';
+import deleteIcon from '../../assets/icons/delete_outline-24px.svg';
+import editIcon from '../../assets/icons/edit-24px.svg';
+import chevronRight from '../../assets/icons/chevron_right-24px.svg';
 import './ContentDetails.scss';
 
 export class ContentDetails extends Component {
   state={
     currentItem: [],
     currentRoute: this.props.routeType,
-    contact: []
+    contact: [],
+    inventoryList: [],
   }
 
   
@@ -23,6 +27,17 @@ export class ContentDetails extends Component {
         contact: response.data.contact
       })
     })
+    .then(
+      this.state.currentRoute === 'warehouse' &&
+      axios
+      .get(`${process.env.REACT_APP_API_URL}${itemID}/inventory`)
+      .then((response) => {
+        this.setState({
+          inventoryList: response.data,
+        })
+      })
+      
+    )
 }
 
   render() {
@@ -85,6 +100,25 @@ export class ContentDetails extends Component {
             </div>
           </div>
           }
+        </div>
+        {/* Below is just to test code */}
+        <div className="content__inventory">
+          {this.state.inventoryList.map(invItem => {
+            return (
+            <div className="content__inventory-item" key={invItem.id}>
+              <Link to={`/inventory/${invItem.id}/`} className="content__inventory-item-name">{invItem.itemName}
+              <img src={chevronRight} alt="action arrow" className="content__inventory-item-name-chevron"/>
+              </Link>
+              <p className="content__inventory-item-category">{invItem.category}</p>
+              <div className="content__inventory-item-status">{invItem.status}</div>
+              <p className="content__inventory-item-quantity">{invItem.quantity}</p>
+              <div className="content__inventory-item-actions">
+                <img src={deleteIcon} alt="delete icon" className="content__inventory-item-actions-delete"/>
+                <img src={editIcon} alt="edit icon" className="content__inventory-item-actions-edit"/>
+              </div>
+            </div>
+            )
+          })}
         </div>
       </div>
     )
