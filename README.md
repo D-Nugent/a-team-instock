@@ -56,7 +56,7 @@ RELEVANT MOCKUPS | 1.2 | 4.2 |
 1.2 Warehouse Delete Modal |  |  |
 Front-End Tickets | LR-23 |  |
 Back-End Tickets | LR-17 |  |
-4.2 |  |  |
+4.2 Inventory Delete Modal |  |  |
 Front-End Tickets | LR-13 |  |
 Back-End Tickets | LR-6 |  |
 Owner | TBC |
