@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import "./Home.scss";
+import ContentNew from "../ContentNew/ContentNew";
 
 export class Home extends Component {
   render() {
     return (
-      <div className='warehouse'>
-        <div className='warehouse__div'>
+      <div className="warehouse">
+        <ContentNew />
+        {/* <div className='warehouse__div'>
           <p className='warehouse__date'>warehouse</p>
           <p className='warehouse__date-text'>manhattan </p>
         </div>
@@ -21,7 +23,7 @@ export class Home extends Component {
           <p className='warehouse__location'>contact information</p>
           <p className='warehouse__location-text'>+1 (629) 555-0129
           pauila@instock.com</p>
-        </div>
+        </div> */}
       </div>
     );
   }
