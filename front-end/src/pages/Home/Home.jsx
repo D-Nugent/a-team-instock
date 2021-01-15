@@ -6,6 +6,7 @@ import editIcon from "../../assets/icons/edit-24px.svg";
 import chevronIcon from "../../assets/icons/chevron_right-24px.svg";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import NavBar from "../../components/NavBar/NavBar";
 const API = "http://localhost:8080/";
 
 export class Home extends Component {
@@ -25,23 +26,24 @@ export class Home extends Component {
   render() {
     return (
       <div className='warehouse'>
-        <div>
+        <div className='warehouse__header'>
           <h1 className='warehouse__title'>Warehouses</h1>
+          <div className='warehouse__form'>
+            <form action='' id='form'>
+              <input
+                type='text'
+                placeholder='Search...'
+                className='warehouse__input'
+              />
+              <img src={searchIcon} alt='search icon' id='searchIcon' />
+              <button className='warehouse__btn'>+ Add New Warehouse</button>
+            </form>
+          </div>
         </div>
-        <div className='warehouse__form'>
-          <form action='' id='form'>
-            <input
-              type='text'
-              placeholder='Search...'
-              className='warehouse__input'
-            />
-            <img src={searchIcon} alt='search icon' id='searchIcon' />
-            <button className='warehouse__btn'>+ Add New Warehouse</button>
-          </form>
-        </div>
+        <NavBar></NavBar>
         {this.state.warehouses.map((content, id) => (
           <div className='warehouse__card' key={id}>
-            <div className='warehouse__div'>
+            <div className='warehouse__location'>
               <div className='warehouse__content'>
                 <p className='warehouse__content-title'>warehouse</p>
                 <Link className='warehouse__select'>
@@ -52,18 +54,18 @@ export class Home extends Component {
                 </Link>
               </div>
               <div className='warehouse__content'>
-                <p className='warehouse__content-title'>contact name</p>
-                <p className='warehouse__content-text'>
-                  {content.contact.name}
-                </p>
-              </div>
-            </div>
-            <div className='warehouse__div'>
-              <div className='warehouse__content'>
                 <p className='warehouse__content-title'>address</p>
                 <p className='warehouse__content-text'>{content.address},</p>
                 <p className='warehouse__content-text'>
                   {content.city},{content.country}
+                </p>
+              </div>
+            </div>
+            <div className='warehouse__contact'>
+              <div className='warehouse__content'>
+                <p className='warehouse__content-title'>contact name</p>
+                <p className='warehouse__content-text'>
+                  {content.contact.name}
                 </p>
               </div>
               <div className='warehouse__content'>
