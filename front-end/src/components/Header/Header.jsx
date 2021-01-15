@@ -8,9 +8,9 @@ function Header() {
         <div className="header">
             <img className="header__logo" alt="instock logo" src={instockLogo}></img>
             <div className="header__nav">
-                <NavLink to="/warehouse-main"className="header__nav-link"
+                <NavLink to="/warehouse"className="header__nav-link"
                 activeClassName="--active">Warehouses</NavLink>
-                <NavLink to="/inventory-main"className="header__nav-link"
+                <NavLink to="/inventory"className="header__nav-link"
                 activeClassName="--active">Inventory</NavLink>
             </div>
         </div>

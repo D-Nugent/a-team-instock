@@ -16,31 +16,31 @@ class App extends React.Component {
         <div className="app__container">
         <Switch>
           <Route exact path="/">
-            <Redirect to="/warehouse-main"/>
+            <Redirect to="/warehouse"/>
           </Route>
           {/* 1.1 */}
-          <Route exact path="/warehouse-main" render={(routeProps) =>
+          <Route exact path="/warehouse" render={(routeProps) =>
             <Home {...routeProps}/>}/>
           {/* 4.1 */}
-          <Route exact path="/inventory-main" render={(routeProps) =>
+          <Route exact path="/inventory" render={(routeProps) =>
             <Home {...routeProps}/>}/>
             {/* 2.0 */}
-            <Route exact path="/inventory-main/:id" render={(routeProps) =>
-            <ContentDetails {...routeProps}/>}/>
+            <Route exact path="/inventory/:id" render={(routeProps) =>
+            <ContentDetails {...routeProps} routeType={'inventory'}/>}/>
             {/* 5.0 */}
-           <Route exact path="/warehouse-main/:id" render={(routeProps) =>
-            <ContentDetails {...routeProps}/>}/>
+           <Route exact path="/warehouse/:id" render={(routeProps) =>
+            <ContentDetails {...routeProps} routeType={'warehouse'}/>}/>
            {/* 3.1 */}
-           <Route exact path="/inventory-main/:id/edit" render={(routeProps) =>
+           <Route exact path="/inventory/:id/edit" render={(routeProps) =>
             <ContentEdit {...routeProps}/>}/>
             {/* 6.1 */}
-           <Route exact path="/warehouse-main/:id/edit" render={(routeProps) =>
+           <Route exact path="/warehouse/:id/edit" render={(routeProps) =>
             <ContentEdit {...routeProps}/>}/>
             {/* 3.2 */}
-           <Route exact path="/inventory-main/new-item" render={(routeProps) =>
+           <Route exact path="/inventory/new-item" render={(routeProps) =>
             <ContentNew {...routeProps}/>}/>
             {/* 6.2 */}
-           <Route exact path="/warehouse-main/new-item" render={(routeProps) =>
+           <Route exact path="/warehouse/new-item" render={(routeProps) =>
             <ContentNew {...routeProps}/>}/>
           <Route component={PageNotFound}/>
         </Switch>

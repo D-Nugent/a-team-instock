@@ -1,0 +1,145 @@
+@import "../../styles/global";
+
+.add {
+  width: 100%;
+
+  &__header-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    border-bottom: 1px solid $globalBorder;
+    padding: 0 6.9971% 16px;
+    white-space: nowrap;
+
+    @include tablet {
+      padding: 0 4.5454% 21px;
+      margin-bottom: 24px;
+    }
+  }
+
+  &__back-button {
+    width: 16px;
+    height: 16px;
+  }
+
+  &__header {
+    margin: 0 0 0 1.5%;
+
+    @include tablet {
+      margin-left: 12px;
+    }
+  }
+
+  &__form {
+    width: 100%;
+
+    &-content-container {
+      @include tablet {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        padding: 0 4.5454% 32px;
+      }
+    }
+
+    &-warehouse {
+      border-bottom: 1px solid $globalBorder;
+      padding: 0 6.9971% 8px;
+      margin-bottom: 16px;
+
+      @include tablet {
+        width: 50%;
+        border-right: 1px solid $globalBorder;
+        border-bottom: none;
+        padding: 0 31.5px 0 0;
+        margin: 0;
+      }
+
+      &-subheader {
+        margin: 0 0 24px;
+      }
+
+      &-title {
+        display: block;
+        padding-bottom: 4px;
+        font-size: 0.875rem;
+        font-weight: 600;
+      }
+
+      &-input {
+        border: 1px solid #bdc5d5;
+        box-sizing: border-box;
+        border-radius: 20px;
+        background: $globalOffset;
+        resize: none;
+        width: 100%;
+        padding: 8px 0 8px 16px;
+        height: 36px;
+        margin-bottom: 16px;
+        font-size: 0.875rem;
+
+        @include tablet {
+          padding: 7px 0 9px 16px;
+          margin-bottom: 24px;
+        }
+
+        &:active,
+        &:focus {
+          border-color: $stockOutOpaque;
+          outline: none;
+        }
+      }
+    }
+
+    &-contact {
+      padding: 0px 6.9971%;
+      margin: 24px 0 24px;
+
+      @include tablet {
+        width: 50%;
+        padding: 0 0 0 31.5px;
+        margin: 0;
+      }
+
+      &-subheader {
+        margin: 0 0 24px;
+      }
+    }
+
+    &-button-container {
+      background: rgba(247, 248, 249, 0.7);
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 6.9971%;
+      align-items: center;
+
+      @include tablet {
+        justify-content: flex-end;
+        padding: 16px 4.5454%;
+      }
+    }
+
+    &-button-cancel {
+      @include button-design;
+      background-color: $globalOffset;
+      color: $globalSecondary;
+      border: 1px solid $globalBorder;
+      width: 100%;
+      margin-right: 16px;
+
+      @include tablet {
+        width: auto;
+      }
+    }
+
+    &-button-add {
+      @include button-design;
+      white-space: nowrap;
+      width: 100%;
+
+      @include tablet {
+        width: auto;
+      }
+    }
+  }
+}
