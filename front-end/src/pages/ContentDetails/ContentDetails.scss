@@ -204,4 +204,20 @@
             margin: 24px 6.4vw 0;
         }
     }
+
+    &__inventory{
+        width: 100%;
+
+        &-item{
+            display: flex;
+            align-items: center;
+            margin:0 6.4vw 24px;
+
+            & > * {
+                width: 20%;
+                flex-grow: 1;
+                text-align: center;
+            }
+        }
+    }
 }
