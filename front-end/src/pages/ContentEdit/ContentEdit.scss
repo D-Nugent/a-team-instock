@@ -9,7 +9,7 @@
   font-family: "Titillium";
 
   @include tablet {
-    margin-top: -3rem;
+    margin-top: -3.5rem;
   }
 
   @include laptop {
@@ -62,9 +62,6 @@
     &-section {
       padding-bottom: 1rem;
 
-      @include tablet {
-      }
-
       &-contact {
         @include tablet {
           border-left: 1px solid $globalSecondary;
@@ -107,6 +104,7 @@
 
       &-input {
         width: 85%;
+        font-family: "Titillium";
         height: 2.25rem;
         margin-left: 1.5rem;
         margin-right: 1.5rem;
@@ -117,6 +115,7 @@
         border-radius: 1.25rem;
         border-color: $globalSecondary;
         border-width: 1px;
+        border-style: solid;
 
         @include tablet {
           width: 172%;

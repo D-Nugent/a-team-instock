@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import './ContentEdit.scss';
 import BackArrow from '../../assets/icons/arrow_back-24px.svg';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export class ContentEdit extends Component {
     state = {
@@ -8,10 +10,12 @@ export class ContentEdit extends Component {
     }
     
     getWarehouseDetails() {
-        axios.get('http://localhost:8080/warehouses/:id')
+        let itemID = this.props.match.url
+        axios.get(`${process.env.REACT_APP_API_URL}${itemID}`)
             .then((res) => {
+                console.log(res)
                 this.setState({
-                warehouseInfor: res.data,
+                warehouseInfo: res.data,
             })
             })
             .catch((error) => {
@@ -19,11 +23,53 @@ export class ContentEdit extends Component {
         })
     }
 
+    updateWarehouse = (event) => {
+        event.preventDefault()
+        const form = event.target
+        const name = form.name.value
+        const address = form.address.value
+        const city = form.address.value
+        const country = form.country.value
+        const contact = form.contact.value
+        const position = form.position.value
+        const phone = form.phone.value
+        const email = form.email.value
+
+        const updateWarehouse = {
+            id: this.state.warehouseInfo.id,
+            name: name,
+            address: address,
+            city: city,
+            country: country,
+            contact: [
+                {
+                    name: contact,
+                    position: position,
+                    phone: phone,
+                    email: email
+                },
+            ],
+        }
+        axios
+            .put(`http://localhost:8080/warehouses/${this.state.warehouseInfo.id}`, updateWarehouse)
+            .then((res) => console.log('your response', res))
+            .catch((error) => console.log('your error:', error))
+    }
+
+    componentDidMount() {
+        const { id } = this.props.match.params.id
+        this.getWarehouseDetails(id)
+    }
+
     render() {
+        const { name, address, city, country, contact } = this.state.warehouseInfo
+
         return (
             <div className="card">
                 <div className="card__header">
-                    <img className="card__header-image" src={BackArrow} alt="back arrow" />
+                    <Link to='/warehouse-main/:id'>
+                        <img className="card__header-image" src={BackArrow} alt="back arrow" />
+                    </Link>
                     <h1 className="card__header-title">Edit Warehouse</h1>
                 </div>
                 <form className="card__form" action="">
@@ -35,7 +81,7 @@ export class ContentEdit extends Component {
                             </label>
                             <input
                                 className="card__form-section-input"
-                                Name="name"
+                                value={name}
                                 placeholder="warehouse Name"
                             />
                         </div>
@@ -45,7 +91,7 @@ export class ContentEdit extends Component {
                             </label>
                             <input
                                 className="card__form-section-input"
-                                Name="address"
+                                value={address}
                                 placeholder="Street Address"
                             />
                         </div>
@@ -55,7 +101,7 @@ export class ContentEdit extends Component {
                             </label>
                             <input
                                 className="card__form-section-input"
-                                Name="city"
+                                value={city}
                                 placeholder="City"
                             />
                         </div>
@@ -65,7 +111,7 @@ export class ContentEdit extends Component {
                             </label>
                             <input
                                 className="card__form-section-input"
-                                Name="country"
+                                value={country}
                                 placeholder="Country"
                             />
                         </div>
@@ -78,7 +124,7 @@ export class ContentEdit extends Component {
                             </label>
                             <input
                                 className="card__form-section-input"
-                                Name="contact"
+                                value={contact && contact.name}
                                 placeholder="Contact Name"
                             />
                         </div>
@@ -88,7 +134,7 @@ export class ContentEdit extends Component {
                             </label>
                             <input
                                 className="card__form-section-input"
-                                Name="position"
+                                value={contact && contact.position}
                                 placeholder="Position"
                             />
                         </div>
@@ -98,7 +144,7 @@ export class ContentEdit extends Component {
                             </label>
                             <input
                                 className="card__form-section-input"
-                                Name="phone"
+                                value={contact && contact.phone}
                                 placeholder="Phone Number"
                             />
                         </div>
@@ -108,7 +154,7 @@ export class ContentEdit extends Component {
                             </label>
                             <input
                                 className="card__form-section-input"
-                                Name="email"
+                                value={contact && contact.email}
                                 placeholder="Email"
                             />
                         </div>
@@ -116,6 +162,7 @@ export class ContentEdit extends Component {
                     <section className="card__form-section-buttons">
                         <button className="card__form-section-button">Cancel</button>
                         <input
+                            onClick={this.updateWarehouse}
                             type="submit"
                             className="card__form-section-button card__form-section-button-blue"
                             value="Save"
