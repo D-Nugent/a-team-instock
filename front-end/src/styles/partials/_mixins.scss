@@ -1,48 +1,64 @@
 @mixin tablet {
-    @media screen and (min-width: 768px) {
-      @content;
-    }
+  @media screen and (min-width: 768px) {
+    @content;
   }
-  
-  @mixin laptop {
-    @media screen and (min-width: 1200px) {
-      @content;
-    }
+}
+
+@mixin laptop {
+  @media screen and (min-width: 1200px) {
+    @content;
   }
-  
-  // Font Scale Sizing
+}
 
-  // Mock-ups 2.0 & 5.0
-  @mixin item-details-header{
-    font-size: 1.75rem;
-    font-weight: 600;
-    line-height: 36px;
+// Font Scale Sizing
 
-    @include tablet {
-      font-size: 2rem;
-      line-height: 40px;
-    }
+// Mock-ups 2.0 & 5.0
+@mixin item-details-header {
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 36px;
+
+  @include tablet {
+    font-size: 2rem;
+    line-height: 40px;
   }
+}
 
-  @mixin item-details-subheader{
-    font-size: .6875rem;
-    font-weight: 600;
-    line-height: 16px;
-    color: $globalSecondary;
+@mixin item-details-subheader {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 16px;
+  color: $globalSecondary;
+  margin: 0 0 4px;
 
-    @include tablet {
-      font-size: .75rem;
-      line-height: 18px;
-    }
+  @include tablet {
+    font-size: 0.75rem;
+    line-height: 18px;
   }
+}
 
-  @mixin item-details-para{
-    font-size: .8125rem;
-    font-weight: 400;
-    line-height: 20px;
+@mixin item-details-para {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 20px;
+  margin-top: 2px;
 
-    @include tablet {
-      font-size: .875rem;
-      line-height: 22px;
-    }
+  @include tablet {
+    font-size: 0.875rem;
+    line-height: 22px;
   }
+}
+
+// Button Mixin
+@mixin button-design {
+  background-color: $globalHiglight;
+  color: $globalOffset;
+  font-family: "Titillium";
+  font-weight: 600;
+  border-radius: 20px;
+  font-size: 0.8125rem;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
