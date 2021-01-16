@@ -13,13 +13,15 @@ function NavBar() {
         <h4 className='nav__content-text'>address</h4>
         <img src={ArrowIcon} alt='nav arrows' className='nav__img'></img>
       </div>
-      <div className='nav__content'>
-        <h4 className='nav__content-text'>contact name</h4>
-        <img src={ArrowIcon} alt='nav arrows' className='nav__img'></img>
-      </div>
-      <div className='nav__content'>
-        <h4 className='nav__content-text'>contact information</h4>
-        <img src={ArrowIcon} alt='nav arrows' className='nav__img'></img>
+      <div className='nav__contact'>
+        <div className='nav__content'>
+          <h4 className='nav__content-text'>contact name</h4>
+          <img src={ArrowIcon} alt='nav arrows' className='nav__img'></img>
+        </div>
+        <div className='nav__content'>
+          <h4 className='nav__content-text'>contact information</h4>
+          <img src={ArrowIcon} alt='nav arrows' className='nav__img'></img>
+        </div>
       </div>
       <div className='nav__content'>
         <h4 className='nav__content-text'>actions</h4>

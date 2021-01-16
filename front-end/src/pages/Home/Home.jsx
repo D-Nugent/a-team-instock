@@ -55,9 +55,8 @@ export class Home extends Component {
               </div>
               <div className='warehouse__content'>
                 <p className='warehouse__content-title'>address</p>
-                <p className='warehouse__content-text'>{content.address},</p>
                 <p className='warehouse__content-text'>
-                  {content.city},{content.country}
+                  {content.address},{content.city},{content.country}
                 </p>
               </div>
             </div>
