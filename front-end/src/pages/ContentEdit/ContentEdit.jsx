@@ -9,9 +9,11 @@ export class ContentEdit extends Component {
         warehouseInfo: {},
     }
     
+
+    // Edit warehouse component
     getWarehouseDetails() {
-        let itemID = this.props.match.url
-        axios.get(`${process.env.REACT_APP_API_URL}${itemID}`)
+        let warehouseid = this.props.match.url
+        axios.get(`$localhost:8080/warehouse${warehouseid}`)
             .then((res) => {
                 console.log(res)
                 this.setState({
@@ -57,9 +59,46 @@ export class ContentEdit extends Component {
     }
 
     componentDidMount() {
-        const { id } = this.props.match.params.id
-        this.getWarehouseDetails(id)
+        let WarehouseId = this.props.match.params.id
+        axios.get(`$localhost:8080/warehouse${WarehouseId}`)
     }
+
+
+    // Add warehouse component
+    NewWarehouse = (event) => {
+        event.preventDefault()
+        const form = event.target
+        const name = form.name.value
+        const address = form.address.value
+        const city = form.address.value
+        const country = form.country.value
+        const contact = form.contact.value
+        const position = form.position.value
+        const phone = form.phone.value
+        const email = form.email.value
+
+        const NewWarehouse = {
+            id: this.state.warehouseInfo.id,
+            name: name,
+            address: address,
+            city: city,
+            country: country,
+            contact: [
+                {
+                    name: contact,
+                    position: position,
+                    phone: phone,
+                    email: email
+                },
+            ],
+        }
+        axios
+            .post('http://localhost:8080/warehouses', NewWarehouse)
+            .then((res) => console.log('your response', res))
+            .catch((error) => console.log('your error:', error))
+    }
+
+
 
     render() {
         const { name, address, city, country, contact } = this.state.warehouseInfo
@@ -67,10 +106,12 @@ export class ContentEdit extends Component {
         return (
             <div className="card">
                 <div className="card__header">
-                    <Link to='/warehouse-main/:id'>
+                    <Link to='/warehouses/:id'>
                         <img className="card__header-image" src={BackArrow} alt="back arrow" />
                     </Link>
                     <h1 className="card__header-title">Edit Warehouse</h1>
+                    {/* for add new component */}
+                    {/* <h1 className="add__header">Add New Warehouse</h1> */}
                 </div>
                 <form className="card__form" action="">
                     <section className="card__form-section">
@@ -167,6 +208,8 @@ export class ContentEdit extends Component {
                             className="card__form-section-button card__form-section-button-blue"
                             value="Save"
                         />
+                        {/* for add new component */}
+                        {/* <button className="add__form-button-add">+ Add Warehouse</button> */}
                     </section>
                 </form>
             </div>
