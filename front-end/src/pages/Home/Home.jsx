@@ -11,7 +11,8 @@ const API = "http://localhost:8080/";
 
 export class Home extends Component {
   state = {
-    warehouses: [], // this is the variable for the sidevideo
+    warehouses: [],
+    inventory: [],
   };
   componentDidMount() {
     axios
@@ -41,12 +42,15 @@ export class Home extends Component {
           </div>
         </div>
         <NavBar></NavBar>
-        {this.state.warehouses.map((content, id) => (
-          <div className='warehouse__card' key={id}>
+        {this.state.warehouses.map((content) => (
+          <div className='warehouse__card' key={content.id}>
             <div className='warehouse__location'>
               <div className='warehouse__content'>
                 <p className='warehouse__content-title'>warehouse</p>
-                <Link className='warehouse__select'>
+                <Link
+                  to={`warehouse/${content.id}`}
+                  className='warehouse__select'
+                >
                   <p className='warehouse__content-text--link'>
                     {content.name}
                   </p>
