@@ -1,0 +1,142 @@
+@import '../../styles/global';
+
+.warehouse {
+    &__card {
+        display: flex;
+        align-items: space-evenly;
+        padding: 0 6.4vw 27px;
+        flex-wrap: wrap;
+        border-bottom: 1px solid $globalBorder;
+        width: 100%;
+
+        @include tablet {
+          padding: 0 4.16vw;
+          flex-wrap: nowrap;
+          width: 100%;
+          display: flex;
+          padding: 0 4.16vw;
+        }
+        @include laptop {
+            padding: 0 3.125vw;
+        }
+      }
+
+      &__contact {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        @include tablet {
+          flex-direction: row;
+          position: relative;
+          justify-content: space-between;
+          margin-bottom: 16px;
+          width: 42.54317111459969%;
+
+          & div:nth-of-type(1){ //Contact Name
+            width: 39.03%
+          }
+          & div:nth-of-type(2){ //Contact Information
+            width: 60.97%;
+            @include laptop{
+              width: 54.15%;
+            }
+          }
+        }
+      }
+
+      &__location {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        @include tablet {
+          flex-direction: row;
+          justify-content: space-between;
+          margin-bottom: 16px;
+          width: 42.54317111459969%;
+
+          & div:nth-of-type(1){ //Warehouse
+            width: 55.35%;
+            max-width: 221px;
+          }
+          & div:nth-of-type(2){ //Address
+            width: 44.65%;
+            @include laptop{
+              width: 54.15%;
+            }
+          }
+        }
+      }
+    
+      &__content {
+        width: 150px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 16px;
+    
+        &-title {
+          text-transform: uppercase;
+          color: $globalSecondary;
+          font-size: 0.7em;
+          margin: 0px;
+          width: 90%;
+          font-weight: 600;
+          @include tablet {
+            display: none;
+          }
+        }
+
+        &-text {
+          margin: auto 0;
+          font-size: 0.8em;
+          width: 79%;
+          @include tablet {
+            margin: 0%;
+            font-size: .875em;
+          }
+
+          &.--link {
+            width: fit-content;
+            font-size: 0.8em;
+            margin-top: 0%;
+            color: $globalHiglight;
+            margin-bottom: 0%;
+            line-height: 20px;
+          }
+        }
+
+        &-chevron{
+            height: 20px;
+        }
+      }
+
+      &__select {
+        display: flex;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      &__links {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 19px;
+        align-items: center;
+
+        @include tablet {
+          justify-content: flex-end;
+          padding: 0%;
+          width: 56px;
+        }
+        
+        & img{
+            height: 20px;
+        }
+
+        & img:nth-of-type(1) {
+            @include tablet{
+                // position: relative;
+                // right: 24px;
+            }
+        } 
+      }
+}

@@ -26,10 +26,10 @@ class App extends React.Component {
             <Home {...routeProps}/>}/>
             {/* 2.0 */}
             <Route exact path="/inventory/:id" render={(routeProps) =>
-            <ContentDetails {...routeProps} routeType={'inventory'}/>}/>
+            <ContentDetails {...routeProps}/>}/>
             {/* 5.0 */}
            <Route exact path="/warehouse/:id" render={(routeProps) =>
-            <ContentDetails {...routeProps} routeType={'warehouse'}/>}/>
+            <ContentDetails {...routeProps}/>}/>
            {/* 3.1 */}
            <Route exact path="/inventory/:id/edit" render={(routeProps) =>
             <ContentEdit {...routeProps}/>}/>

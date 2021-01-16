@@ -11,7 +11,6 @@ import './ContentDetails.scss';
 export class ContentDetails extends Component {
   state={
     currentItem: [],
-    currentRoute: this.props.routeType,
     contact: [],
     inventoryList: [],
   }
@@ -28,7 +27,7 @@ export class ContentDetails extends Component {
       })
     })
     .then(
-      this.state.currentRoute === 'warehouse' &&
+      this.props.match.path === '/warehouse/:id' &&
       axios
       .get(`${process.env.REACT_APP_API_URL}${itemID}/inventory`)
       .then((response) => {
@@ -41,20 +40,21 @@ export class ContentDetails extends Component {
 }
 
   render() {
+    this.props.match.path === '/warehouse/:id'?console.log("It's a match!"):console.log("Better luck next time");
     return (
       <div className="content">
         <div className="content__heading">
           <div className="content__heading-nav">
-            <img src={returnIcon} alt="back arrow" className="content__heading-nav-return" onClick={()=> {this.props.history.push(`${this.state.currentRoute === 'inventory'?"/inventory":"/warehouse"}`)}}/>
-            <h1 className="content__heading-nav-title">{this.state.currentRoute === 'inventory'?this.state.currentItem.itemName:this.state.currentItem.name}</h1>
+            <img src={returnIcon} alt="back arrow" className="content__heading-nav-return" onClick={()=> {this.props.history.push(`${this.props.match.path === '/inventory/:id'?"/inventory":"/warehouse"}`)}}/>
+            <h1 className="content__heading-nav-title">{this.props.match.path === '/inventory/:id'?this.state.currentItem.itemName:this.state.currentItem.name}</h1>
           </div>
-          <Link to={`/${this.state.currentRoute}/${this.props.match.params.id}/edit`} className="content__heading-edit">
+          <Link to={`${this.props.match.url}/edit`} className="content__heading-edit">
             <img src={editOffsetIcon} alt="edit icon" className="content__heading-edit-icon"/>
             <p className="content__heading-edit-text">Edit</p>
           </Link>
         </div>
         <div className="content__detail">
-        {this.state.currentRoute === 'inventory' ?
+        {this.props.match.path === '/inventory/:id' ?
          <div className="content__detail-type">
             <h4 className="content__detail-type-heading">ITEM DESCRIPTION:</h4>
             <p className="content__detail-type-value">{this.state.currentItem.description}</p>
@@ -67,7 +67,7 @@ export class ContentDetails extends Component {
             <address className="content__detail-type-value">{this.state.currentItem.address},<br/>{this.state.currentItem.city}, {this.state.currentItem.country}</address>
           </div>
           }
-          {this.state.currentRoute === 'inventory' ?
+          {this.props.match.path === '/inventory/:id' ?
            <div className={"content__detail-specs"}>
             <div className="content__detail-specs-container">
               <div className="content__detail-specs-container-status">
