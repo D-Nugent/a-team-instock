@@ -35,13 +35,13 @@ class App extends React.Component {
             <ContentEdit {...routeProps}/>}/>
             {/* 6.1 */}
            <Route exact path="/warehouse/:id/edit" render={(routeProps) =>
-            <ContentEdit {...routeProps}/>}/>
+              <ContentEdit {...routeProps} routeType={'warehouseEdit'}/>}/>
             {/* 3.2 */}
            <Route exact path="/inventory/new-item" render={(routeProps) =>
             <ContentNew {...routeProps}/>}/>
             {/* 6.2 */}
            <Route exact path="/warehouse/new-item" render={(routeProps) =>
-            <ContentNew {...routeProps}/>}/>
+              <ContentNew {...routeProps} routeType={'warehouseAdd'}/>}/>
           <Route component={PageNotFound}/>
         </Switch>
         </div>
