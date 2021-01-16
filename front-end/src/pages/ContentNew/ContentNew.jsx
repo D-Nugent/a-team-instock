@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Back from "../../assets/icons/arrow_back-24px.svg";
 import "./ContentNew.scss";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 // import FormError from "../../assets/icons/error-24px.svg";
 
 export class ContentNew extends Component {

@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import "./Home.scss";
-import ContentNew from "../ContentNew/ContentNew";
+// import ContentNew from "../ContentNew/ContentNew";
+import ModifyInventory from "../ModifyInventory/ModifyInventory";
 
 export class Home extends Component {
   render() {
     return (
       <div className="warehouse">
-        <ContentNew />
+        <ModifyInventory />
         {/* <div className='warehouse__div'>
           <p className='warehouse__date'>warehouse</p>
           <p className='warehouse__date-text'>manhattan </p>
