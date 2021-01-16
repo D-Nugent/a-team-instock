@@ -1,0 +1,235 @@
+@import "../../styles/global";
+
+.modify {
+  width: 100%;
+
+  &__header-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    border-bottom: 1px solid $globalBorder;
+    padding: 0 6.9971% 16px;
+    white-space: nowrap;
+
+    @include tablet {
+      padding: 0 4.5454% 21px;
+      margin-bottom: 24px;
+    }
+
+    @include laptop {
+      padding: 0 3.9216% 32px;
+    }
+  }
+
+  &__back-button {
+    width: 16px;
+    height: 16px;
+    margin-right: 12px;
+  }
+
+  &__header {
+    margin: 0;
+  }
+
+  &__form {
+    width: 100%;
+
+    &-content-container {
+      @include tablet {
+        display: flex;
+        justify-content: space-evenly;
+        padding: 0 4.5454% 32px;
+      }
+
+      @include laptop {
+        padding: 0 3.9216% 32px;
+      }
+    }
+
+    &-details {
+      border-bottom: 1px solid $globalBorder;
+      padding: 0 6.9971% 8px;
+      margin-bottom: 16px;
+
+      @include tablet {
+        width: 50%;
+        border-right: 1px solid $globalBorder;
+        border-bottom: none;
+        padding: 0 31.5px 0 0;
+        margin: 0;
+      }
+
+      &-subheader {
+        margin: 0 0 24px;
+      }
+
+      &-title {
+        display: block;
+        padding-bottom: 4px;
+        font-size: 0.875rem;
+        font-weight: 600;
+      }
+
+      &-input {
+        border: 1px solid #bdc5d5;
+        box-sizing: border-box;
+        border-radius: 20px;
+        background: $globalOffset;
+        resize: none;
+        width: 100%;
+        max-width: 100%;
+        padding: 8px 16px;
+        height: 36px;
+        margin-bottom: 16px;
+        font-size: 0.8125rem;
+
+        @include tablet {
+          padding: 7px 16px 9px;
+          margin-bottom: 24px;
+        }
+
+        // &:focus {
+        //   min-width: 295px;
+        //   width: auto;
+        // }
+
+        &:active,
+        &:focus {
+          border-color: $stockOutOpaque;
+          outline: none;
+        }
+      }
+
+      &-category-input {
+        background-image: url("../../assets/icons/arrow_drop_down-24px.svg");
+        background-repeat: no-repeat, repeat;
+        background-position: right 23px top 50%, 0 0;
+        background-size: 1.5em auto, 100%;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+      }
+
+      &-description-input {
+        height: 120px;
+      }
+    }
+
+    &-availability {
+      padding: 0px 6.9971%;
+      margin: 24px 0 24px;
+
+      @include tablet {
+        width: 50%;
+        padding: 0 0 0 31.5px;
+        margin: 0;
+      }
+
+      &-title {
+        display: block;
+        padding-bottom: 4px;
+        font-size: 0.875rem;
+        font-weight: 600;
+      }
+
+      &-input {
+        border: 1px solid #bdc5d5;
+        box-sizing: border-box;
+        border-radius: 20px;
+        background: $globalOffset;
+        resize: none;
+        width: 100%;
+        padding: 8px 16px;
+        height: 36px;
+        margin-bottom: 16px;
+        font-size: 0.8125rem;
+        background-image: url("../../assets/icons/arrow_drop_down-24px.svg");
+        background-repeat: no-repeat, repeat;
+        background-position: right 23px top 50%, 0 0;
+        background-size: 1.5em auto, 100%;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+
+        @include tablet {
+          padding: 7px 16px 9px;
+          margin-bottom: 24px;
+        }
+
+        &:active,
+        &:focus {
+          border-color: $stockOutOpaque;
+          outline: none;
+        }
+      }
+
+      &-stock-input:checked + label {
+        color: $globalPrimary;
+      }
+
+      &-stock-input:not(:checked) + label {
+        color: $globalSecondary;
+      }
+
+      &-radio-container {
+        margin-bottom: 16px;
+        display: flex;
+      }
+
+      &-instock-radio {
+        padding-right: 93.5px;
+        font-size: 0.8125rem;
+
+        @include tablet {
+          padding-right: 40px;
+        }
+      }
+
+      &-outstock-radio {
+        font-size: 0.8125rem;
+      }
+
+      &-subheader {
+        margin: 0 0 24px;
+      }
+    }
+
+    &-button-container {
+      background: rgba(247, 248, 249, 0.7);
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 6.9971%;
+      align-items: center;
+
+      @include tablet {
+        justify-content: flex-end;
+        padding: 16px 4.5454%;
+      }
+
+      @include laptop {
+        padding: 16px 3.9216%;
+      }
+    }
+
+    &-button-cancel {
+      @include button-design;
+      background-color: $globalOffset;
+      color: $globalSecondary;
+      border: 1px solid $globalBorder;
+      width: 100%;
+      margin-right: 16px;
+
+      @include tablet {
+        width: auto;
+      }
+    }
+
+    &-button-save {
+      @include button-design;
+      white-space: nowrap;
+      width: 100%;
+
+      @include tablet {
+        width: auto;
+      }
+    }
+  }
+}
