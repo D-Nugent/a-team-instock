@@ -22,12 +22,15 @@ export class Home extends Component {
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
+
   render() {
+    let warehouse = this.props.match.path === '/warehouse'
+    let invetory = this.props.match.path === '/invetory'
     return (
       <div className='warehouse'>
         <div className='warehouse__header'>
-          <h1 className='warehouse__title'>Warehouses</h1>
+          {warehouse? <h1 className='warehouse__title'>Warehouse</h1> : <h1 className='warehouse__title'>Inventory</h1>}
           <div className='warehouse__form'>
             <form action='' id='form'>
               <input
@@ -36,13 +39,13 @@ export class Home extends Component {
                 className='warehouse__input'
               />
               <img src={searchIcon} alt='search icon' id='searchIcon' />
-              <button className='warehouse__btn'>+ Add New Warehouse</button>
+             { warehouse? <button className='warehouse__btn'>+ Add New Warehouse </button>: <button className='warehouse__btn'>+ Add New Item </button>}
             </form>
           </div>
         </div>
-        <NavBar></NavBar>
-        {this.state.warehouses.map((content, id) => (
-          <div className='warehouse__card' key={id}>
+        <NavBar path={warehouse}></NavBar>
+        {this.state.warehouses.map((content) => (
+          <div className='warehouse__card' key={content.id}>
             <div className='warehouse__location'>
               <div className='warehouse__content'>
                 <p className='warehouse__content-title'>warehouse</p>
