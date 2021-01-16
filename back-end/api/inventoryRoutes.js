@@ -7,8 +7,8 @@ router.route("/").get((req, res) => {
   res.status(200).send(inventories);
 });
 
-router.route("/:id").get((req, res) => {
-  res.status(200).send(inventories.filter((item) => item.id === req.params.id).shift());
+router.route("/categories").get((req, res) => {
+  res.status(200).send({ categories: ["Electronics", "Gear", "Apparel", "Accessories", "Health"] });
 });
 
 router.route("/new").post((req, res) => {
@@ -28,5 +28,25 @@ router.route("/new").post((req, res) => {
 
   res.status(201).send(inventoryNew);
 });
+
+router.route("/:id").get((req, res) => {
+  res.status(200).send(inventories.filter((item) => item.id === req.params.id).shift());
+});
+
+// router.route("/:id/edit").put((req, res) => {
+//   requestedItem = req.params.id;
+
+//   console.log(requestedItem);
+
+//   let itemEdit = {
+//     id,
+//     item,
+//     description,
+//     category,
+//     status,
+//     quantity,
+//     warehouse,
+//   };
+// });
 
 module.exports = router;

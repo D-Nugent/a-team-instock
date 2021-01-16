@@ -9,10 +9,9 @@
     height: 40px;
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-     padding-left: 0%;
-     width: 100%;
+    padding: 0% 3% 0% 2%;
   }
   &__content {
     display: flex;
@@ -32,5 +31,12 @@
     height: 12px;
     position: relative;
     left: 2px;
+  }
+  &__contact {
+    display: flex;
+    justify-content: space-around;
+    width: 43%;
+    left: 3%;
+    position: relative;
   }
 }
