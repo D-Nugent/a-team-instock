@@ -1,15 +1,206 @@
 @import "../../styles/partials/mixins";
 @import "../../styles/partials/typography";
 @import "../../styles/partials/variables";
+@import "../../styles/global";
 .warehouse {
   display: flex;
-  border-bottom: 2px solid $globalBorder;
-  margin: 0px;
-  position: relative;
-  font-size: 13px;
-
-  &__div {
+  flex-wrap: wrap;
+  &__header {
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    border-bottom: 1px solid $globalBorder;
+    @include tablet {
+      flex-direction: row;
+      border-bottom: 0px;
+    }
+  }
+
+  &__title {
+    padding: 0% 0% 0% 5%;
+    margin-top: 0%;
+    font-size: 1.55em;
+    display: flex;
+    align-items: center;
+    @include tablet {
+      font-size: 2em;
+      margin: 0%;
+      padding: 0% 5% 0% 3%;
+      position: relative;
+      bottom: 13%;
+    }
+  }
+  &__btn {
+    width: 100%;
+    height: 35px;
+    border-radius: 20px;
+    background-color: $globalHiglight;
+    color: $globalOffset;
+    border-color: $globalHiglight;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin-bottom: 10px;
+    font-family: "Titillium";
+    font-weight: 600;
+    font-size: 0.9em;
+    text-align: center;
+    @include tablet {
+      width: 39%;
+      font-size: 0.8em;
+    }
+  }
+  &__input {
+    width: 100%;
+    height: 35px;
+    border: 1px solid #bdc5d5;
+    box-sizing: border-box;
+    border-radius: 20px;
+    padding-left: 5%;
+    @include tablet {
+      width: 39%;
+      padding-left: 3%;
+      font-size: 0.75em;
+    }
+  }
+  &__form {
+    width: 100%;
+    padding: 0% 5% 5% 5%;
+    display: flex;
+    justify-content: space-between;
+    @include tablet {
+      justify-content: flex-end;
+      padding: 0% 0% 0% 5%;
+    }
+  }
+  &__card {
+    display: flex;
+    align-items: space-evenly;
+    padding: 5%;
+    flex-wrap: wrap;
+    border-bottom: 1px solid $globalBorder;
+    width: 100%;
+    @include tablet {
+      flex-direction: row;
+      flex-wrap: nowrap;
+      padding: 2%;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin: auto;
+      min-height: auto;
+    }
+  }
+  &__contact {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: space-evenly;
+    @include tablet {
+      flex-direction: row;
+      justify-content: space-between;
+      position: relative;
+      right: 4%;
+    }
+  }
+  &__location {
+    width: 50%;
+    justify-content: space-evenly;
+    display: flex;
+    flex-direction: column;
+    @include tablet {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  &__content {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    padding: auto;
+    justify-content: center;
+    @include tablet{}
+    align-items: space-between;
+
+    &-title {
+      text-transform: uppercase;
+      color: $globalSecondary;
+      font-size: 0.7em;
+      margin: 0px;
+      width: 90%;
+      font-weight: 600;
+      margin-top: 5%;
+      @include tablet {
+        display: none;
+      }
+    }
+    &-text {
+      margin: auto;
+      font-size: 0.8em;
+      width: 100%;
+      @include tablet {
+        margin: 0%;
+        font-size: .88em;
+        width: 77.5%;
+      }
+      &--link {
+        font-size: 0.83em;
+        margin-top: 0%;
+        color: $globalHiglight;
+        margin-bottom: 0%;
+        @include tablet{
+          padding-left: 10%;
+        }
+      }
+    }
+  }
+  &__select {
+    display: flex;
+    text-decoration: none;
+    font-weight: 600;
+
+    // img {
+    //   align-self: flex-start
+    // }
+  }
+  &__links {
+    text-decoration: none;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 5%;
+    @include tablet {
+      justify-content: space-evenly;
+      padding: 0%;
+      width: 20%;
+    }
+  }
+}
+#searchIcon {
+  position: relative;
+  margin: 0px;
+  left: 87%;
+  bottom: 30px;
+  @include tablet {
+    left: auto;
+    bottom: auto;
+    top: 15%;
+    right: 32px;
+    height: 20px;
+  }
+}
+#form {
+  position: relative;
+  font-family: "Titillium";
+  color: $globalBorder;
+  @include tablet {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    left: 4%;
   }
 }
