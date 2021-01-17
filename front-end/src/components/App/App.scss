@@ -32,9 +32,9 @@
     line-height: 16px;
     text-align: center;
     width: 100%;
-    position: absolute;
-    bottom: 20px;
-    margin: 0;
+    position: relative;
+    bottom: 40px;
+    margin: 32px 0;
 
     @include laptop {
       bottom: 48px;
