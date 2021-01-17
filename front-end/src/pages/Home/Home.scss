@@ -255,11 +255,10 @@
           position: relative;
           width: 110%;
           right: 30%;
-          font-size: 0.70em;
+          font-size: 0.7em;
           @include laptop {
             right: 50%;
             width: 75%;
-            
           }
         }
 
