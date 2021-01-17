@@ -62,6 +62,12 @@
       padding-bottom: 1rem;
       border-top: #bdc5d5;
 
+      @include tablet {
+        margin-top: 2rem;
+        padding-bottom: 0;
+        margin-bottom: 1rem;
+      }
+
       &-contact {
         border-top: 1px solid $globalBorder;
 
@@ -89,17 +95,14 @@
 
         @include tablet {
           font-size: 1.5rem;
+          padding-top: 0;
         }
       }
 
       &-label {
-        margin-bottom: 0.25rem;
-        font-weight: bolder;
-      }
-
-      &-h3 {
-        font-size: 0.81rem;
+        font-size: 0.88rem;
         line-height: 1.25rem;
+        margin-bottom: 0.25rem;
         padding-left: 1.5rem;
         padding-right: 1.5rem;
         font-weight: bolder;
@@ -116,9 +119,10 @@
         padding-bottom: 0.5rem;
         padding-right: 1.5rem;
         border-radius: 1.25rem;
-        border-color: $globalSecondary;
+        border: 1px solid $globalBorder;
         border-width: 1px;
-        border-style: solid;
+        -moz-appearance: none;
+        -webkit-appearance: none;
 
         @include tablet {
           width: 172%;
@@ -128,46 +132,45 @@
           width: 180%;
         }
       }
-
-      &-buttons {
+    }
+    &-button {
+      &-container {
         width: 100%;
+        background: rgba(247, 248, 249, 0.7);
         display: flex;
-        flex-direction: row;
         justify-content: flex-end;
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
+        padding: 16px 6.9971%;
+        align-items: center;
 
         @include tablet {
-          display: flex;
-          flex-direction: row;
+          padding: 16px 4.5454%;
+        }
+
+        @include laptop {
+          padding: 16px 3.9216%;
         }
       }
 
-      &-button {
-        width: 7rem;
-        margin-bottom: 1rem;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-        border-radius: 1.25rem;
-        outline: none;
-        border-style: none;
+      &-cancel {
+        @include button-design;
+        background-color: $globalOffset;
+        color: $globalSecondary;
         border: 1px solid $globalBorder;
-        background-color: white;
-        font-weight: 500;
-        color: $bgHeader;
+        width: 100%;
+        margin-right: 16px;
 
         @include tablet {
-          width: 4.5rem;
+          width: auto;
         }
+      }
 
-        &-blue {
-          background-color: $globalHiglight;
-          color: $globalOffset;
-          margin-left: 2.75rem;
+      &-blue {
+        @include button-design;
+        white-space: nowrap;
+        width: 100%;
 
-          @include tablet {
-            margin-left: 1rem;
-          }
+        @include tablet {
+          width: auto;
         }
       }
     }

@@ -4,8 +4,7 @@ import "./App.scss";
 import Header from "../Header/Header";
 import Home from "../../pages/Home/Home";
 import ContentDetails from "../../pages/ContentDetails/ContentDetails";
-import ContentEdit from "../../pages/ContentEdit/ContentEdit";
-import ContentNew from "../../pages/ContentNew/ContentNew";
+import ContentModify from "../../pages/ContentModify/ContentModify";
 import PageNotFound from "../../pages/PageNotFound/PageNotFound";
 import ModifyInventory from "../../pages/ModifyInventory/ModifyInventory";
 
@@ -26,7 +25,7 @@ class App extends React.Component {
             {/* 3.2 */}
             <Route exact path="/inventory/new-item" render={(routeProps) => <ModifyInventory {...routeProps} />} />
             {/* 6.2 */}
-            <Route exact path="/warehouse/new-item" render={(routeProps) => <ContentNew {...routeProps} />} />
+            <Route exact path="/warehouse/new-item" render={(routeProps) => <ContentModify {...routeProps} />} />
             {/* 2.0 */}
             <Route exact path="/inventory/:id" render={(routeProps) => <ContentDetails {...routeProps} routeType={"inventory"} />} />
             {/* 5.0 */}
@@ -34,7 +33,7 @@ class App extends React.Component {
             {/* 3.1 */}
             <Route exact path="/inventory/:id/edit" render={(routeProps) => <ModifyInventory {...routeProps} />} />
             {/* 6.1 */}
-            <Route exact path="/warehouse/:id/edit" render={(routeProps) => <ContentEdit {...routeProps} />} />
+            <Route exact path="/warehouse/:id/edit" render={(routeProps) => <ContentModify {...routeProps} />} />
             <Route component={PageNotFound} />
           </Switch>
         </div>
