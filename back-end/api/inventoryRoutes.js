@@ -2,31 +2,66 @@ const express = require("express");
 const app = express();
 const router = express.Router();
 const inventories = require("./routes/inventories.json");
+const { v4: uuidv4 } = require("uuid");
 
 router.route("/").get((req, res) => {
   res.status(200).send(inventories);
+});
+
+router.route("/categories").get((req, res) => {
+  const categories = inventories.map((inventory) => inventory.category);
+
+  function removeDuplicateCategories(data) {
+    return [...new Set(data)];
+  }
+
+  const uniqueCategories = removeDuplicateCategories(categories);
+
+  res.status(200).send(uniqueCategories);
+});
+
+router.route("/new-item").post((req, res) => {
+  const { itemName, description, category, status, quantity, warehouseName } = req.body;
+
+  let newItem = {
+    id: uuidv4(),
+    itemName,
+    description,
+    category,
+    status,
+    quantity,
+    warehouseName,
+  };
+
+  inventories.push(newItem);
+
+  res.status(201).send(newItem);
 });
 
 router.route("/:id").get((req, res) => {
   res.status(200).send(inventories.filter((item) => item.id === req.params.id).shift());
 });
 
-router.route("/new").post((req, res) => {
-  const { item, description, category, status, quantity, warehouse } = req.body;
+router.route("/:id/edit").put((req, res) => {
+  const { itemName, description, category, status, quantity, warehouseName } = req.body;
 
-  let inventoryNew = {
-    id: uuidv4(),
-    item,
-    description,
-    category,
-    status,
-    quantity,
-    warehouse,
-  };
+  const requestedItemId = req.params.id;
+  const requestedItem = inventories.findIndex((inventory) => inventory.id === requestedItemId);
 
-  inventories.push(inventoryNew);
+  console.log(inventories[requestedItem].itemName);
 
-  res.status(201).send(inventoryNew);
+  inventories[requestedItem].itemName = itemName;
+  inventories[requestedItem].description = description;
+  inventories[requestedItem].category = category;
+  inventories[requestedItem].status = status;
+  inventories[requestedItem].quantity = quantity;
+  inventories[requestedItem].warehouseName = warehouseName;
+
+  if (requestedItem) {
+    return res.status(200).send(inventories[requestedItem]);
+  } else {
+    res.status(400).send("Not a valid Item ID.");
+  }
 });
 
 module.exports = router;

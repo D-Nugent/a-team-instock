@@ -17,11 +17,14 @@ export class Home extends Component {
       .then((res) => {
         this.setState({ itemList: res.data, loaded: true });
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .then(
+        axios.get(`${process.env.REACT_APP_API_URL}/inventory`).then((res) => {
+          this.setState({
+            inventory: res.data,
+          });
+        })
+      );
   }
-
   async componentDidUpdate(prevProps){
     prevProps !== this.props &&
     await axios
@@ -35,27 +38,147 @@ export class Home extends Component {
   }
 
   render() {
+    let warehouse = this.props.match.path === "/warehouse";              
     console.log(this.props);
     if (!this.state.loaded) {
       return <PageLoading/>
     } else {
       return (
-        <div className='warehouse'>
-          <div className='warehouse__header'>
-            <h1 className='warehouse__title'>{this.props.match.path === '/warehouse'?'Warehouses':'Inventory'}</h1>
-              <form className='warehouse__form' action=''>
-                <div className="warehouse__form-input">
-                  <input type='text' placeholder='Search...' className='warehouse__form-input-field'/>
-                  <img src={searchIcon} alt='search icon' className='warehouse__form-input-field-searchIcon'/>
-                </div>
-                <button className='warehouse__form-input-btn'>+ Add New Warehouse</button>
-              </form>
+      <div className='home'>
+        <div className='home__header'>
+          {warehouse ? (
+            <h1 className='home__title'>Warehouse</h1>
+          ) : (
+            <h1 className='home__title-inventory'>Inventory</h1>
+          )}
+          <div className='home__form'>
+            <form action='' id='form'>
+              <input
+                type='text'
+                placeholder='Search...'
+                className='home__input'
+              />
+              <img src={searchIcon} alt='search icon' id='searchIcon' />
+              {warehouse ? (
+                <button className='home__btn'>+ Add New Warehouse </button>
+              ) : (
+                <button className='home__btn-inventory'>+ Add New Item </button>
+              )}
+            </form>
           </div>
           <NavBar/>
           <ListItems listData={this.state.itemList} loaded={this.state.loaded}/>
         </div>
-      );
-    }
+        <NavBar path={warehouse}></NavBar>
+        {warehouse
+          ? this.state.warehouses.map((content) => (
+              <div className='home__card' key={content.id}>
+                <div className='home__location'>
+                  <div className='home__content'>
+                    <p className='home__content-title'>warehouse</p>
+                    <Link
+                      to={`warehouse/${content.id}`}
+                      className='home__select'
+                    >
+                      <p className='home__content-text--link'>{content.name}</p>
+                      <img src={chevronIcon} alt='select icon' />
+                    </Link>
+                  </div>
+                  <div className='home__content'>
+                    <p className='home__content-title'>address</p>
+                    <p className='home__content-text'>{content.address},</p>
+                    <p className='home__content-text'>
+                      {content.city},{content.country}
+                    </p>
+                  </div>
+                </div>
+                <div className='home__contact'>
+                  <div className='home__content'>
+                    <p className='home__content-title'>contact name</p>
+                    <p className='home__content-text'>{content.contact.name}</p>
+                  </div>
+                  <div className='home__content'>
+                    <p className='home__content-title'>contact information</p>
+                    <p className='home__content-text'>
+                      {" "}
+                      {content.contact.phone}
+                    </p>
+                    <p className='home__content-text'>
+                      {" "}
+                      {content.contact.email}
+                    </p>
+                  </div>
+                </div>
+                <div className='home__links'>
+                  <Link>
+                    <img src={deleteIcon} alt='delete icon' />
+                  </Link>
+                  <Link>
+                    {" "}
+                    <img src={editIcon} alt='edit icon' />
+                  </Link>
+                </div>
+              </div>
+            ))
+          : this.state.inventory.map((content) => (
+              <div className='home__card-inventory' key={content.id}>
+                <div className='home__location-inventory'>
+                  <div className='home__content'>
+                    <p className='home__content-title'>inventory item</p>
+                    <Link
+                      to={`inventory/${content.id}`}
+                      className='home__select'
+                    >
+                      <p className='home__content-text--link'>
+                        {content.itemName}
+                      </p>
+                      <img src={chevronIcon} alt='select icon' />
+                    </Link>
+                  </div>
+                  <div className='home__content'>
+                    <p className='home__content-title-inventory'>category</p>
+                    <p className='home__content-text-category'>
+                      {content.category}
+                    </p>
+                  </div>
+                </div>
+                <div className='home__contact-inventory'>
+                  <div className='home__content'>
+                    <p className='home__content-title'>status</p>
+                    <p
+                      className={`home__content-text--status${
+                        content.quantity === 0 ? " --out-of-stock" : ""
+                      }`}
+                    >
+                      {content.status}
+                    </p>
+                  </div>
+                  <div className='home__content'>
+                    <p className='home__content-title'>qty</p>
+                    <p className='home__content-text-inventory'>
+                      {content.quantity}
+                    </p>
+                  </div>
+                  <div className='home__content'>
+                    <p className='home__content-title-inventory'>warehouse</p>
+                    <p className='home__content-text-location'>
+                      {content.warehouseName}
+                    </p>
+                  </div>
+                </div>
+                <div className='home__links-inventory'>
+                  <Link>
+                    <img src={deleteIcon} alt='delete icon' />
+                  </Link>
+                  <Link>
+                    {" "}
+                    <img src={editIcon} alt='edit icon' />
+                  </Link>
+                </div>
+              </div>
+            ))}
+      </div>
+    );
   }
 }
 

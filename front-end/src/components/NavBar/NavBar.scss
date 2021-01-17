@@ -11,6 +11,9 @@
     display: flex;
     align-items: center;
     padding: 0 4.16vw;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4.16vw;
   }
 
   @include laptop {
@@ -19,7 +22,12 @@
   &__content{
     display: flex;
     align-items: center;
-
+    justify-content: space-between;
+    &-category {
+      @extend .nav__content;
+      position: relative;
+      right: 3%;
+    }
     &-text {
       text-transform: uppercase;
       color: $globalSecondary;
@@ -72,5 +80,16 @@
     height: 12px;
     position: relative;
     left: 2px;
+  }
+  &__contact {
+    display: flex;
+    justify-content: space-around;
+    width: 43%;
+    left: 3%;
+    position: relative;
+    &-inventory {
+      @extend .nav__contact;
+      width: 23%;
+    }
   }
 }

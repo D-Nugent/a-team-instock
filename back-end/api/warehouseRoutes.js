@@ -9,6 +9,19 @@ router.route("/").get((req, res) => {
   res.status(200).send(warehouses);
 });
 
+
+router.route("/warehouse-list").get((req, res) => {
+  const warehouseList = warehouses.map((warehouse) => warehouse.name);
+
+  function removeDuplicateCategories(data) {
+    return [...new Set(data)];
+  }
+
+  const uniqueWarehouses = removeDuplicateCategories(warehouseList);
+
+  res.status(200).send(uniqueWarehouses);
+});
+
 router.route("/:id")
 .get((req, res) => {
   console.log("THIS ROUTE RAN");

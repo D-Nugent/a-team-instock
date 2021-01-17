@@ -30,7 +30,7 @@ export class ContentDetails extends Component {
     .then(
       this.state.currentRoute === '/warehouse/:id' &&
       axios
-      .get(`${process.env.REACT_APP_API_URL}${itemID}/inventory`)
+      .get(`${process.env.REACT_APP_API_URL}${itemID}/edit`)
       .then((response) => {
         console.log(response.data);
         this.setState({
