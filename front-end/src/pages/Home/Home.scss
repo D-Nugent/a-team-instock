@@ -248,17 +248,18 @@
         color: $stockInOpaque;
         border-radius: 20px;
         padding: 4px 8px;
-        width: 70%;
+        width: 80%;
         font-weight: 600;
+        text-transform: uppercase;
         @include tablet {
           position: relative;
-          width: 100%;
+          width: 110%;
           right: 30%;
-          font-size: 0.78em;
+          font-size: 0.70em;
           @include laptop {
             right: 50%;
-            width: 70%;
-            padding-right: 0px;
+            width: 75%;
+            
           }
         }
 
