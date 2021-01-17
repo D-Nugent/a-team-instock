@@ -8,12 +8,10 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import NavBar from "../../components/NavBar/NavBar";
 
-
 export class Home extends Component {
   state = {
     warehouses: [],
     inventory: [],
-    // currentRoute: this.props.routeType,
   };
   componentDidMount() {
     axios
@@ -35,25 +33,25 @@ export class Home extends Component {
   render() {
     let warehouse = this.props.match.path === "/warehouse";
     return (
-      <div className='warehouse'>
-        <div className='warehouse__header'>
+      <div className='home'>
+        <div className='home__header'>
           {warehouse ? (
-            <h1 className='warehouse__title'>Warehouse</h1>
+            <h1 className='home__title'>Warehouse</h1>
           ) : (
-            <h1 className='warehouse__title'>Inventory</h1>
+            <h1 className='home__title-inventory'>Inventory</h1>
           )}
-          <div className='warehouse__form'>
+          <div className='home__form'>
             <form action='' id='form'>
-              <input
+               <input
                 type='text'
                 placeholder='Search...'
-                className='warehouse__input'
+                className='home__input'
               />
               <img src={searchIcon} alt='search icon' id='searchIcon' />
               {warehouse ? (
-                <button className='warehouse__btn'>+ Add New Warehouse </button>
+                <button className='home__btn'>+ Add New Warehouse </button>
               ) : (
-                <button className='warehouse__btn'>+ Add New Item </button>
+                <button className='home__btn-inventory'>+ Add New Item </button>
               )}
             </form>
           </div>
@@ -61,52 +59,44 @@ export class Home extends Component {
         <NavBar path={warehouse}></NavBar>
         {warehouse
           ? this.state.warehouses.map((content) => (
-              <div className='warehouse__card' key={content.id}>
-                <div className='warehouse__location'>
-                  <div className='warehouse__content'>
-                    <p className='warehouse__content-title'>warehouse</p>
+              <div className='home__card' key={content.id}>
+                <div className='home__location'>
+                  <div className='home__content'>
+                    <p className='home__content-title'>warehouse</p>
                     <Link
                       to={`warehouse/${content.id}`}
-                      className='warehouse__select'
+                      className='home__select'
                     >
-                      <p className='warehouse__content-text--link'>
-                        {content.name}
-                      </p>
+                      <p className='home__content-text--link'>{content.name}</p>
                       <img src={chevronIcon} alt='select icon' />
                     </Link>
                   </div>
-                  <div className='warehouse__content'>
-                    <p className='warehouse__content-title'>address</p>
-                    <p className='warehouse__content-text'>
-                      {content.address},
-                    </p>
-                    <p className='warehouse__content-text'>
+                  <div className='home__content'>
+                    <p className='home__content-title'>address</p>
+                    <p className='home__content-text'>{content.address},</p>
+                    <p className='home__content-text'>
                       {content.city},{content.country}
                     </p>
                   </div>
                 </div>
-                <div className='warehouse__contact'>
-                  <div className='warehouse__content'>
-                    <p className='warehouse__content-title'>contact name</p>
-                    <p className='warehouse__content-text'>
-                      {content.contact.name}
-                    </p>
+                <div className='home__contact'>
+                  <div className='home__content'>
+                    <p className='home__content-title'>contact name</p>
+                    <p className='home__content-text'>{content.contact.name}</p>
                   </div>
-                  <div className='warehouse__content'>
-                    <p className='warehouse__content-title'>
-                      contact information
-                    </p>
-                    <p className='warehouse__content-text'>
+                  <div className='home__content'>
+                    <p className='home__content-title'>contact information</p>
+                    <p className='home__content-text'>
                       {" "}
                       {content.contact.phone}
                     </p>
-                    <p className='warehouse__content-text'>
+                    <p className='home__content-text'>
                       {" "}
                       {content.contact.email}
                     </p>
                   </div>
                 </div>
-                <div className='warehouse__links'>
+                <div className='home__links'>
                   <Link>
                     <img src={deleteIcon} alt='delete icon' />
                   </Link>
@@ -118,47 +108,50 @@ export class Home extends Component {
               </div>
             ))
           : this.state.inventory.map((content) => (
-              <div className='warehouse__card' key={content.id}>
-                <div className='warehouse__location'>
-                  <div className='warehouse__content'>
-                    <p className='warehouse__content-title'>inventory item</p>
+              <div className='home__card-inventory' key={content.id}>
+                <div className='home__location-inventory'>
+                  <div className='home__content'>
+                    <p className='home__content-title'>inventory item</p>
                     <Link
                       to={`inventory/${content.id}`}
-                      className='warehouse__select'
+                      className='home__select'
                     >
-                      <p className='warehouse__content-text--link'>
+                      <p className='home__content-text--link'>
                         {content.itemName}
                       </p>
                       <img src={chevronIcon} alt='select icon' />
                     </Link>
                   </div>
-                  <div className='warehouse__content'>
-                    <p className='warehouse__content-title'>category</p>
-                    <p className='warehouse__content-text'>
-                      {content.category}
-                    </p>
+                  <div className='home__content'>
+                    <p className='home__content-title-inventory'>category</p>
+                    <p className='home__content-text-category'>{content.category}</p>
                   </div>
                 </div>
-                <div className='warehouse__contact'>
-                  <div className='warehouse__content'>
-                    <p className='warehouse__content-title'>status</p>
-                    <p className='warehouse__content-text'>{content.status}</p>
+                <div className='home__contact-inventory'>
+                  <div className='home__content'>
+                    <p className='home__content-title'>status</p>
+                    <p
+                      className={`home__content-text--status${
+                        content.quantity === 0 ? " --out-of-stock" : ""
+                      }`}
+                    >
+                      {content.status}
+                    </p>
                   </div>
-                  <div className='warehouse__content'>
-                    <p className='warehouse__content-title'>qty</p>
-                    <p className='warehouse__content-text'>
+                  <div className='home__content'>
+                    <p className='home__content-title'>qty</p>
+                    <p className='home__content-text-inventory'>
                       {content.quantity}
                     </p>
                   </div>
-                  <div className='warehouse__content'>
-                    <p className='warehouse__content-title'>warehouse</p>
-                    <p className='warehouse__content-text'>
-                      {" "}
+                  <div className='home__content'>
+                    <p className='home__content-title-inventory'>warehouse</p>
+                    <p className='home__content-text-location'>
                       {content.warehouseName}
                     </p>
                   </div>
                 </div>
-                <div className='warehouse__links'>
+                <div className='home__links-inventory'>
                   <Link>
                     <img src={deleteIcon} alt='delete icon' />
                   </Link>

@@ -13,39 +13,52 @@ function NavBar({ path }) {
         )}
         <img src={ArrowIcon} alt='nav arrows' className='nav__img'></img>
       </div>
-      <div className='nav__content'>
-        {path ? (
-          <h4 className='nav__content-text'>address</h4>
-        ) : (
-          <h4 className='nav__content-text'>category</h4>
-        )}
-        <img src={ArrowIcon} alt='nav arrows' className='nav__img'></img>
-      </div>
-
-      <div className='nav__contact'>
+      {path ? (
         <div className='nav__content'>
-          {path ? (
-            <h4 className='nav__content-text'>contact name</h4>
-          ) : (
-            <h4 className='nav__content-text'>status</h4>
-          )}
+          <h4 className='nav__content-text'>address</h4>
+
           <img src={ArrowIcon} alt='nav arrows' className='nav__img'></img>
         </div>
-        {!path && (
+      ) : (
+        <div className='nav__content-category'>
+          <h4 className='nav__content-text'>category</h4>
+
+          <img src={ArrowIcon} alt='nav arrows' className='nav__img'></img>
+        </div>
+      )}
+      {!path && (
+        <div className='nav__content'>
+          <h4 className='nav__content-text'>status</h4>
+          <img src={ArrowIcon} alt='nav arrows' className='nav__img'></img>
+        </div>
+      )}
+      {path ? (
+        <div className='nav__contact'>
           <div className='nav__content'>
-            <h4 className='nav__content-text'>qty</h4>
+            <h4 className='nav__content-text'>contact name</h4>
+
             <img src={ArrowIcon} alt='nav arrows' className='nav__img'></img>
           </div>
-        )}
-        <div className='nav__content'>
-          {path ? (
+
+          <div className='nav__content'>
             <h4 className='nav__content-text'>contact information</h4>
-          ) : (
-            <h4 className='nav__content-text'>warehouse</h4>
-          )}
-          <img src={ArrowIcon} alt='nav arrows' className='nav__img'></img>
+            <img src={ArrowIcon} alt='nav arrows' className='nav__img'></img>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className='nav__contact-inventory'>
+          <div className='nav__content'>
+            <h4 className='nav__content-text'>qty</h4>
+
+            <img src={ArrowIcon} alt='nav arrows' className='nav__img'></img>
+          </div>
+
+          <div className='nav__content'>
+            <h4 className='nav__content-text'>warehouse</h4>
+            <img src={ArrowIcon} alt='nav arrows' className='nav__img'></img>
+          </div>
+        </div>
+      )}
       <div className='nav__content'>
         <h4 className='nav__content-text'>actions</h4>
       </div>
