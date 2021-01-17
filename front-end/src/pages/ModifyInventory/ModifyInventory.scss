@@ -68,6 +68,26 @@
         padding-bottom: 4px;
         font-size: 0.875rem;
         font-weight: 600;
+        margin-top: 24px;
+
+        &-error {
+          @extend .modify__form-details-title;
+          margin-bottom: 0.75em;
+          width: 100%;
+          font-size: 0.875rem;
+          font-weight: 600;
+
+          &:after {
+            padding-left: 1.15em;
+            content: "This field is required";
+            font-size: 0.75rem;
+            color: $stockOutOpaque;
+            background-image: url(../../assets/icons/error-24px.svg);
+            background-repeat: no-repeat;
+            background-position: 0;
+            background-size: 1em;
+          }
+        }
       }
 
       &-input {
@@ -80,23 +100,23 @@
         max-width: 100%;
         padding: 8px 16px;
         height: 36px;
-        margin-bottom: 16px;
+        margin-bottom: 0;
         font-size: 0.8125rem;
 
         @include tablet {
           padding: 7px 16px 9px;
-          margin-bottom: 24px;
+          margin-bottom: 0;
         }
-
-        // &:focus {
-        //   min-width: 295px;
-        //   width: auto;
-        // }
 
         &:active,
         &:focus {
           border-color: $stockOutOpaque;
           outline: none;
+        }
+
+        &-error {
+          @extend .modify__form-details-input;
+          border-color: $stockOutOpaque;
         }
       }
 
@@ -129,6 +149,26 @@
         padding-bottom: 4px;
         font-size: 0.875rem;
         font-weight: 600;
+        margin-top: 16px;
+
+        &-error {
+          @extend .modify__form-availability-title;
+          margin-bottom: 0.75em;
+          width: 100%;
+          font-size: 0.875rem;
+          font-weight: 600;
+
+          &:after {
+            padding-left: 1.15em;
+            content: "This field is required";
+            font-size: 0.75rem;
+            color: $stockOutOpaque;
+            background-image: url(../../assets/icons/error-24px.svg);
+            background-repeat: no-repeat;
+            background-position: 0;
+            background-size: 1em;
+          }
+        }
       }
 
       &-input {
@@ -140,18 +180,11 @@
         width: 100%;
         padding: 8px 16px;
         height: 36px;
-        margin-bottom: 16px;
+        margin-bottom: 0;
         font-size: 0.8125rem;
-        background-image: url("../../assets/icons/arrow_drop_down-24px.svg");
-        background-repeat: no-repeat, repeat;
-        background-position: right 23px top 50%, 0 0;
-        background-size: 1.5em auto, 100%;
-        -moz-appearance: none;
-        -webkit-appearance: none;
 
         @include tablet {
           padding: 7px 16px 9px;
-          margin-bottom: 24px;
         }
 
         &:active,
@@ -159,6 +192,20 @@
           border-color: $stockOutOpaque;
           outline: none;
         }
+
+        &-error {
+          @extend .modify__form-availability-input;
+          border-color: $stockOutOpaque;
+        }
+      }
+
+      &-warehouse-input {
+        background-image: url("../../assets/icons/arrow_drop_down-24px.svg");
+        background-repeat: no-repeat, repeat;
+        background-position: right 23px top 50%, 0 0;
+        background-size: 1.5em auto, 100%;
+        -moz-appearance: none;
+        -webkit-appearance: none;
       }
 
       &-stock-input:checked + label {
