@@ -5,67 +5,101 @@ import "./ModifyInventory.scss";
 
 export class ModifyInventory extends Component {
   state = {
-    currentItem: {},
-    radioValue: "",
+    itemName: "",
+    description: "",
     categories: [],
+    categorySelected: "",
+    status: "IN STOCK",
+    quantity: 0,
+    warehouses: [],
+    warehouseSelected: "",
+    validationError: "",
   };
 
   componentDidMount() {
     let itemId = this.props.match.params.id;
-    axios.get(`${process.env.REACT_APP_API_URL}/inventory/${itemId}`).then((res) => {
-      this.setState({
-        currentItem: res.data,
-        radioValue: res.data.status === "Out of Stock" ? "outstock" : "instock",
+
+    if (this.props.match.path === "/inventory/:id/edit") {
+      axios.get(`${process.env.REACT_APP_API_URL}/inventory/${itemId}`).then((res) => {
+        this.setState({
+          status: res.data.status === "Out of Stock" ? "OUT OF STOCK" : "IN STOCK",
+          warehouseSelected: res.data.warehouseName,
+          categorySelected: res.data.category,
+          quantity: res.data.quantity,
+          itemName: res.data.itemName,
+          description: res.data.description,
+        });
       });
-    });
+    }
     axios.get(`${process.env.REACT_APP_API_URL}/inventory/categories`).then((res) => {
       this.setState({
-        categories: res.data.categories,
+        categories: res.data,
+      });
+    });
+    axios.get(`${process.env.REACT_APP_API_URL}/warehouse/warehouse-list`).then((res) => {
+      this.setState({
+        warehouses: res.data,
       });
     });
   }
 
   handleDescriptionChange = (event) => {
     this.setState({
-      currentItem: {
-        ...this.state.currentItem,
-        description: event.target.value,
-      },
+      description: event.target.value,
     });
   };
 
   handleItemNameChange = (event) => {
     this.setState({
-      currentItem: {
-        ...this.state.currentItem,
-        itemName: event.target.value,
-      },
+      itemName: event.target.value,
     });
   };
 
   handleQuantityChange = (event) => {
+    console.log(event.target.value, typeof event.target.value);
     this.setState({
-      currentItem: {
-        ...this.state.currentItem,
-        quantity: event.target.value,
-      },
+      quantity: event.target.value === "" ? event.target.value : parseInt(event.target.value),
     });
   };
 
-  radioButtonHandler = (event) => {
+  statusHandler = (event) => {
     this.setState({
-      radioValue: event.target.value,
+      status: event.target.value,
+    });
+    if (event.target.value === "OUT OF STOCK") {
+      this.setState({
+        quantity: 0,
+      });
+    }
+  };
+
+  warehouseHandler = (event) => {
+    this.setState({
+      warehouseSelected: event.target.value,
+    });
+  };
+
+  categoryHandler = (event) => {
+    this.setState({
+      categorySelected: event.target.value,
     });
   };
 
   renderQuantity = (status) => {
-    if (status === "instock") {
+    if (status === "IN STOCK") {
       return (
         <div>
-          <label className="modify__form-availability-title modify__form-availability-quantity-title" htmlFor="quantity">
+          <label className={`modify__form-availability-title${this.state.validationError} modify__form-availability-quantity-title`} htmlFor="quantity">
             Quantity
+            <input
+              className={`modify__form-availability-input${this.state.validationError}`}
+              type="number"
+              id="quantity"
+              name="quantity"
+              value={this.state.quantity}
+              onChange={this.handleQuantityChange}
+            />
           </label>
-          <input className="modify__form-availability-input" type="text" id="quantity" name="quantity" value={this.state.currentItem.quantity} onChange={this.handleQuantityChange} required />
         </div>
       );
     } else {
@@ -73,35 +107,90 @@ export class ModifyInventory extends Component {
     }
   };
 
-  // submitEdit = (event) => {
-  //   const { match } = this.props;
+  generateOptions = (options, instructionOption) => {
+    const optionsToRender = instructionOption ? ["Please select", ...options] : options;
 
-  //   newEdit = {
-  //     item: this.state.currentItem.item,
-  //     description: this.state.currentItem.description,
-  //     category: this.state.currentItem.category,
-  //     status: this.state.currentItem.status,
-  //     quantity: this.state.currentItem.quantity,
-  //     warehouse: this.state.currentItem.description,
-  //   };
+    return optionsToRender.map((options) => {
+      return (
+        <option className="modify__form-details-input modify__form-details-category-option" value={options} key={options}>
+          {options}
+        </option>
+      );
+    });
+  };
 
-  //   axios.put(`${process.env.REACT_APP_API_URL}${itemId}/edit`, newEdit).then((res) => {
-  //     this.setState({
-  //       currentItem: {
-  //         item: res.data.item,
-  //         description: res.data.description,
-  //         category: res.data.category,
-  //         status: res.data.status,
-  //         quantity: res.data.quantity,
-  //         warehouse: res.data.warehouse,
-  //       },
-  //     });
-  //   });
-  // };
+  createNewItem = (event) => {
+    event.preventDefault();
+
+    const newItem = {
+      itemName: this.state.itemName,
+      description: this.state.description,
+      category: this.state.categorySelected,
+      status: parseInt(this.state.quantity) === 0 ? "OUT OF STOCK" : this.state.status,
+      quantity: this.state.quantity,
+      warehouseName: this.state.warehouseSelected,
+    };
+
+    if (
+      this.state.itemName !== "" &&
+      this.state.description !== "" &&
+      this.state.categorySelected !== "Please select" &&
+      this.state.quantity !== "" &&
+      this.state.warehouseSelected !== "Please select"
+    ) {
+      this.setState({
+        validationError: "",
+      });
+      console.log(newItem, "Posted");
+      axios.post(`${process.env.REACT_APP_API_URL}/inventory/new-item`, newItem).then((res) => {
+        this.props.history.push(`/inventory/${res.data.id}`);
+      });
+    } else {
+      this.setState({
+        validationError: "-error",
+      });
+      console.log(newItem, "Unable to Post");
+    }
+  };
+
+  submitEdit = (event) => {
+    event.preventDefault();
+    console.log(this.state.quantity, 0);
+
+    const newEdit = {
+      itemName: this.state.itemName,
+      description: this.state.description,
+      category: this.state.categorySelected,
+      status: parseInt(this.state.quantity) === 0 ? "OUT OF STOCK" : this.state.status,
+      quantity: this.state.quantity,
+      warehouseName: this.state.warehouseSelected,
+    };
+
+    if (
+      this.state.itemName !== "" &&
+      this.state.description !== "" &&
+      this.state.categorySelected !== "Please select" &&
+      this.state.quantity !== "" &&
+      this.state.warehouseSelected !== "Please select"
+    ) {
+      this.setState({
+        validationError: "",
+      });
+
+      axios.put(`${process.env.REACT_APP_API_URL}/inventory/${this.props.match.params.id}/edit`, newEdit).then((res) => {
+        this.props.history.push(`/inventory/${res.data.id}`);
+      });
+    } else {
+      this.setState({
+        validationError: "-error",
+      });
+    }
+  };
 
   render() {
-    const { radioValue } = this.state;
-    const quantity = this.renderQuantity(this.state.radioValue);
+    const { status } = this.state;
+    const quantity = this.renderQuantity(this.state.status);
+    const validationError = this.state.validationError;
 
     return (
       <section className="modify">
@@ -109,51 +198,50 @@ export class ModifyInventory extends Component {
           <img className="modify__back-button" src={Back} alt="blue arrow pointing left" />
           <h1 className="modify__header">{this.props.match.path === "/inventory/:id/edit" ? "Edit Inventory Item" : "Add New Inventory Item"}</h1>
         </div>
-        <form className="modify__form">
+        <form className="modify__form" onSubmit={this.props.match.path === "/inventory/:id/edit" ? this.submitEdit : this.createNewItem}>
           <div className="modify__form-content-container">
             <div className="modify__form-details">
               <h2 className="modify__form-details-subheader">Item Details</h2>
-              <label className="modify__form-details-title modify__form-details-name-title" htmlFor="item">
+              <label className={`modify__form-details-title${validationError}`} htmlFor="item">
                 Item Name
+                <input
+                  className={`modify__form-details-input${validationError}`}
+                  type="text"
+                  id="item"
+                  name="item"
+                  placeholder="Item Name"
+                  value={this.state.itemName}
+                  onChange={this.handleItemNameChange}
+                />
               </label>
-              <input
-                className="modify__form-details-input"
-                type="text"
-                id="item"
-                name="item"
-                placeholder="Item Name"
-                value={this.state.currentItem.itemName}
-                onChange={this.handleItemNameChange}
-                required
-              />
-              <label className="modify__form-details-title  modify__form-details-description-title" htmlFor="description">
+              <label className={`modify__form-details-title${validationError}`} htmlFor="description">
                 Description
+                <textarea
+                  className={`modify__form-details-input${validationError} modify__form-details-description-input`}
+                  type="text"
+                  id="description"
+                  name="description"
+                  value={this.state.description}
+                  onChange={this.handleDescriptionChange}
+                  placeholder="Please enter a brief item description..."
+                />
               </label>
-              <textarea
-                className="modify__form-details-input modify__form-details-description-input"
-                type="text"
-                id="description"
-                name="description"
-                required
-                value={this.state.currentItem.description}
-                onChange={this.handleDescriptionChange}
-              />
-              <label className="modify__form-details-title  modify__form-details-category-title" htmlFor="category">
+              <label className={`modify__form-details-title${validationError}  modify__form-details-category-title`} htmlFor="category">
                 Category
+                <select
+                  className={`modify__form-details-input${validationError} modify__form-details-category-input`}
+                  value={this.state.categorySelected}
+                  onChange={this.categoryHandler}
+                  id="category"
+                  name="category"
+                >
+                  {this.generateOptions(this.state.categories, this.props.match.path !== "/inventory/:id/edit")}
+                </select>
               </label>
-              <select className="modify__form-details-input modify__form-details-category-input" placeholder="Please select" value={this.state.currentItem.category}>
-                {this.state.categories.map((category) => {
-                  return (
-                    <option className="modify__form-details-input modify__form-details-category-option" value={category} key={category}>
-                      {category}
-                    </option>
-                  );
-                })}
-              </select>
             </div>
             <div className="modify__form-availability">
               <h2 className="modify__form-availability-subheader">Item Availability</h2>
-              <label className="modify__form-availability-title modify__form-status-title" htmlFor="status">
+              <label className="modify__form-availability-title modify__form-status-title" htmlFor="status" name="status" id="status">
                 Status
               </label>
               <div className="modify__form-availability-radio-container">
@@ -162,9 +250,9 @@ export class ModifyInventory extends Component {
                   type="radio"
                   id="instock"
                   name="instock"
-                  value="instock"
-                  onChange={this.radioButtonHandler}
-                  checked={radioValue === "instock"}
+                  value="IN STOCK"
+                  onChange={this.statusHandler}
+                  checked={status === "IN STOCK"}
                 />
                 <label className="modify__form-availability-instock-radio" htmlFor="instock">
                   In stock
@@ -174,21 +262,27 @@ export class ModifyInventory extends Component {
                   type="radio"
                   id="outstock"
                   name="outstock"
-                  value="outstock"
-                  onChange={this.radioButtonHandler}
-                  checked={radioValue === "outstock"}
+                  value="OUT OF STOCK"
+                  onChange={this.statusHandler}
+                  checked={status === "OUT OF STOCK"}
                 />
                 <label className="modify__form-availability-outstock-radio" htmlFor="outstock">
                   Out of stock
                 </label>
               </div>
               {quantity}
-              <label className="modify__form-availability-title modify__form-availability-warehouse-title" htmlFor="warehouse">
+              <label className={`modify__form-availability-title${validationError} modify__form-availability-warehouse-title`} htmlFor="warehouseName">
                 Warehouse
+                <select
+                  className={`modify__form-availability-input${validationError} modify__form-availability-warehouse-input`}
+                  value={this.state.warehouseSelected}
+                  onChange={this.warehouseHandler}
+                  name="warehouse"
+                  id="warehouse"
+                >
+                  {this.generateOptions(this.state.warehouses, this.props.match.path !== "/inventory/:id/edit")}
+                </select>
               </label>
-              <select className="modify__form-availability-input modify__form-availability-warehouse-input">
-                <option className="modify__form-availability-input modify__form-availability-warehouse-option">{this.state.currentItem.warehouseName}</option>
-              </select>
             </div>
           </div>
           <div className="modify__form-button-container">
