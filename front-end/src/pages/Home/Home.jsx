@@ -42,7 +42,7 @@ export class Home extends Component {
           )}
           <div className='home__form'>
             <form action='' id='form'>
-               <input
+              <input
                 type='text'
                 placeholder='Search...'
                 className='home__input'
@@ -124,7 +124,9 @@ export class Home extends Component {
                   </div>
                   <div className='home__content'>
                     <p className='home__content-title-inventory'>category</p>
-                    <p className='home__content-text-category'>{content.category}</p>
+                    <p className='home__content-text-category'>
+                      {content.category}
+                    </p>
                   </div>
                 </div>
                 <div className='home__contact-inventory'>
