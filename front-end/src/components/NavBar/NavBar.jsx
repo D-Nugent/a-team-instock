@@ -21,7 +21,7 @@ function NavBar() {
         <h4 className='nav__content-text'>{route.path === "/warehouse"?'contact name':'status'}</h4>
         <img src={ArrowIcon} alt='nav arrows' className='nav__img'></img>
       </div>
-      <div className={`nav__content${route.path === "/warehouse"?"":" --shift"}`}>
+      <div className={`nav__content${route.path === "/warehouse/id"?" --shift": route.path === "/inventory"?" --pull":""}`}>
         <h4 className='nav__content-text'>{route.path === "/warehouse"?'contact information':'quantity'}</h4>
         <img src={ArrowIcon} alt='nav arrows' className='nav__img'></img>
       </div>

@@ -55,6 +55,13 @@
                 }
             }
         }
+        @include tablet{
+            padding: 0 4.16vw 24px;
+
+        }
+        @include laptop {
+            padding: 0 3.125vw 24px;
+        }
     }
 
     &__detail{
@@ -205,6 +212,10 @@
         @include tablet {
             margin: 24px 4.16vw 0;
             padding-bottom: 24px;
+        }
+
+        @include laptop {
+            margin: 24px 3.125vw 0;
         }
     }
 

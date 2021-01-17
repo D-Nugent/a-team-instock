@@ -44,6 +44,7 @@ export class ContentDetails extends Component {
     let itemID = this.props.match.url
     console.log(prevProps);
     console.log(this.props);
+    prevProps !== this.props &&
     axios
     .get(`${process.env.REACT_APP_API_URL}${itemID}`)
     .then((response) => {
@@ -51,8 +52,17 @@ export class ContentDetails extends Component {
       this.setState({
         currentItem: response.data,
         contact: response.data.contact,
-        currentRoute: this.props.match.path
+        currentRoute: this.props.match.path,
       })
+    })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    console.log(this.props);
+    nextProps.location !== this.props.location &&
+    this.setState({
+      prevPath: this.props.location
     })
   }
 
@@ -63,7 +73,7 @@ export class ContentDetails extends Component {
       <div className="content">
         <div className="content__heading">
           <div className="content__heading-nav">
-            <img src={returnIcon} alt="back arrow" className="content__heading-nav-return" onClick={()=> {this.props.history.push(`${this.state.currentRoute === '/inventory/:id'?"/inventory":"/warehouse"}`)}}/>
+            <img src={returnIcon} alt="back arrow" className="content__heading-nav-return" onClick={()=> {this.props.history.push(`${this.state.currentRoute === '/inventory/:id'?this.state.prevPath.pathname:"/warehouse"}`)}}/>
             <h1 className="content__heading-nav-title">{this.state.currentRoute === '/inventory/:id'?this.state.currentItem.itemName:this.state.currentItem.name}</h1>
           </div>
           <Link to={`${this.props.match.url}/edit`} className="content__heading-edit">

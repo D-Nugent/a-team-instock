@@ -4,6 +4,9 @@ import {NavLink, Link} from 'react-router-dom';
 import instockLogo from '../../assets/logo/InStock-Logo.svg'
 
 function Header() {
+
+
+
     return (
         <div className="header">
             <Link to="/">
