@@ -17,7 +17,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+    &-category {
+      @extend .nav__content;
+      position: relative;
+      right: 3%;
+    }
     &-text {
       text-transform: uppercase;
       color: $globalSecondary;
@@ -38,5 +42,9 @@
     width: 43%;
     left: 3%;
     position: relative;
+    &-inventory {
+      @extend .nav__contact;
+      width: 23%;
+    }
   }
 }
