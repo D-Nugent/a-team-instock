@@ -1,6 +1,8 @@
 import React from "react";
 import "./NavBar.scss";
 import ArrowIcon from "../../assets/icons/sort-24px.svg";
+import { useRouteMatch } from "react-router-dom";
+
 
 function NavBar({ path }) {
   return (

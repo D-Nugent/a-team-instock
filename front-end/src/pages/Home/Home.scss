@@ -12,14 +12,20 @@
     justify-content: space-between;
     width: 100%;
     border-bottom: 1px solid $globalBorder;
+    padding: 0 6.4vw;
+
     @include tablet {
       flex-direction: row;
       border-bottom: 0px;
+      padding: 0 4.16vw;
+    }
+
+    @include laptop {
+      padding: 0 3.125vw;
     }
   }
 
   &__title {
-    padding: 0% 0% 0% 5%;
     margin-top: 0%;
     font-size: 1.55em;
     display: flex;
@@ -87,8 +93,6 @@
     }
   }
   &__form {
-    width: 100%;
-    padding: 0% 5% 5% 5%;
     display: flex;
     justify-content: center;
 
@@ -279,6 +283,11 @@
             margin-left: 11%;
           }
         }
+      }
+
+      @include tablet {
+        width: 24vw;
+        max-width: 274px;
       }
     }
   }

@@ -1,25 +1,21 @@
 import React, { Component } from "react";
-import "./Home.scss";
 import searchIcon from "../../assets/icons/search-24px.svg";
-import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
-import editIcon from "../../assets/icons/edit-24px.svg";
-import chevronIcon from "../../assets/icons/chevron_right-24px.svg";
+import ListItems from '../../components/ListItems/ListItems';
 import axios from "axios";
-import { Link } from "react-router-dom";
 import NavBar from "../../components/NavBar/NavBar";
+import "./Home.scss";
+import PageLoading from "../../components/pageLoading/PageLoading";
 
 export class Home extends Component {
   state = {
-    warehouses: [],
-    inventory: [],
+    itemList: [],
+    loaded: false,
   };
-  componentDidMount() {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/warehouse`)
+  async componentDidMount() {
+    await axios
+      .get(`${process.env.REACT_APP_API_URL}${this.props.match.path}/`)
       .then((res) => {
-        this.setState({
-          warehouses: res.data,
-        });
+        this.setState({ itemList: res.data, loaded: true });
       })
       .then(
         axios.get(`${process.env.REACT_APP_API_URL}/inventory`).then((res) => {
@@ -29,10 +25,25 @@ export class Home extends Component {
         })
       );
   }
+  async componentDidUpdate(prevProps){
+    prevProps !== this.props &&
+    await axios
+      .get(`${process.env.REACT_APP_API_URL}${this.props.match.path}/`)
+      .then((res) => {
+        this.setState({ itemList: res.data, loaded: true });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   render() {
-    let warehouse = this.props.match.path === "/warehouse";
-    return (
+    let warehouse = this.props.match.path === "/warehouse";              
+    console.log(this.props);
+    if (!this.state.loaded) {
+      return <PageLoading/>
+    } else {
+      return (
       <div className='home'>
         <div className='home__header'>
           {warehouse ? (
@@ -55,6 +66,8 @@ export class Home extends Component {
               )}
             </form>
           </div>
+          <NavBar/>
+          <ListItems listData={this.state.itemList} loaded={this.state.loaded}/>
         </div>
         <NavBar path={warehouse}></NavBar>
         {warehouse
