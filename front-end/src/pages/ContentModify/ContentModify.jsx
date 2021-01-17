@@ -80,42 +80,6 @@ export class ContentModify extends Component {
     });
     };
 
-//     updateWarehouse = (event) => {
-//     event.preventDefault()
-//     const form = event.target
-//     const name = form.name.value
-//     const address = form.address.value
-//     const city = form.city.value
-//     const country = form.country.value
-//     const contact = form.contact.value
-//     const position = form.position.value
-//     const phone = form.phone.value
-//     const email = form.email.value
-
-//     const updatedWarehouse = {
-//       id: this.state.currentWarehouse.id,
-//       name: name,
-//       address: address,
-//       city: city,
-//       country: country,
-//       contact: [
-//         {
-//           name: contact,
-//           position: position,
-//           phone: phone,
-//           email: email,
-//         },
-//       ],
-//     }
-
-//     Axios.put(
-//       `http://localhost:5000/warehouse/${this.state.currentWarehouse.id}`,
-//       updatedWarehouse
-//     ).then(alert("changes have been made"))
-
-//   }
-
-
     render() {
         return (
             <div className="card">
