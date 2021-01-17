@@ -51,13 +51,12 @@
         border: 1px solid #bdc5d5;
         box-sizing: border-box;
         border-radius: 20px;
-        padding-left: 5%;
+        padding-left: 16px;
         margin-bottom: 16px;
     
         @include tablet {
           width: 24vw;
           max-width: 274px;
-          padding-left: 3%;
           font-size: 0.75em;
         }
 

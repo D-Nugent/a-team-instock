@@ -11,6 +11,7 @@ router.route("/").get((req, res) => {
 
 router.route("/:id")
 .get((req, res) => {
+  console.log("THIS ROUTE RAN");
   res.status(200).send(warehouses.filter(item => item.id === req.params.id).shift())
 })
 

@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import "./Home.scss";
 import searchIcon from "../../assets/icons/search-24px.svg";
 import ListItems from '../../components/ListItems/ListItems';
 import axios from "axios";
 import NavBar from "../../components/NavBar/NavBar";
-const API = "http://localhost:8080/";
+import "./Home.scss";
 
 export class Home extends Component {
   state = {
@@ -12,7 +11,7 @@ export class Home extends Component {
   };
   componentDidMount() {
     axios
-      .get(`${API}warehouse/`)
+      .get(`${process.env.REACT_APP_API_URL}${this.props.match.path}/`)
       .then((res) => {
         this.setState({ warehouses: res.data });
       })
@@ -21,10 +20,11 @@ export class Home extends Component {
       });
   }
   render() {
+    console.log(this.props);
     return (
       <div className='warehouse'>
         <div className='warehouse__header'>
-          <h1 className='warehouse__title'>Warehouses</h1>
+          <h1 className='warehouse__title'>{this.props.match.path === '/warehouse'?'Warehouses':'Inventory'}</h1>
             <form className='warehouse__form' action=''>
               <div className="warehouse__form-input">
                 <input type='text' placeholder='Search...' className='warehouse__form-input-field'/>
@@ -34,7 +34,7 @@ export class Home extends Component {
             </form>
         </div>
         <NavBar/>
-        <ListItems warehouses={this.state.warehouses}/>
+        <ListItems listData={this.state.warehouses}/>
       </div>
     );
   }

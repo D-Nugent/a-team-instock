@@ -1,6 +1,8 @@
 @import '../../styles/global';
 
-.warehouse {
+.container {
+    border-top: 1px solid $globalBorder;
+
     &__card {
         display: flex;
         align-items: space-evenly;
@@ -30,15 +32,16 @@
           position: relative;
           justify-content: space-between;
           margin-bottom: 16px;
-          width: 42.54317111459969%;
+          width: fit-content;
 
           & div:nth-of-type(1){ //Contact Name
-            width: 39.03%
+            width: 15.75520833333333vw;
+            max-width: 174px;
           }
           & div:nth-of-type(2){ //Contact Information
-            width: 60.97%;
+            width: 24.609375vw;
             @include laptop{
-              width: 54.15%;
+              max-width: 225px;
             }
           }
         }
@@ -52,16 +55,16 @@
           flex-direction: row;
           justify-content: space-between;
           margin-bottom: 16px;
-          width: 42.54317111459969%;
+          width: fit-content;
 
           & div:nth-of-type(1){ //Warehouse
-            width: 55.35%;
+            width: 19.53125vw;
             max-width: 221px;
           }
           & div:nth-of-type(2){ //Address
-            width: 44.65%;
+            width: 15.75520833333333vw;
             @include laptop{
-              width: 54.15%;
+              width: 20.390625vw
             }
           }
         }
@@ -78,11 +81,36 @@
           text-transform: uppercase;
           color: $globalSecondary;
           font-size: 0.7em;
-          margin: 0px;
+          margin: 0 0 4px;
           width: 90%;
           font-weight: 600;
           @include tablet {
             display: none;
+          }
+        }
+        
+        &-select {
+          display: flex;
+          text-decoration: none;
+          font-weight: 600;
+
+          &-text {
+            margin: auto 0;
+            font-size: 0.8em;
+            width: 79%;
+            @include tablet {
+              margin: 0%;
+              font-size: .875em;
+            }
+  
+            &.--link {
+              width: fit-content;
+              font-size: 0.8em;
+              margin-top: 0%;
+              color: $globalHiglight;
+              margin-bottom: 0%;
+              line-height: 20px;
+            }
           }
         }
 
@@ -103,27 +131,60 @@
             margin-bottom: 0%;
             line-height: 20px;
           }
+          &.--out-of-stock{
+            font-size: .6875rem;
+            font-weight: 600;
+            background-color: $stockOut;
+            color: $stockOutOpaque;
+            border-radius: 20px;
+            padding: 4px 8px;
+            width: 92px;
+            text-transform: uppercase;
+            text-align: center;
+          }
+          &.--in-stock{
+            font-size: .6875rem;
+            font-weight: 600;
+            background-color: $stockIn;
+            color: $stockInOpaque;
+            border-radius: 20px;
+            padding: 4px 8px;
+            width: 65px;
+            text-transform: uppercase;
+            text-align: center;
+          }
         }
 
         &-chevron{
             height: 20px;
         }
+
+        &.--shift{
+          @include tablet{
+            position: relative;
+            left: 70px;
+          }
+          @include laptop{
+            left: -20px;
+          }
+        }
+        &.--pull{
+          @include laptop{
+            position: relative;
+            left: -60px;
+          }
+        }
       }
 
-      &__select {
-        display: flex;
-        text-decoration: none;
-        font-weight: 600;
-      }
 
       &__links {
         display: flex;
         justify-content: space-between;
         padding-top: 19px;
         align-items: center;
+        width: 100%;
 
         @include tablet {
-          justify-content: flex-end;
           padding: 0%;
           width: 56px;
         }
@@ -131,12 +192,8 @@
         & img{
             height: 20px;
         }
-
-        & img:nth-of-type(1) {
-            @include tablet{
-                // position: relative;
-                // right: 24px;
-            }
-        } 
-      }
+    }
+  @include tablet {
+    border-top: none;
+  }
 }

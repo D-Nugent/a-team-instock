@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import ListItems from '../../components/ListItems/ListItems';
+import NavBar from '../../components/NavBar/NavBar';
 import returnIcon from '../../assets/icons/arrow_back-24px.svg';
 import editOffsetIcon from '../../assets/icons/edit-offset-24px.svg';
-import deleteIcon from '../../assets/icons/delete_outline-24px.svg';
-import editIcon from '../../assets/icons/edit-24px.svg';
-import chevronRight from '../../assets/icons/chevron_right-24px.svg';
 import './ContentDetails.scss';
 
 export class ContentDetails extends Component {
@@ -13,6 +12,7 @@ export class ContentDetails extends Component {
     currentItem: [],
     contact: [],
     inventoryList: [],
+    currentRoute: this.props.match.path
   }
 
   
@@ -21,32 +21,50 @@ export class ContentDetails extends Component {
     axios
     .get(`${process.env.REACT_APP_API_URL}${itemID}`)
     .then((response) => {
+      console.log(response);
       this.setState({
         currentItem: response.data,
         contact: response.data.contact
       })
     })
     .then(
-      this.props.match.path === '/warehouse/:id' &&
+      this.state.currentRoute === '/warehouse/:id' &&
       axios
       .get(`${process.env.REACT_APP_API_URL}${itemID}/inventory`)
       .then((response) => {
+        console.log(response.data);
         this.setState({
           inventoryList: response.data,
         })
-      })
-      
+      }) 
     )
-}
+  }
+
+  componentDidUpdate(prevProps){
+    let itemID = this.props.match.url
+    console.log(prevProps);
+    console.log(this.props);
+    axios
+    .get(`${process.env.REACT_APP_API_URL}${itemID}`)
+    .then((response) => {
+      console.log(response);
+      this.setState({
+        currentItem: response.data,
+        contact: response.data.contact,
+        currentRoute: this.props.match.path
+      })
+    })
+  }
 
   render() {
-    this.props.match.path === '/warehouse/:id'?console.log("It's a match!"):console.log("Better luck next time");
+    console.log(this.props);
+    console.log(this.state);
     return (
       <div className="content">
         <div className="content__heading">
           <div className="content__heading-nav">
-            <img src={returnIcon} alt="back arrow" className="content__heading-nav-return" onClick={()=> {this.props.history.push(`${this.props.match.path === '/inventory/:id'?"/inventory":"/warehouse"}`)}}/>
-            <h1 className="content__heading-nav-title">{this.props.match.path === '/inventory/:id'?this.state.currentItem.itemName:this.state.currentItem.name}</h1>
+            <img src={returnIcon} alt="back arrow" className="content__heading-nav-return" onClick={()=> {this.props.history.push(`${this.state.currentRoute === '/inventory/:id'?"/inventory":"/warehouse"}`)}}/>
+            <h1 className="content__heading-nav-title">{this.state.currentRoute === '/inventory/:id'?this.state.currentItem.itemName:this.state.currentItem.name}</h1>
           </div>
           <Link to={`${this.props.match.url}/edit`} className="content__heading-edit">
             <img src={editOffsetIcon} alt="edit icon" className="content__heading-edit-icon"/>
@@ -54,7 +72,7 @@ export class ContentDetails extends Component {
           </Link>
         </div>
         <div className="content__detail">
-        {this.props.match.path === '/inventory/:id' ?
+        {this.state.currentRoute === '/inventory/:id' ?
          <div className="content__detail-type">
             <h4 className="content__detail-type-heading">ITEM DESCRIPTION:</h4>
             <p className="content__detail-type-value">{this.state.currentItem.description}</p>
@@ -67,12 +85,12 @@ export class ContentDetails extends Component {
             <address className="content__detail-type-value">{this.state.currentItem.address},<br/>{this.state.currentItem.city}, {this.state.currentItem.country}</address>
           </div>
           }
-          {this.props.match.path === '/inventory/:id' ?
+          {this.state.currentRoute === '/inventory/:id' ?
            <div className={"content__detail-specs"}>
             <div className="content__detail-specs-container">
               <div className="content__detail-specs-container-status">
                 <h4 className="content__detail-specs-container-status-heading">STATUS:</h4>
-                <div className={`content__detail-specs-container-status-value${this.state.currentItem.quantity === 0?" --out-of-stock":""}`}>{this.state.currentItem.status}</div>
+                <div className={`content__detail-specs-container-status-value${this.state.currentItem.quantity === 0&&" --out-of-stock"}`}>{this.state.currentItem.status}</div>
               </div>
               <div className="content__detail-specs-container-quantity">
                 <h4 className="content__detail-specs-container-quantity-heading">QUANTITY:</h4>
@@ -101,25 +119,8 @@ export class ContentDetails extends Component {
           </div>
           }
         </div>
-        {/* Below is just to test code */}
-        <div className="content__inventory">
-          {this.state.inventoryList.map(invItem => {
-            return (
-            <div className="content__inventory-item" key={invItem.id}>
-              <Link to={`/inventory/${invItem.id}/`} className="content__inventory-item-name">{invItem.itemName}
-              <img src={chevronRight} alt="action arrow" className="content__inventory-item-name-chevron"/>
-              </Link>
-              <p className="content__inventory-item-category">{invItem.category}</p>
-              <div className="content__inventory-item-status">{invItem.status}</div>
-              <p className="content__inventory-item-quantity">{invItem.quantity}</p>
-              <div className="content__inventory-item-actions">
-                <img src={deleteIcon} alt="delete icon" className="content__inventory-item-actions-delete"/>
-                <img src={editIcon} alt="edit icon" className="content__inventory-item-actions-edit"/>
-              </div>
-            </div>
-            )
-          })}
-        </div>
+        {this.state.currentRoute !== '/inventory/:id' && <NavBar/>}
+        {this.state.currentRoute !== '/inventory/:id' && <ListItems listData={this.state.inventoryList}/>}
       </div>
     )
   }
