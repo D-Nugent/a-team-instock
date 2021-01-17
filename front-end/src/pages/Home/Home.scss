@@ -2,6 +2,7 @@
 @import "../../styles/partials/typography";
 @import "../../styles/partials/variables";
 @import "../../styles/global";
+
 .home {
   display: flex;
   flex-wrap: wrap;
@@ -285,10 +286,10 @@
         }
       }
 
-      @include tablet {
-        width: 24vw;
-        max-width: 274px;
-      }
+      // @include tablet {
+      //   width: 24vw;
+      //   max-width: 274px;
+      // }
     }
   }
   &__select {

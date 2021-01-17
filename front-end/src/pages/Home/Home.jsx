@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import searchIcon from "../../assets/icons/search-24px.svg";
 import ListItems from '../../components/ListItems/ListItems';
+import chevronIcon from "../../assets/icons/chevron_right-24px.svg";
 import axios from "axios";
 import NavBar from "../../components/NavBar/NavBar";
 import "./Home.scss";
 import PageLoading from "../../components/pageLoading/PageLoading";
+import {Link} from "react-router-dom"
+import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
+import editIcon from "../../assets/icons/edit-24px.svg";
 
 export class Home extends Component {
   state = {
@@ -66,12 +70,10 @@ export class Home extends Component {
               )}
             </form>
           </div>
-          <NavBar/>
-          <ListItems listData={this.state.itemList} loaded={this.state.loaded}/>
         </div>
         <NavBar path={warehouse}></NavBar>
         {warehouse
-          ? this.state.warehouses.map((content) => (
+          ? this.state.itemList.map((content) => (
               <div className='home__card' key={content.id}>
                 <div className='home__location'>
                   <div className='home__content'>
@@ -178,7 +180,8 @@ export class Home extends Component {
               </div>
             ))}
       </div>
-    );
+      );
+    }
   }
 }
 
