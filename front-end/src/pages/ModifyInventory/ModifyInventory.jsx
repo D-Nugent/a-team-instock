@@ -56,8 +56,9 @@ export class ModifyInventory extends Component {
   };
 
   handleQuantityChange = (event) => {
+    console.log(event.target.value, typeof event.target.value);
     this.setState({
-      quantity: event.target.value,
+      quantity: event.target.value === "" ? event.target.value : parseInt(event.target.value),
     });
   };
 
@@ -92,7 +93,7 @@ export class ModifyInventory extends Component {
             Quantity
             <input
               className={`modify__form-availability-input${this.state.validationError}`}
-              type="text"
+              type="number"
               id="quantity"
               name="quantity"
               value={this.state.quantity}
@@ -125,7 +126,7 @@ export class ModifyInventory extends Component {
       itemName: this.state.itemName,
       description: this.state.description,
       category: this.state.categorySelected,
-      status: this.state.status,
+      status: parseInt(this.state.quantity) === 0 ? "OUT OF STOCK" : this.state.status,
       quantity: this.state.quantity,
       warehouseName: this.state.warehouseSelected,
     };
@@ -154,20 +155,28 @@ export class ModifyInventory extends Component {
 
   submitEdit = (event) => {
     event.preventDefault();
+    console.log(this.state.quantity, 0);
 
     const newEdit = {
       itemName: this.state.itemName,
       description: this.state.description,
       category: this.state.categorySelected,
-      status: this.state.status,
+      status: parseInt(this.state.quantity) === 0 ? "OUT OF STOCK" : this.state.status,
       quantity: this.state.quantity,
       warehouseName: this.state.warehouseSelected,
     };
 
-    if (this.state.itemName !== "" && this.state.description !== "" && this.state.categorySelected !== "Please select" && this.state.quantity && this.state.warehouseSelected !== "Please select") {
+    if (
+      this.state.itemName !== "" &&
+      this.state.description !== "" &&
+      this.state.categorySelected !== "Please select" &&
+      this.state.quantity !== "" &&
+      this.state.warehouseSelected !== "Please select"
+    ) {
       this.setState({
         validationError: "",
       });
+
       axios.put(`${process.env.REACT_APP_API_URL}/inventory/${this.props.match.params.id}/edit`, newEdit).then((res) => {
         this.props.history.push(`/inventory/${res.data.id}`);
       });
