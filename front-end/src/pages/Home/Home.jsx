@@ -43,6 +43,7 @@ export class Home extends Component {
 
   render() {
 <<<<<<< HEAD
+<<<<<<< HEAD
     return (
       <div className="warehouse">
         <div className="warehouse__header">
@@ -97,6 +98,8 @@ export class Home extends Component {
           </div>
         ))}
 =======
+=======
+>>>>>>> 9869c756bf88b4cf6fd089d5a1a69ed0cdf529fe
     let warehouse = this.props.match.path === "/warehouse";              
     console.log(this.props);
     if (!this.state.loaded) {
@@ -234,7 +237,10 @@ export class Home extends Component {
                 </div>
               </div>
             ))}
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> 9869c756bf88b4cf6fd089d5a1a69ed0cdf529fe
       </div>
       );
     }
