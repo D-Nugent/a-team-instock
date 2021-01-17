@@ -155,7 +155,6 @@ export class ModifyInventory extends Component {
 
   submitEdit = (event) => {
     event.preventDefault();
-    console.log(this.state.quantity, 0);
 
     const newEdit = {
       itemName: this.state.itemName,
