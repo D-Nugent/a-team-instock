@@ -15,6 +15,7 @@ export class Home extends Component {
     loaded: false,
     deleteThis: false,
   };
+  // here is where the axios call happens its calls both inventory and warehouse data
   async componentDidMount() {
     await axios
       .get(`${process.env.REACT_APP_API_URL}${this.props.match.path}/`)
@@ -27,12 +28,12 @@ export class Home extends Component {
             inventory: res.data,
           });
         })
-      );
+      )
+      .catch((error) => {
+        console.log(error);
+      });
   }
   async componentDidUpdate(prevProps) {
-    console.log(prevProps);
-    console.log(this.props);
-    console.log(this.state);
     prevProps !== this.props &&
       (await axios
         .get(`${process.env.REACT_APP_API_URL}${this.props.match.path}/`)
@@ -43,11 +44,15 @@ export class Home extends Component {
           console.log(error);
         }));
   }
+  // handler used to delete data
   deleteHandler = () => {
     this.setState({
-      itemList: this.state.itemList.filter((item) => item.id !== this.state.deleteTarget),
+      itemList: this.state.itemList.filter(
+        (item) => item.id !== this.state.deleteTarget
+      ),
     });
   };
+  // handler used to close modal  
   closeHandler = () => {
     this.setState({
       deleteThis: false,
@@ -56,63 +61,113 @@ export class Home extends Component {
   render() {
     let warehouse = this.props.match.path === "/warehouse";
     console.log(this.props);
-    document.title = `InStock - ${this.props.match.path === "/warehouse" ? "Warehouses" : "Inventory"}`;
+    document.title = `InStock - ${
+      this.props.match.path === "/warehouse" ? "Warehouses" : "Inventory"
+    }`;
     if (!this.state.loaded) {
       return <PageLoading />;
     } else {
       return (
-        <div className="home">
-          {this.state.deleteThis === true && <DeleteModal deleteHandler={this.deleteHandler} closeHandler={this.closeHandler} deleteTarget={this.state.deleteTarget} routeProps={this.props} />}
-          <div className="home__header">
-            {warehouse ? <h1 className="home__title">Warehouse</h1> : <h1 className="home__title-inventory">Inventory</h1>}
-            <div className="home__form">
-              <form action="" id="form">
-                <input type="text" placeholder="Search..." className="home__input" />
-                <img src={searchIcon} alt="search icon" id="searchIcon" />
-                {warehouse ? <button className="home__btn">+ Add New Warehouse </button> : <button className="home__btn-inventory">+ Add New Item </button>}
+        <div className='home'>
+          {this.state.deleteThis === true && (
+            <DeleteModal
+              deleteHandler={this.deleteHandler}
+              closeHandler={this.closeHandler}
+              deleteTarget={this.state.deleteTarget}
+              routeProps={this.props}
+            />
+          )}
+          <div className='home__header'>
+          {/* used ternary used to render data based on route in url */}  
+          {warehouse ? (
+              <h1 className='home__title'>Warehouses</h1>
+            ) : (
+              <h1 className='home__title-inventory'>Inventory</h1>
+            )}
+            <div className='home__form'>
+              <form action='' id='form'>
+                <input
+                  type='text'
+                  placeholder='Search...'
+                  className='home__input'
+                />
+                <img src={searchIcon} alt='search icon' id='searchIcon' />
+                {warehouse ? (
+                  <Link
+                    to={`${this.props.match.url}/new-item`}
+                    className='home__btn'
+                  >
+                    + Add New Warehouse{" "}
+                  </Link>
+                ) : (
+                  <Link
+                    to={`${this.props.match.url}/new-item`}
+                    className='home__btn'
+                  >
+                    + Add New Item{" "}
+                  </Link>
+                )}
               </form>
             </div>
           </div>
-          {this.props.match.path === "/warehouse" && !this.state.itemList[0].contact ? (
+          {this.props.match.path === "/warehouse" &&
+          !this.state.itemList[0].contact ? (
             <PageLoading />
           ) : (
             <>
               <NavBar path={warehouse}></NavBar>
               {warehouse
                 ? this.state.itemList.map((content) => (
-                    <div className="home__card" key={content.id}>
-                      <div className="home__location">
-                        <div className="home__content">
-                          <p className="home__content-title">warehouse</p>
-                          <Link to={`warehouse/${content.id}`} className="home__select">
-                            <p className="home__content-text--link">{content.name}</p>
-                            <img src={chevronIcon} alt="select icon" />
+                    <div className='home__card' key={content.id}>
+                      <div className='home__location'>
+                        <div className='home__content'>
+                          <p className='home__content-title'>warehouse</p>
+                          <Link
+                            to={`${this.props.match.url}/${content.id}`}
+                            className='home__select'
+                          >
+                            <p className='home__content-text--link'>
+                              {content.name}
+                            </p>
+                            <img src={chevronIcon} alt='select icon' />
                           </Link>
                         </div>
-                        <div className="home__content">
-                          <p className="home__content-title">address</p>
-                          <p className="home__content-text">{content.address},</p>
-                          <p className="home__content-text">
+                        <div className='home__content'>
+                          <p className='home__content-title'>address</p>
+                          <p className='home__content-text'>
+                            {content.address},
+                          </p>
+                          <p className='home__content-text'>
                             {content.city},{content.country}
                           </p>
                         </div>
                       </div>
-                      <div className="home__contact">
-                        <div className="home__content">
-                          <p className="home__content-title">contact name</p>
-                          <p className="home__content-text">{content.contact.name}</p>
+                      <div className='home__contact'>
+                        <div className='home__content'>
+                          <p className='home__content-title'>contact name</p>
+                          <p className='home__content-text'>
+                            {content.contact.name}
+                          </p>
                         </div>
-                        <div className="home__content">
-                          <p className="home__content-title">contact information</p>
-                          <p className="home__content-text"> {content.contact.phone}</p>
-                          <p className="home__content-text"> {content.contact.email}</p>
+                        <div className='home__content'>
+                          <p className='home__content-title'>
+                            contact information
+                          </p>
+                          <p className='home__content-text--contact'>
+                            {" "}
+                            {content.contact.phone}
+                          </p>
+                          <p className='home__content-text--contact'>
+                            {" "}
+                            {content.contact.email}
+                          </p>
                         </div>
                       </div>
-                      <div className="home__links">
+                      <div className='home__links'>
                         <img
-                          className="home__links-delete"
+                          className='home__links-delete'
                           src={deleteIcon}
-                          alt="delete icon"
+                          alt='delete icon'
                           onClick={() => {
                             this.setState({
                               deleteThis: true,
@@ -121,45 +176,70 @@ export class Home extends Component {
                           }}
                         />
                         <Link to={`warehouse/${content.id}/edit`}>
-                          <img className="home__links-edit" src={editIcon} alt="edit icon" />
+                          <img
+                            className='home__links-edit'
+                            src={editIcon}
+                            alt='edit icon'
+                          />
                         </Link>
                       </div>
                     </div>
                   ))
                 : this.state.itemList.map((content) => (
-                    <div className="home__card-inventory" key={content.id}>
-                      <div className="home__location-inventory">
-                        <div className="home__content">
-                          <p className="home__content-title">inventory item</p>
-                          <Link to={`inventory/${content.id}`} className="home__select">
-                            <p className="home__content-text--link">{content.itemName}</p>
-                            <img src={chevronIcon} alt="select icon" />
+                    <div className='home__card-inventory' key={content.id}>
+                      <div className='home__location-inventory'>
+                        <div className='home__content'>
+                          <p className='home__content-title'>inventory item</p>
+                          <Link
+                            to={`${this.props.match.url}/${content.id}`}
+                            className='home__select'
+                          >
+                            <p className='home__content-text--link'>
+                              {content.itemName}
+                            </p>
+                            <img src={chevronIcon} alt='select icon' />
                           </Link>
                         </div>
-                        <div className="home__content">
-                          <p className="home__content-title-inventory">category</p>
-                          <p className="home__content-text-category">{content.category}</p>
+                        <div className='home__content'>
+                          <p className='home__content-title-inventory'>
+                            category
+                          </p>
+                          <p className='home__content-text-category'>
+                            {content.category}
+                          </p>
                         </div>
                       </div>
-                      <div className="home__contact-inventory">
-                        <div className="home__content">
-                          <p className="home__content-title">status</p>
-                          <p className={`home__content-text--status${content.quantity === 0 ? " --out-of-stock" : ""}`}>{content.status}</p>
+                      <div className='home__contact-inventory'>
+                        <div className='home__content'>
+                          <p className='home__content-title'>status</p>
+                          <p
+                            className={`home__content-text--status${
+                              content.quantity === 0 ? " --out-of-stock" : ""
+                            }`}
+                          >
+                            {content.status}
+                          </p>
                         </div>
-                        <div className="home__content">
-                          <p className="home__content-title">qty</p>
-                          <p className="home__content-text-inventory">{content.quantity}</p>
+                        <div className='home__content'>
+                          <p className='home__content-title'>qty</p>
+                          <p className='home__content-text-inventory'>
+                            {content.quantity}
+                          </p>
                         </div>
-                        <div className="home__content">
-                          <p className="home__content-title-inventory">warehouse</p>
-                          <p className="home__content-text-location">{content.warehouseName}</p>
+                        <div className='home__content'>
+                          <p className='home__content-title-inventory'>
+                            warehouse
+                          </p>
+                          <p className='home__content-text-location'>
+                            {content.warehouseName}
+                          </p>
                         </div>
                       </div>
-                      <div className="home__links-inventory">
+                      <div className='home__links-inventory'>
                         <img
-                          className="home__links-delete"
+                          className='home__links-delete'
                           src={deleteIcon}
-                          alt="delete icon"
+                          alt='delete icon'
                           onClick={() => {
                             this.setState({
                               deleteThis: true,
@@ -168,7 +248,11 @@ export class Home extends Component {
                           }}
                         />
                         <Link to={`inventory/${content.id}/edit`}>
-                          <img className="home__links-edit" src={editIcon} alt="edit icon" />
+                          <img
+                            className='home__links-edit'
+                            src={editIcon}
+                            alt='edit icon'
+                          />
                         </Link>
                       </div>
                     </div>
