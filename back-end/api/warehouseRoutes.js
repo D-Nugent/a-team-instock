@@ -6,7 +6,7 @@ const inventory = require("./routes/inventories.json");
 const { v4: uuidv4 } = require("uuid");
 
 router.route("/").get((req, res) => {
-  
+  let filteredArray = [];
 const warehousesNew = [...warehouses]
 warehousesNew.forEach(warehouse => {
     for (const [key, value] of Object.entries(warehouse.contact)) {
@@ -15,7 +15,7 @@ warehousesNew.forEach(warehouse => {
     warehousesNew[warehousesNew.indexOf(warehouse)].contact = ''
 });
 
-  let filteredArray = []
+
   warehousesNew.forEach(item => {
   Object.values(item).map(value => {
       let searchValue = isNaN(value)?value.toLowerCase():value.toString();
@@ -27,8 +27,6 @@ warehousesNew.forEach(warehouse => {
       }
     })
   })
-  console.log(filteredArray);
-  console.log(req.query.filterValue);
   res.status(200).send(filteredArray);
 });
 

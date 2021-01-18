@@ -61,7 +61,6 @@ export class Home extends Component {
   };
   searchContent = (event) => {
     const filterValue = event.target.value
-    console.log(filterValue);
     axios
     .get(`${process.env.REACT_APP_API_URL}${this.props.match.path}?filterValue=${filterValue}`)
     .then((res) => {
@@ -106,9 +105,9 @@ export class Home extends Component {
               </form>
             </div>
           </div>
-          {this.props.match.path === "/warehouse" && !this.state.itemList[0].contactname? (
+          {this.props.match.path === "/warehouse" && this.state.loaded === false?
             <PageLoading />
-          ) : (
+          :
             <>
               <NavBar path={warehouse}></NavBar>
               {warehouse
@@ -243,7 +242,7 @@ export class Home extends Component {
                     </div>
                   ))}
             </>
-          )}
+          }
         </div>
       );
     }

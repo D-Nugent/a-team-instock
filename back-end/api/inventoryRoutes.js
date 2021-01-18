@@ -20,11 +20,6 @@ router.route("/").get((req, res) => {
   res.status(200).send(filteredArray);
 });
 
-
-// inventories.filter((item) => item.id === req.params.id).shift();
-
-
-
 router.route("/categories").get((req, res) => {
   const categories = inventories.map((inventory) => inventory.category);
 
