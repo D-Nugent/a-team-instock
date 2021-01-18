@@ -190,7 +190,9 @@ export class ModifyInventory extends Component {
     const { status } = this.state;
     const quantity = this.renderQuantity(this.state.status);
     const validationError = this.state.validationError;
-
+    console.log(this.state);
+    console.log(this.props);
+    document.title = `InStock - Modify: ${this.props.match.path === "/inventory/:id/edit"?this.state.itemName:"Add New Item"}`
     return (
       <section className="modify">
         <div className="modify__header-container">
