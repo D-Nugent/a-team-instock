@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const router = express.Router();
 const inventories = require("./routes/inventories.json");
-const warehouses = require("./routes/warehouses.json");
 const { v4: uuidv4 } = require("uuid");
 
 router.route("/").get((req, res) => {
@@ -22,17 +21,17 @@ router.route("/categories").get((req, res) => {
 });
 
 router.route("/new-item").post((req, res) => {
-  const { itemName, description, category, status, quantity, warehouseName } = req.body;
-
-  const currentWarehouseID = warehouses.find((warehouse) => {
-    if (warehouse.name === warehouseName) {
-      return warehouse.id;
-    }
-  });
+  const {
+    itemName,
+    description,
+    category,
+    status,
+    quantity,
+    warehouseName,
+  } = req.body;
 
   let newItem = {
     id: uuidv4(),
-    warehouseID: currentWarehouseID.id,
     itemName,
     description,
     category,
@@ -47,7 +46,7 @@ router.route("/new-item").post((req, res) => {
 });
 
 router.route("/:id").get((req, res) => {
-  res.status(200).send(inventories.filter((item) => item.id === req.params.id).shift());
+res.status(200).send(inventories.filter((item) => item.id === req.params.id).shift());
 });
 
 router.route("/:id").delete((req, res) => {
@@ -61,10 +60,21 @@ router.route("/:id").delete((req, res) => {
 });
 
 router.route("/:id/edit").put((req, res) => {
-  const { itemName, description, category, status, quantity, warehouseName } = req.body;
+  const {
+    itemName,
+    description,
+    category,
+    status,
+    quantity,
+    warehouseName,
+  } = req.body;
 
   const requestedItemId = req.params.id;
-  const requestedItem = inventories.findIndex((inventory) => inventory.id === requestedItemId);
+  const requestedItem = inventories.findIndex(
+    (inventory) => inventory.id === requestedItemId
+  );
+
+  console.log(inventories[requestedItem].itemName);
 
   inventories[requestedItem].itemName = itemName;
   inventories[requestedItem].description = description;

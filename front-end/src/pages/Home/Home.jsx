@@ -44,13 +44,11 @@ export class Home extends Component {
           console.log(error);
         }));
   }
-
   deleteHandler = () => {
     this.setState({
       itemList: this.state.itemList.filter((item) => item.id !== this.state.deleteTarget),
     });
   };
-
   closeHandler = () => {
     this.setState({
       deleteThis: false,
@@ -184,5 +182,4 @@ export class Home extends Component {
     }
   }
 }
-
 export default Home;
