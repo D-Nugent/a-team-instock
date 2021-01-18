@@ -15,6 +15,7 @@ export class ContentDetails extends Component {
     currentItem: [],
     itemList: [],
     currentRoute: this.props.match.path,
+    ascendingSort: false
   };
 
   componentDidMount() {
@@ -22,16 +23,14 @@ export class ContentDetails extends Component {
     axios
       .get(`${process.env.REACT_APP_API_URL}${itemID}`)
       .then((response) => {
-        console.log(response);
         this.setState({
           currentItem: response.data,
-          contact: response.data.contact,
+          currentRoute: this.props.match.path
         });
       })
       .then(
         this.state.currentRoute === "/warehouse/:id" &&
           axios.get(`${process.env.REACT_APP_API_URL}${itemID}/inventory`).then((response) => {
-            console.log(response.data);
             this.setState({
               itemList: response.data,
             });
@@ -41,13 +40,10 @@ export class ContentDetails extends Component {
 
   componentDidUpdate(prevProps) {
     let itemID = this.props.match.url;
-    console.log(prevProps);
-    console.log(this.props);
     prevProps !== this.props &&
     axios
     .get(`${process.env.REACT_APP_API_URL}${itemID}`)
     .then((response) => {
-      console.log(response);
       this.setState({
         currentItem: response.data,
         currentRoute: this.props.match.path,
@@ -56,17 +52,26 @@ export class ContentDetails extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-    console.log(this.props);
     nextProps.location !== this.props.location &&
       this.setState({
         prevPath: this.props.location,
       });
   }
 
+  sortToggle = (sortField) => {
+    this.state.ascendingSort === false?
+  this.setState({
+    itemList: this.state.itemList.sort((a,b) => (a[sortField] > b[sortField])?1:-1),
+    ascendingSort: true,
+  })
+  :
+  this.setState({
+    itemList: this.state.itemList.sort((a,b) => (a[sortField] < b[sortField])?1:-1),
+    ascendingSort: false,
+  })
+  }
+
   render() {
-    console.log(this.props);
-    console.log(this.state);
     document.title = `InStock - ${this.state.currentItem.city || this.state.currentItem.warehouseName} : ${this.state.currentItem.name || this.state.currentItem.itemName}`;
     return (
       <div className="content">
@@ -88,14 +93,14 @@ export class ContentDetails extends Component {
           </Link>
         </div>
         <div className="content__detail">
-          {this.state.currentRoute === "/inventory/:id" ? (
+          {this.state.currentRoute === "/inventory/:id" ?
             <div className="content__detail-type">
               <h4 className="content__detail-type-heading">ITEM DESCRIPTION:</h4>
               <p className="content__detail-type-value">{this.state.currentItem.description}</p>
               <h4 className="content__detail-type-heading">CATEGORY:</h4>
               <p className="content__detail-type-value">{this.state.currentItem.category}</p>
             </div>
-          ) : (
+          :
             <div className="content__detail-type --warehouse">
               <h4 className="content__detail-type-heading">WAREHOUSE ADDRESS:</h4>
               <address className="content__detail-type-value">
@@ -103,8 +108,8 @@ export class ContentDetails extends Component {
                 {this.state.currentItem.city}, {this.state.currentItem.country}
               </address>
             </div>
-          )}
-          {this.state.currentRoute === "/inventory/:id" ? (
+          }
+          {this.state.currentRoute === "/inventory/:id" ?
             <div className={"content__detail-specs"}>
               <div className="content__detail-specs-container">
                 <div className="content__detail-specs-container-status">
@@ -121,24 +126,24 @@ export class ContentDetails extends Component {
                 <p className="content__detail-specs-warehouse-value">{this.state.currentItem.warehouseName}</p>
               </div>
             </div>
-          ) : (
+          :
             <div className="content__detail-specs --warehouse">
               <div className="content__detail-specs-container">
                 <div className="content__detail-specs-container-contact">
                   <h4 className="content__detail-specs-container-contact-heading">CONTACT NAME:</h4>
-                  <div className="content__detail-specs-container-contact-name">{this.state.contact.name}</div>
-                  <div className="content__detail-specs-container-contact-position">{this.state.contact.position}</div>
+                  <div className="content__detail-specs-container-contact-name">{this.state.currentItem.contactname}</div>
+                  <div className="content__detail-specs-container-contact-position">{this.state.currentItem.contactposition}</div>
                 </div>
                 <div className="content__detail-specs-container-communication">
                   <h4 className="content__detail-specs-container-communication-heading">CONTACT INFORMATION:</h4>
-                  <p className="content__detail-specs-container-communication-phone">{this.state.contact.phone}</p>
-                  <p className="content__detail-specs-container-communication-email">{this.state.contact.email}</p>
+                  <p className="content__detail-specs-container-communication-phone">{this.state.currentItem.contactphone}</p>
+                  <p className="content__detail-specs-container-communication-email">{this.state.currentItem.contactemail}</p>
                 </div>
               </div>
             </div>
-          )}
+          }
         </div>
-        {this.state.currentRoute !== "/inventory/:id" && <NavBar />}
+        {this.state.currentRoute !== "/inventory/:id" && <NavBar sortToggle={this.sortToggle}/>}
         {this.state.currentRoute !== "/inventory/:id" && (
           <>
             {this.props.match.path === "/warehouse" && !this.state.itemList[0].name ? (
@@ -197,8 +202,6 @@ export class ContentDetails extends Component {
       </div>
     );
   }
-}
-{
 }
 
 export default ContentDetails;

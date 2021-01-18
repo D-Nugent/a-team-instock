@@ -15,6 +15,7 @@ export class Home extends Component {
     itemList: [],
     loaded: false,
     deleteThis: false,
+    ascendingSort: false
   };
   // here is where the axios call happens its calls both inventory and warehouse data
   async componentDidMount() {
@@ -64,17 +65,28 @@ export class Home extends Component {
     axios
     .get(`${process.env.REACT_APP_API_URL}${this.props.match.path}?filterValue=${filterValue}`)
     .then((res) => {
-      console.log(res);
       this.setState({ itemList: res.data, loaded: true });
     })
     .catch((error) => {
       console.log(error);
     })
   }
+  sortToggle = (sortField) => {
+    this.state.ascendingSort === false?
+  this.setState({
+    itemList: this.state.itemList.sort((a,b) => (a[sortField] > b[sortField])?1:-1),
+    ascendingSort: true,
+  })
+  :
+  this.setState({
+    itemList: this.state.itemList.sort((a,b) => (a[sortField] < b[sortField])?1:-1),
+    ascendingSort: false,
+  })
+
+  }
 
   render() {
     let warehouse = this.props.match.path === "/warehouse";
-    console.log(this.props);
     document.title = `InStock - ${this.props.match.path === "/warehouse" ? "Warehouses" : "Inventory"}`;
 
     if (!this.state.loaded) {
@@ -109,7 +121,7 @@ export class Home extends Component {
             <PageLoading />
           :
             <>
-              <NavBar path={warehouse}></NavBar>
+              <NavBar path={warehouse} sortToggle={this.sortToggle}></NavBar>
               {warehouse
                 ? this.state.itemList.map((content) => (
                     <div className='home__card' key={content.id}>
@@ -123,7 +135,7 @@ export class Home extends Component {
                             <p className='home__content-text--link'>
                               {content.name}
                             </p>
-                            <img src={chevronIcon} alt='select icon' />
+                            <img src={chevronIcon} alt='select icon' className="home__select--link" />
                           </Link>
                         </div>
                         <div className='home__content'>
@@ -181,7 +193,7 @@ export class Home extends Component {
                             <p className='home__content-text--link'>
                               {content.itemName}
                             </p>
-                            <img src={chevronIcon} alt='select icon' />
+                            <img src={chevronIcon} alt='select icon'  className="home__select--link"/>
                           </Link>
                         </div>
                         <div className='home__content'>

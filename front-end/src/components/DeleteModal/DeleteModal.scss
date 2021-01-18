@@ -4,7 +4,6 @@ html,
 body {
   margin: 0;
   height: 100%;
-  overflow: hidden;
 }
 
 .delete {
@@ -43,6 +42,10 @@ body {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 25px;
+
+    &:hover{
+      cursor: pointer;
+    }
     @include tablet {
       margin-bottom: 5px;
     }

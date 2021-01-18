@@ -2,6 +2,13 @@
 @import "../../styles/partials/typography";
 @import "../../styles/partials/variables";
 @import "../../styles/global";
+
+@keyframes hover-shift {
+  0% {transform: translateX(0px);}
+  50% {transform: translateX(4px)}
+  100% {transform: translateX(0px)}
+}
+
 .home {
   display: flex;
   flex-wrap: wrap;
@@ -48,17 +55,19 @@
     bottom: 10%;
 
     @include tablet {
-      width: auto;
+      width: 200PX;
       font-size: 0.8em;
       bottom: 0%;
       margin-bottom: 0%;
       margin-right: 5%;
+      padding-left: 16px;
+      padding-right: 16px;
     }
 
     &-inventory {
       @extend .home__btn;
-      @include tablet {
-        width: 128px;
+      @include tablet{
+        width: fit-content;
       }
     }
   }
@@ -71,13 +80,14 @@
     padding-left: 5%;
     outline: none;
     @include tablet {
-      width: 39%;
+      width: 47%;
       padding-left: 3%;
       font-size: 0.75em;
       margin-left: 20%;
+      max-width: 185px;
     }
     @include laptop {
-      width: 50%;
+      max-width: 274px;
     }
   }
   &__form {
@@ -276,7 +286,8 @@
           position: relative;
           right: 10%;
           font-size: 0.78em;
-          width: 100px;
+          width: fit-content;
+          white-space: nowrap;
           @include laptop {
             right: 20%;
           }
@@ -312,6 +323,10 @@
     display: flex;
     text-decoration: none;
     font-weight: 600;
+
+    &:hover > img{
+      animation: hover-shift 1.5s ease infinite;
+    }
   }
   &__links {
     text-decoration: none;
@@ -328,7 +343,10 @@
       @extend .home__links;
       position: relative;
       left: 1%;
-      justify-content: space-around;
+      justify-content: space-between;
+      @include tablet {
+        justify-content: space-around;
+      }
     }
     &-delete {
       height: 20px;
@@ -349,11 +367,11 @@
   @include tablet {
     left: auto;
     bottom: auto;
-    top: 12%;
+    top: 8px;
     right: 32px;
     height: 20px;
     @include laptop {
-      top: 8%;
+      top: 8px;
     }
   }
 }
@@ -365,7 +383,7 @@
   @include tablet {
     display: flex;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-end;
     width: 100%;
     left: 4%;
   }

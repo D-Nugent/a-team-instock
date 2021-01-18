@@ -56,7 +56,6 @@ export class ModifyInventory extends Component {
   };
 
   handleQuantityChange = (event) => {
-    console.log(event.target.value, typeof event.target.value);
     this.setState({
       quantity: event.target.value === "" ? event.target.value : parseInt(event.target.value),
     });
@@ -189,7 +188,6 @@ export class ModifyInventory extends Component {
       });
 
       axios.put(`${process.env.REACT_APP_API_URL}/inventory/${this.props.match.params.id}/edit`, newEdit).then((res) => {
-        console.log(this.props.match.params.id);
         if (this.props.match.path === "/inventory/:id") {
           this.props.history.push(`/inventory/${res.data.id}`);
         } else {
@@ -211,8 +209,6 @@ export class ModifyInventory extends Component {
     const { status } = this.state;
     const quantity = this.renderQuantity(this.state.status);
     const validationError = this.state.validationError;
-    console.log(this.state);
-    console.log(this.props);
     document.title = `InStock - Modify: ${this.props.match.path === "/inventory/:id/edit" ? this.state.itemName : "Add New Item"}`;
     return (
       <section className="modify">

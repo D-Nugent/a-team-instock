@@ -35,46 +35,11 @@
       line-height: 18px;
       margin: 0px;
       font-weight: 600;
-    }
 
-    // &:nth-of-type(1){ //Warehouse/Inv Item
-    //   width: 19.53125vw;
-    //   max-width: 221px;
-    // }
-    // &:nth-of-type(2){ //Address/Category
-    //   width: 15.75520833333333vw;
-    //   @include laptop{
-    //     width: 20.390625vw
-    //   }
-    // }
-    // &:nth-of-type(3){ //Contact Name/Status
-    //   width: 15.75520833333333vw;
-    //   max-width: 174px;
-    // }
-    // &:nth-of-type(4){ //Contact Information/Quantity
-    //   width: 24.609375vw;
-    //   max-width: 225px;
-    // }
-    // &:nth-of-type(5){ //Actions
-    //   width: 56px;
-    //   display: flex;
-    //   justify-content: flex-end;
-    // }
-    // &.--shift{
-    //   @include tablet{
-    //     position: relative;
-    //     left: 70px;
-    //     @include laptop{
-    //       left: -20px;
-    //     }
-    //   }
-    // }
-    // &.--pull{
-    //   @include laptop{
-    //     position: relative;
-    //     left: -60px;
-    //   }
-    // }
+      &:not(:last-child):hover{
+        cursor: pointer;
+      }
+    }
   }
   &__img {
     height: 12px;

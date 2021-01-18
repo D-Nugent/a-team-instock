@@ -11,20 +11,17 @@ export class DeleteModal extends Component {
   };
 
   componentDidMount() {
-    console.log("test");
 
     this.state.route === "/warehouse/:id"
       ? axios.get(`${process.env.REACT_APP_API_URL}/inventory/${this.state.deleteTarget}`).then((res) => {
           this.setState({
             gatheredData: res.data,
           });
-          console.log(res.data);
         })
       : axios.get(`${process.env.REACT_APP_API_URL}${this.state.route}/${this.state.deleteTarget}`).then((res) => {
           this.setState({
             gatheredData: res.data,
           });
-          console.log(res.data);
         });
   }
 
@@ -40,7 +37,6 @@ export class DeleteModal extends Component {
         });
   };
   render() {
-    console.log(this.state);
     return (
       <section className="delete">
         <div className="delete-modal">

@@ -85,9 +85,6 @@ router.route("/:id/edit").put((req, res) => {
   const requestedItem = inventories.findIndex(
     (inventory) => inventory.id === requestedItemId
   );
-
-  console.log(inventories[requestedItem].itemName);
-
   inventories[requestedItem].itemName = itemName;
   inventories[requestedItem].description = description;
   inventories[requestedItem].category = category;

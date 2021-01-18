@@ -11,7 +11,6 @@ app.use(express.json());
 
 app.use((req, res, next) => {
   const query = require('url').parse(req.url,true).query;
-  console.log(req.body.filter);
   console.log(`The path '${req.path}' was targeted at ${new Date().toLocaleTimeString()}`);
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "*");
