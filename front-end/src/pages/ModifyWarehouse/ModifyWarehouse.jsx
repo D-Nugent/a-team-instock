@@ -94,6 +94,10 @@ export class ModifyWarehouse extends Component {
       city: "",
       country: "",
       warehouseName: "",
+      contactEmail: "",
+      contactName: "",
+      phone: "",
+      position: "",
     });
   };
 
