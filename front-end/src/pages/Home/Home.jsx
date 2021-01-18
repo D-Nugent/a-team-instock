@@ -15,6 +15,7 @@ export class Home extends Component {
   state = {
     itemList: [],
     loaded: false,
+    deleteThis: false,
   };
   async componentDidMount() {
     await axios
@@ -31,9 +32,9 @@ export class Home extends Component {
       );
   }
   async componentDidUpdate(prevProps) {
-    console.log(prevProps);
-    console.log(this.props);
-    console.log(this.state);
+    // console.log(prevProps);
+    // console.log(this.props);
+    // console.log(this.state);
     prevProps !== this.props &&
       (await axios
         .get(`${process.env.REACT_APP_API_URL}${this.props.match.path}/`)
@@ -44,15 +45,28 @@ export class Home extends Component {
           console.log(error);
         }));
   }
+
+  deleteHandler = () => {
+    this.setState({
+      itemList: this.state.itemList.filter((item) => item.id !== this.state.deleteTarget),
+    });
+  };
+
+  closeHandler = () => {
+    this.setState({
+      deleteThis: false,
+    });
+  };
+
   render() {
     let warehouse = this.props.match.path === "/warehouse";
-    console.log(this.props);
+    // console.log(this.props);
     if (!this.state.loaded) {
       return <PageLoading />;
     } else {
       return (
         <div className="home">
-          {this.state.deleteThis === true && <DeleteModal deleteTarget={this.state.deleteTarget} routeProps={this.props} />}
+          {this.state.deleteThis === true && <DeleteModal deleteHandler={this.deleteHandler} closeHandler={this.closeHandler} deleteTarget={this.state.deleteTarget} routeProps={this.props} />}
           <div className="home__header">
             {warehouse ? <h1 className="home__title">Warehouse</h1> : <h1 className="home__title-inventory">Inventory</h1>}
             <div className="home__form">
