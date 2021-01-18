@@ -5,8 +5,25 @@ const inventories = require("./routes/inventories.json");
 const { v4: uuidv4 } = require("uuid");
 
 router.route("/").get((req, res) => {
-  res.status(200).send(inventories);
+  let filteredArray = []
+  inventories.forEach(item => {
+  Object.values(item).map(value => {
+      let searchValue = isNaN(value)?value.toLowerCase():value.toString();
+      let filterValue = req.query.filterValue === undefined?"":req.query.filterValue.toLowerCase();
+      if (searchValue.includes(filterValue)) {
+        if (filteredArray.indexOf(item) < 0) {
+          filteredArray.push(item);
+        }
+      }
+    })
+  })
+  res.status(200).send(filteredArray);
 });
+
+
+// inventories.filter((item) => item.id === req.params.id).shift();
+
+
 
 router.route("/categories").get((req, res) => {
   const categories = inventories.map((inventory) => inventory.category);
