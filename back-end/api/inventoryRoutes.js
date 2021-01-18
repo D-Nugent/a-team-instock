@@ -46,19 +46,19 @@ router.route("/new-item").post((req, res) => {
 });
 
 router.route("/:id").get((req, res) => {
-  res
-    .status(200)
-    .send(inventories.filter((item) => item.id === req.params.id).shift());
-})
-router.route('/:id').delete((req, res) => {
+res.status(200).send(inventories.filter((item) => item.id === req.params.id).shift());
+});
+
+router.route("/:id").delete((req, res) => {
   for (let i = 0; i < inventories.length; i++) {
-  let currentItem = inventories[i];
-  if (currentItem = req.params.id) {
-    inventories.splice(i, 1);
-    return res.status(200).send(inventories)
-    };
-  };
-})
+    let currentItem = inventories[i];
+    if ((currentItem = req.params.id)) {
+      inventories.splice(i, 1);
+      return res.status(200).send(inventories);
+    }
+  }
+});
+
 router.route("/:id/edit").put((req, res) => {
   const {
     itemName,

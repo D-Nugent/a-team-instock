@@ -9,7 +9,6 @@ router.route("/").get((req, res) => {
   res.status(200).send(warehouses);
 });
 
-
 router.route("/warehouse-list").get((req, res) => {
   const warehouseList = warehouses.map((warehouse) => warehouse.name);
 
@@ -22,9 +21,9 @@ router.route("/warehouse-list").get((req, res) => {
   res.status(200).send(uniqueWarehouses);
 });
 
-router.route("/:id")
-.get((req, res) => {
+router.route("/:id").get((req, res) => {
   console.log("THIS ROUTE RAN");
+
   res.status(200).send(warehouses.filter(item => item.id === req.params.id).shift())
 })
 .delete((req, res) => {
@@ -48,10 +47,9 @@ return res.status(200).send(warehouses)
   res.status(200).send(inventory)
 })
 
-router.route("/:id/inventory")
-.get((req, res) => {
-  res.status(200).send(inventory.filter(item => item.warehouseID === req.params.id))
-})
+router.route("/:id/inventory").get((req, res) => {
+  res.status(200).send(inventory.filter((item) => item.warehouseID === req.params.id));
+});
 
 
 

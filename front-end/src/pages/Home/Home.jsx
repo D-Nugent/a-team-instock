@@ -14,6 +14,7 @@ export class Home extends Component {
   state = {
     itemList: [],
     loaded: false,
+    deleteThis: false,
   };
   async componentDidMount() {
     await axios
@@ -41,14 +42,28 @@ export class Home extends Component {
         }));
   }
 
+  deleteHandler = () => {
+    this.setState({
+      itemList: this.state.itemList.filter((item) => item.id !== this.state.deleteTarget),
+    });
+  };
+
+  closeHandler = () => {
+    this.setState({
+      deleteThis: false,
+    });
+  };
   render() {
     let warehouse = this.props.match.path === "/warehouse";
     console.log(this.props);
+    document.title = `InStock - ${this.props.match.path === "/warehouse"?"Warehouses":"Inventory"}`
+
     if (!this.state.loaded) {
       return <PageLoading />;
     } else {
       return (
         <div className="home">
+          {this.state.deleteThis === true && <DeleteModal deleteHandler={this.deleteHandler} closeHandler={this.closeHandler} deleteTarget={this.state.deleteTarget} routeProps={this.props} />}
           <div className="home__header">
             {warehouse ? <h1 className="home__title">Warehouse</h1> : <h1 className="home__title-inventory">Inventory</h1>}
             <div className="home__form">
@@ -59,6 +74,10 @@ export class Home extends Component {
               </form>
             </div>
           </div>
+          {this.props.match.path === "/warehouse" && !this.state.itemList[0].contact ? (
+          <PageLoading/>
+          :
+          <>
           <NavBar path={warehouse}></NavBar>
           {warehouse
             ? this.state.itemList.map((content) => (
