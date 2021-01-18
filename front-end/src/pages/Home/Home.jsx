@@ -14,6 +14,7 @@ export class Home extends Component {
   state = {
     itemList: [],
     loaded: false,
+    deleteThis: false,
   };
   async componentDidMount() {
     await axios
@@ -44,39 +45,39 @@ export class Home extends Component {
       });
   }
 
+  deleteHandler = () => {
+    this.setState({
+      itemList: this.state.itemList.filter((item) => item.id !== this.state.deleteTarget),
+    });
+  };
+
+  closeHandler = () => {
+    this.setState({
+      deleteThis: false,
+    });
+  };
   render() {
     let warehouse = this.props.match.path === "/warehouse";              
     console.log(this.props);
     document.title = `InStock - ${this.props.match.path === "/warehouse"?"Warehouses":"Inventory"}`
+
     if (!this.state.loaded) {
       return <PageLoading/>
     } else {
       return (
-      <div className='home'>
-        {this.state.deleteThis === true && <DeleteModal deleteTarget={this.state.deleteTarget} routeProps={this.props} />}
-        <div className='home__header'>
-          {warehouse ? (
-            <h1 className='home__title'>Warehouse</h1>
-          ) : (
-            <h1 className='home__title-inventory'>Inventory</h1>
-          )}
-          <div className='home__form'>
-            <form action='' id='form'>
-              <input
-                type='text'
-                placeholder='Search...'
-                className='home__input'
-              />
-              <img src={searchIcon} alt='search icon' id='searchIcon' />
-              {warehouse ? (
-                <button className='home__btn'>+ Add New Warehouse </button>
-              ) : (
-                <button className='home__btn-inventory'>+ Add New Item </button>
-              )}
-            </form>
+        <div className="home">
+          {this.state.deleteThis === true && <DeleteModal deleteHandler={this.deleteHandler} closeHandler={this.closeHandler} deleteTarget={this.state.deleteTarget} routeProps={this.props} />}
+          <div className="home__header">
+            {warehouse ? <h1 className="home__title">Warehouse</h1> : <h1 className="home__title-inventory">Inventory</h1>}
+            <div className="home__form">
+              <form action="" id="form">
+                <input type="text" placeholder="Search..." className="home__input" />
+                <img src={searchIcon} alt="search icon" id="searchIcon" />
+                {warehouse ? <button className="home__btn">+ Add New Warehouse </button> : <button className="home__btn-inventory">+ Add New Item </button>}
+              </form>
+            </div>
           </div>
-        </div>
-        {this.props.match.path === '/warehouse' && !this.state.itemList[0].contact ?
+          {this.props.match.path === "/warehouse" && !this.state.itemList[0].contact ? (
           <PageLoading/>
           :
           <>
