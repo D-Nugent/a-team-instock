@@ -23,12 +23,39 @@ router.route("/warehouse-list").get((req, res) => {
 
 router.route("/:id").get((req, res) => {
   console.log("THIS ROUTE RAN");
-  res.status(200).send(warehouses.filter((item) => item.id === req.params.id).shift());
-});
+
+  res.status(200).send(warehouses.filter(item => item.id === req.params.id).shift())
+})
+.delete((req, res) => {
+let i = 0;
+while (i < inventory.length) {
+  const item = inventory[i]
+  item.warehouseID === req.params.id ?
+  inventory.splice(i,1)
+  :
+  i += 1
+}
+for (let i = 0; i < warehouses.length; i++) {
+  let currentItem = warehouses[i]
+  
+if (currentItem = req.params.id)
+{
+warehouses.splice(i, 1);
+return res.status(200).send(warehouses)
+};
+};
+  res.status(200).send(inventory)
+})
 
 router.route("/:id/inventory").get((req, res) => {
   res.status(200).send(inventory.filter((item) => item.warehouseID === req.params.id));
 });
+
+
+
+
+    
+
 
 router.route("/new").post((req, res) => {
   const { warehouse, address, city, country, contact, position, number, email } = req.body;
