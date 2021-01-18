@@ -15,18 +15,19 @@ export class ModifyWarehouse extends Component {
   };
 
   componentDidMount() {
-    console.log(this.state);
     let warehouseId = this.props.match.params.id;
-    axios.get(`${process.env.REACT_APP_API_URL}/warehouse/${warehouseId}`).then((res) => {
-      console.log(res.data);
-      this.setState({
-        address: res.data.address,
-        city: res.data.city,
-        country: res.data.country,
-        warehouseName: res.data.name,
-        contact: res.data.contact,
+
+    if (warehouseId) {
+      axios.get(`${process.env.REACT_APP_API_URL}/warehouse/${warehouseId}`).then((res) => {
+        this.setState({
+          address: res.data.address,
+          city: res.data.city,
+          country: res.data.country,
+          warehouseName: res.data.name,
+          contact: res.data.contact,
+        });
       });
-    });
+    }
   }
 
   handleWarehouseNameChange = (event) => {
@@ -101,7 +102,6 @@ export class ModifyWarehouse extends Component {
   };
 
   render() {
-    console.log(this.state);
     document.title = `InStock - Modify: ${this.state.warehouseName || ""}`;
     return (
       <div className="card">
