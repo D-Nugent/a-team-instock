@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import searchIcon from "../../assets/icons/search-24px.svg";
-import ListItems from '../../components/ListItems/ListItems';
 import chevronIcon from "../../assets/icons/chevron_right-24px.svg";
 import axios from "axios";
 import NavBar from "../../components/NavBar/NavBar";
 import "./Home.scss";
-import PageLoading from "../../components/pageLoading/PageLoading";
+import PageLoading from "../../components/PageLoading/PageLoading";
 import {Link} from "react-router-dom"
 import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
 import editIcon from "../../assets/icons/edit-24px.svg";
@@ -48,6 +47,7 @@ export class Home extends Component {
   render() {
     let warehouse = this.props.match.path === "/warehouse";              
     console.log(this.props);
+    document.title = `InStock - ${this.props.match.path === "/warehouse"?"Warehouses":"Inventory"}`
     if (!this.state.loaded) {
       return <PageLoading/>
     } else {
@@ -121,18 +121,15 @@ export class Home extends Component {
                     </div>
                   </div>
                   <div className='home__links'>
-                    <Link>
-                      <img src={deleteIcon} alt='delete icon'
+                      <img className="home__links-delete" src={deleteIcon} alt='delete icon'
                        onClick={()=>{
                         this.setState({
                           deleteThis: true,
                           deleteTarget: `${content.id}`
                         })}}
                       />
-                    </Link>
-                    <Link>
-                      {" "}
-                      <img src={editIcon} alt='edit icon' />
+                    <Link to={`warehouse/${content.id}/edit`}>
+                      <img className="home__links-edit" src={editIcon} alt='edit icon' />
                     </Link>
                   </div>
                 </div>
@@ -184,15 +181,14 @@ export class Home extends Component {
                     </div>
                   </div>
                   <div className='home__links-inventory'>
-                      <img src={deleteIcon} alt='delete icon' onClick={()=>{
+                      <img className="home__links-delete"  src={deleteIcon} alt='delete icon' onClick={()=>{
                         this.setState({
                           deleteThis: true,
                           deleteTarget: `${content.id}`
                         })
                       } }/>
-                    <Link>
-                      {" "}
-                      <img src={editIcon} alt='edit icon' />
+                    <Link to={`inventory/${content.id}/edit`}>
+                      <img className="home__links-edit"  src={editIcon} alt='edit icon' />
                     </Link>
                   </div>
                 </div>

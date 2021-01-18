@@ -305,6 +305,17 @@
     &-inventory {
       @extend .home__links;
     }
+
+    &-delete{
+      height: 20px;
+
+      &:hover{
+        cursor: pointer;
+      }
+    }
+    &-edit{
+      @extend .home__links-delete;
+    }
   }
 }
 

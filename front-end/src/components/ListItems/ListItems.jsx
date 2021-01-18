@@ -4,7 +4,7 @@ import editIcon from "../../assets/icons/edit-24px.svg";
 import chevronIcon from "../../assets/icons/chevron_right-24px.svg";
 import { Link, useRouteMatch } from "react-router-dom";
 import React from 'react';
-import PageLoading from '../pageLoading/PageLoading';
+import PageLoading from '../PageLoading/PageLoading'
 
 function ListItems({listData, loaded}) {
   const route = useRouteMatch()

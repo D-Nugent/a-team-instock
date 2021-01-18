@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 
 export class PageNotFound extends Component {
     render() {
+        document.title = `InStock - Page Not Found`
         return (
             <div>
-                <p>PageNotFound is used when url path's are entered incorrectly.</p>
+                <p>Page not found, I'd go back by clicking the links above if I were you!</p>
             </div>
         )
     }
