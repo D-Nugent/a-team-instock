@@ -8,7 +8,7 @@ import PageLoading from "../../components/PageLoading/PageLoading";
 import {Link} from "react-router-dom"
 import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
 import editIcon from "../../assets/icons/edit-24px.svg";
-import DeleteModal from '../../components/DeleteModal/DeleteModal'
+import DeleteModal from "../../components/DeleteModal/DeleteModal";
 
 export class Home extends Component {
   state = {
@@ -29,51 +29,39 @@ export class Home extends Component {
         })
       );
   }
-  async componentDidUpdate(prevProps){
+  async componentDidUpdate(prevProps) {
     console.log(prevProps);
     console.log(this.props);
     console.log(this.state);
     prevProps !== this.props &&
-    await axios
-      .get(`${process.env.REACT_APP_API_URL}${this.props.match.path}/`)
-      .then((res) => {
-        this.setState({ itemList: res.data, loaded: true });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      (await axios
+        .get(`${process.env.REACT_APP_API_URL}${this.props.match.path}/`)
+        .then((res) => {
+          this.setState({ itemList: res.data, loaded: true });
+        })
+        .catch((error) => {
+          console.log(error);
+        }));
   }
-
   render() {
-    let warehouse = this.props.match.path === "/warehouse";              
+    let warehouse = this.props.match.path === "/warehouse";
     console.log(this.props);
     document.title = `InStock - ${this.props.match.path === "/warehouse"?"Warehouses":"Inventory"}`
     if (!this.state.loaded) {
-      return <PageLoading/>
+      return <PageLoading />;
     } else {
       return (
-      <div className='home'>
-        {this.state.deleteThis === true && <DeleteModal deleteTarget={this.state.deleteTarget} routeProps={this.props} />}
-        <div className='home__header'>
-          {warehouse ? (
-            <h1 className='home__title'>Warehouse</h1>
-          ) : (
-            <h1 className='home__title-inventory'>Inventory</h1>
-          )}
-          <div className='home__form'>
-            <form action='' id='form'>
-              <input
-                type='text'
-                placeholder='Search...'
-                className='home__input'
-              />
-              <img src={searchIcon} alt='search icon' id='searchIcon' />
-              {warehouse ? (
-                <button className='home__btn'>+ Add New Warehouse </button>
-              ) : (
-                <button className='home__btn-inventory'>+ Add New Item </button>
-              )}
-            </form>
+        <div className="home">
+          {this.state.deleteThis === true && <DeleteModal deleteTarget={this.state.deleteTarget} routeProps={this.props} />}
+          <div className="home__header">
+            {warehouse ? <h1 className="home__title">Warehouse</h1> : <h1 className="home__title-inventory">Inventory</h1>}
+            <div className="home__form">
+              <form action="" id="form">
+                <input type="text" placeholder="Search..." className="home__input" />
+                <img src={searchIcon} alt="search icon" id="searchIcon" />
+                {warehouse ? <button className="home__btn">+ Add New Warehouse </button> : <button className="home__btn-inventory">+ Add New Item </button>}
+              </form>
+            </div>
           </div>
         </div>
         {this.props.match.path === '/warehouse' && !this.state.itemList[0].contact ?
@@ -172,13 +160,12 @@ export class Home extends Component {
                       <p className='home__content-text-inventory'>
                         {content.quantity}
                       </p>
-                    </div>
-                    <div className='home__content'>
-                      <p className='home__content-title-inventory'>warehouse</p>
-                      <p className='home__content-text-location'>
-                        {content.warehouseName}
-                      </p>
-                    </div>
+
+                        </div>
+                        <div className="home__content">
+                          <p className="home__content-title-inventory">warehouse</p>
+                          <p className="home__content-text-location">{content.warehouseName}</p>
+                        </div>
                   </div>
                   <div className='home__links-inventory'>
                       <img className="home__links-delete"  src={deleteIcon} alt='delete icon' onClick={()=>{
@@ -200,5 +187,4 @@ export class Home extends Component {
     }
   }
 }
-
 export default Home;
