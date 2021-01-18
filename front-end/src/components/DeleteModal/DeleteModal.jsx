@@ -22,5 +22,4 @@ function DeleteModal() {
     </section>
   );
 }
-
 export default DeleteModal;
