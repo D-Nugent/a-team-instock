@@ -14,7 +14,6 @@ import PageLoading from '../../components/PageLoading/PageLoading'
 export class ContentDetails extends Component {
   state={
     currentItem: [],
-    contact: [],
     itemList: [],
     currentRoute: this.props.match.path
   }
@@ -27,7 +26,6 @@ export class ContentDetails extends Component {
       console.log(response);
       this.setState({
         currentItem: response.data,
-        contact: response.data.contact
       })
     })
     .then(
@@ -54,7 +52,6 @@ export class ContentDetails extends Component {
       console.log(response);
       this.setState({
         currentItem: response.data,
-        contact: response.data.contact,
         currentRoute: this.props.match.path,
       })
     })
@@ -121,13 +118,13 @@ export class ContentDetails extends Component {
             <div className="content__detail-specs-container">
               <div className="content__detail-specs-container-contact">
                 <h4 className="content__detail-specs-container-contact-heading">CONTACT NAME:</h4>
-                <div className="content__detail-specs-container-contact-name">{this.state.contact.name}</div>
-                <div className="content__detail-specs-container-contact-position">{this.state.contact.position}</div>
+                <div className="content__detail-specs-container-contact-name">{this.state.currentItem.contactname}</div>
+                <div className="content__detail-specs-container-contact-position">{this.state.currentItem.contactposition}</div>
               </div>
               <div className="content__detail-specs-container-communication">
                 <h4 className="content__detail-specs-container-communication-heading">CONTACT INFORMATION:</h4>
-                <p className="content__detail-specs-container-communication-phone">{this.state.contact.phone}</p>
-                <p className="content__detail-specs-container-communication-email">{this.state.contact.email}</p>
+                <p className="content__detail-specs-container-communication-phone">{this.state.currentItem.contactphone}</p>
+                <p className="content__detail-specs-container-communication-email">{this.state.currentItem.contactemail}</p>
               </div>
             </div>
           </div>
@@ -137,7 +134,7 @@ export class ContentDetails extends Component {
         {this.state.currentRoute !== '/inventory/:id' && 
         <>        
         {
-        this.props.match.path === '/warehouse' && !this.state.itemList[0].contact ?
+        this.props.match.path === '/warehouse' && !this.state.itemList[0].currentItem.contactname ?
         <PageLoading/>
         :          
         this.state.itemList.map((content) => (
