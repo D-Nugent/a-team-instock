@@ -59,6 +59,20 @@ export class Home extends Component {
       deleteThis: false,
     });
   };
+  searchContent = (event) => {
+    const filterValue = event.target.value
+    console.log(filterValue);
+    axios
+    .get(`${process.env.REACT_APP_API_URL}${this.props.match.path}?filterValue=${filterValue}`)
+    .then((res) => {
+      console.log(res);
+      this.setState({ itemList: res.data, loaded: true });
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
   render() {
     let warehouse = this.props.match.path === "/warehouse";
     console.log(this.props);
@@ -86,32 +100,13 @@ export class Home extends Component {
             )}
             <div className='home__form'>
               <form action='' id='form'>
-                <input
-                  type='text'
-                  placeholder='Search...'
-                  className='home__input'
-                />
-                <img src={searchIcon} alt='search icon' id='searchIcon' />
-                {warehouse ? (
-                  <Link
-                    to={`${this.props.match.url}/new-item`}
-                    className='home__btn'
-                  >
-                    + Add New Warehouse{" "}
-                  </Link>
-                ) : (
-                  <Link
-                    to={`${this.props.match.url}/new-item`}
-                    className='home__btn'
-                  >
-                    + Add New Item{" "}
-                  </Link>
-                )}
+              <input type="text" placeholder="Search..." className="home__input" onInput={(event)=>this.searchContent(event)}/>
+                <img src={searchIcon} alt="search icon" id="searchIcon" />
+                {warehouse ? <button className="home__btn">+ Add New Warehouse </button> : <button className="home__btn-inventory">+ Add New Item </button>}
               </form>
             </div>
           </div>
-          {this.props.match.path === "/warehouse" &&
-          !this.state.itemList[0].contact ? (
+          {this.props.match.path === "/warehouse" && !this.state.itemList[0].contactname? (
             <PageLoading />
           ) : (
             <>
@@ -142,25 +137,15 @@ export class Home extends Component {
                           </p>
                         </div>
                       </div>
-                      <div className='home__contact'>
-                        <div className='home__content'>
-                          <p className='home__content-title'>contact name</p>
-                          <p className='home__content-text'>
-                            {content.contact.name}
-                          </p>
+                      <div className="home__contact">
+                        <div className="home__content">
+                          <p className="home__content-title">contact name</p>
+                          <p className="home__content-text">{content.contactname}</p>
                         </div>
-                        <div className='home__content'>
-                          <p className='home__content-title'>
-                            contact information
-                          </p>
-                          <p className='home__content-text--contact'>
-                            {" "}
-                            {content.contact.phone}
-                          </p>
-                          <p className='home__content-text--contact'>
-                            {" "}
-                            {content.contact.email}
-                          </p>
+                        <div className="home__content">
+                          <p className="home__content-title">contact information</p>
+                          <p className="home__content-text"> {content.contactphone}</p>
+                          <p className="home__content-text"> {content.contactemail}</p>
                         </div>
                       </div>
                       <div className='home__links'>

@@ -6,7 +6,30 @@ const inventory = require("./routes/inventories.json");
 const { v4: uuidv4 } = require("uuid");
 
 router.route("/").get((req, res) => {
-  res.status(200).send(warehouses);
+  
+const warehousesNew = [...warehouses]
+warehousesNew.forEach(warehouse => {
+    for (const [key, value] of Object.entries(warehouse.contact)) {
+      Object.assign(warehouses[warehouses.indexOf(warehouse)], {[`contact${key}`]: value})
+    }
+    warehousesNew[warehousesNew.indexOf(warehouse)].contact = ''
+});
+
+  let filteredArray = []
+  warehousesNew.forEach(item => {
+  Object.values(item).map(value => {
+      let searchValue = isNaN(value)?value.toLowerCase():value.toString();
+      let filterValue = req.query.filterValue === undefined?"":req.query.filterValue.toLowerCase();
+      if (searchValue.includes(filterValue)) {
+        if (filteredArray.indexOf(item) < 0) {
+          filteredArray.push(item);
+        }
+      }
+    })
+  })
+  console.log(filteredArray);
+  console.log(req.query.filterValue);
+  res.status(200).send(filteredArray);
 });
 
 router.route("/warehouse-list").get((req, res) => {

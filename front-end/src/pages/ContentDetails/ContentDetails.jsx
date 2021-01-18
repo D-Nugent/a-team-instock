@@ -13,7 +13,6 @@ import PageLoading from "../../components/PageLoading/PageLoading";
 export class ContentDetails extends Component {
   state = {
     currentItem: [],
-    contact: [],
     itemList: [],
     currentRoute: this.props.match.path,
   };
@@ -45,14 +44,15 @@ export class ContentDetails extends Component {
     console.log(prevProps);
     console.log(this.props);
     prevProps !== this.props &&
-      axios.get(`${process.env.REACT_APP_API_URL}${itemID}`).then((response) => {
-        console.log(response);
-        this.setState({
-          currentItem: response.data,
-          contact: response.data.contact,
-          currentRoute: this.props.match.path,
-        });
-      });
+    axios
+    .get(`${process.env.REACT_APP_API_URL}${itemID}`)
+    .then((response) => {
+      console.log(response);
+      this.setState({
+        currentItem: response.data,
+        currentRoute: this.props.match.path,
+      })
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -141,7 +141,7 @@ export class ContentDetails extends Component {
         {this.state.currentRoute !== "/inventory/:id" && <NavBar />}
         {this.state.currentRoute !== "/inventory/:id" && (
           <>
-            {this.props.match.path === "/warehouse" && !this.state.itemList[0].contact ? (
+            {this.props.match.path === "/warehouse" && !this.state.itemList[0].name ? (
               <PageLoading />
             ) : (
               this.state.itemList.map((content) => (
@@ -194,14 +194,11 @@ export class ContentDetails extends Component {
             )}
           </>
         )}
-
-        {/* Don't touch anything below here */}
       </div>
     );
   }
 }
 {
-  /* <ListItems listData={this.state.itemList}/>} */
 }
 
 export default ContentDetails;
