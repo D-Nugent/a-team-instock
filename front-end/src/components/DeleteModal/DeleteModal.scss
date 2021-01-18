@@ -1,6 +1,6 @@
 @import "../../styles/global";
-
 .delete {
+  z-index: 2;
   @include tablet {
     background-color: rgba(19, 24, 44, 0.7);
     height: 100vh;
@@ -9,7 +9,6 @@
     top: 0;
     right: 0;
   }
-
   &-modal {
     background-color: $globalOffset;
     width: 100vw;
@@ -20,7 +19,6 @@
     right: 0;
     left: 0;
     bottom: 0;
-
     @include tablet {
       width: 672px;
       height: 262px;
@@ -30,34 +28,27 @@
       padding: 21px 21px 0;
     }
   }
-
   &__content-container {
     padding: 0 9.5238% 32px;
   }
-
   &__close-button-container {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 25px;
-
     @include tablet {
       margin-bottom: 5px;
     }
   }
-
   &__header {
     font-size: 1.75rem;
     margin: 0 0 16px;
   }
-
   &__body {
     font-size: 0.9375rem;
-
     // @include tablet {
     //   margin-bottom: 32px;
     // }
   }
-
   &__button-container {
     position: absolute;
     right: 0;
@@ -66,13 +57,11 @@
     width: 100%;
     display: flex;
     padding: 0 16px 24px;
-
     @include tablet {
       justify-content: flex-end;
       padding: 0 9.5238% 40px;
     }
   }
-
   &__button-cancel {
     @include button-design;
     background-color: $globalOffset;
@@ -80,17 +69,14 @@
     border: 1px solid $globalBorder;
     width: 100%;
     margin-right: 17px;
-
     @include tablet {
       width: auto;
     }
   }
-
   &__button-delete {
     @include button-design;
     background-color: $stockOutOpaque;
     width: 100%;
-
     @include tablet {
       width: auto;
     }

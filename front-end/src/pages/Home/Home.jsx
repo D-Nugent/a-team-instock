@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
 import editIcon from "../../assets/icons/edit-24px.svg";
 import DeleteModal from "../../components/DeleteModal/DeleteModal";
+
 export class Home extends Component {
   state = {
     itemList: [],
