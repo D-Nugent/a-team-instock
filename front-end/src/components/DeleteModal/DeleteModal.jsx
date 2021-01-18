@@ -47,4 +47,5 @@ export class DeleteModal extends Component {
     );
   }
 }
+
 export default DeleteModal;
