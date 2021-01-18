@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
-import './ContentModify.scss';
+import './ModifyWarehouse.scss';
 import BackArrow from '../../assets/icons/arrow_back-24px.svg';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-export class ContentModify extends Component {
+export class ModifyWarehouse extends Component {
     state = {
         currentWarehouse: [],
     };
     
     componentDidMount() {
+        console.log(this.state);
     let warehouseId = this.props.match.params.id;
         axios.get(`${process.env.REACT_APP_API_URL}/warehouse/${warehouseId}`).then((res) => {
       this.setState({
@@ -81,6 +82,8 @@ export class ContentModify extends Component {
     };
 
     render() {
+        console.log(this.state);
+        document.title = `InStock - Modify: ${this.state.currentWarehouse.name || ""}`
         return (
             <div className="card">
                 <div className="card__header">
@@ -212,4 +215,4 @@ export class ContentModify extends Component {
     }
 }
 
-export default ContentModify
+export default ModifyWarehouse
