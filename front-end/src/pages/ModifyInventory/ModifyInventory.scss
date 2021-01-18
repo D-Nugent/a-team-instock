@@ -22,13 +22,22 @@
   }
 
   &__back-button {
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
     margin-right: 12px;
   }
 
   &__header {
     margin: 0;
+  }
+
+  &__header-two {
+    margin: 0;
+    font-size: 1.25rem;
+
+    @include tablet {
+      font-size: 1.75rem;
+    }
   }
 
   &__form {

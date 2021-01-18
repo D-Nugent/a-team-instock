@@ -119,6 +119,18 @@ export class ModifyInventory extends Component {
     });
   };
 
+  cancelHandler = (event) => {
+    event.preventDefault();
+
+    this.setState({
+      itemName: "",
+      description: "",
+      categorySelected: "",
+      quantity: 0,
+      warehouseSelected: "",
+    });
+  };
+
   createNewItem = (event) => {
     event.preventDefault();
 
@@ -177,7 +189,12 @@ export class ModifyInventory extends Component {
       });
 
       axios.put(`${process.env.REACT_APP_API_URL}/inventory/${this.props.match.params.id}/edit`, newEdit).then((res) => {
-        this.props.history.push(`/inventory/${res.data.id}`);
+        console.log(this.props.match.params.id);
+        if (this.props.match.path === "/inventory/:id") {
+          this.props.history.push(`/inventory/${res.data.id}`);
+        } else {
+          this.props.history.push(`/inventory/${this.props.match.params.id}`);
+        }
       });
     } else {
       this.setState({
@@ -186,18 +203,24 @@ export class ModifyInventory extends Component {
     }
   };
 
+  backButtonHandler = () => {
+    this.props.history.push("/inventory");
+  };
+
   render() {
     const { status } = this.state;
     const quantity = this.renderQuantity(this.state.status);
     const validationError = this.state.validationError;
     console.log(this.state);
     console.log(this.props);
-    document.title = `InStock - Modify: ${this.props.match.path === "/inventory/:id/edit"?this.state.itemName:"Add New Item"}`
+    document.title = `InStock - Modify: ${this.props.match.path === "/inventory/:id/edit" ? this.state.itemName : "Add New Item"}`;
     return (
       <section className="modify">
         <div className="modify__header-container">
-          <img className="modify__back-button" src={Back} alt="blue arrow pointing left" />
-          <h1 className="modify__header">{this.props.match.path === "/inventory/:id/edit" ? "Edit Inventory Item" : "Add New Inventory Item"}</h1>
+          <img className="modify__back-button" src={Back} alt="blue arrow pointing left" onClick={this.backButtonHandler} />
+          <h1 className={this.props.match.path === "/inventory/:id/edit" ? "modify__header" : "modify__header-two"}>
+            {this.props.match.path === "/inventory/:id/edit" ? "Edit Inventory Item" : "Add New Inventory Item"}
+          </h1>
         </div>
         <form className="modify__form" onSubmit={this.props.match.path === "/inventory/:id/edit" ? this.submitEdit : this.createNewItem}>
           <div className="modify__form-content-container">
@@ -287,7 +310,9 @@ export class ModifyInventory extends Component {
             </div>
           </div>
           <div className="modify__form-button-container">
-            <button className="modify__form-button-cancel">Cancel</button>
+            <button className="modify__form-button-cancel" onClick={this.cancelHandler}>
+              Cancel
+            </button>
             <button className="modify__form-button-save">{this.props.match.path === "/inventory/:id/edit" ? "Save" : "+ Add Item"}</button>
           </div>
         </form>
