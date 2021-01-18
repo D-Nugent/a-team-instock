@@ -47,4 +47,8 @@ export class DeleteModal extends Component {
     );
   }
 }
+<<<<<<< HEAD
 export default DeleteModal;
+=======
+export default DeleteModal;
+>>>>>>> master
