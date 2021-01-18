@@ -141,7 +141,7 @@ export class ContentDetails extends Component {
         {this.state.currentRoute !== "/inventory/:id" && <NavBar />}
         {this.state.currentRoute !== "/inventory/:id" && (
           <>
-            {this.props.match.path === "/warehouse" && !this.state.itemList[0].contactname ? (
+            {this.props.match.path === "/warehouse" && !this.state.itemList[0].name ? (
               <PageLoading />
             ) : (
               this.state.itemList.map((content) => (
