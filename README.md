@@ -1,10 +1,16 @@
-# AGILE BOARD
+#InStock
+
+## Overview ✨
+
+This was a collaborative project completed with two other developers where we built a tool for managing warehouses and their inventories.
+
+### AGILE BOARD
 https://brainstationeducation.atlassian.net/secure/RapidBoard.jspa?rapidView=165&projectKey=OLL20Q5LR
 
-# FIGMA MOCKUP
+### FIGMA MOCKUP
 https://www.figma.com/file/oRk4LqCj1wYYEtfqZwzdDX/InStock-Mockups?node-id=1075%3A2357
 
-# SPRINT BY SECTION
+### SPRINT BY SECTION
 
 PAGE | Home |  |
 --- | --- | --- |
@@ -61,7 +67,7 @@ Front-End Tickets | LR-13 |  |
 Back-End Tickets | LR-6 |  |
 Owner | TBC |
 
-# MISCELLANEOUS TICKETS
+### MISCELLANEOUS TICKETS
 
 TASK | DETAILS | OWNER  |
 --- | --- | --- |
